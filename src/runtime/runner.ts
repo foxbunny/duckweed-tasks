@@ -29,7 +29,7 @@ const runner = async (model: any, actions: Actions, view: RenderFunction, root: 
 
   // Prepare helpers
 
-  const render = () => currentVNodes = patch(currentVNodes, html(view, currentModel));
+  const render = () => currentVNodes = patch(currentVNodes, html(view, {model: currentModel}));
 
   const actionHandler = (action: any, ...args: any[]) => async (e?: Event) => {
     const actionFn = actions[action];

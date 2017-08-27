@@ -43,7 +43,11 @@ const actions = {
 
 // View
 
-const view = (model: Model): JSX.Element =>
+interface Props {
+  model: Model;
+}
+
+const view = ({model}: Props): JSX.Element =>
   <div class="Hello" style={style} off-click={[Action.Test]}>
     <p>Hello {model.name || "World"}</p>
     <p>
