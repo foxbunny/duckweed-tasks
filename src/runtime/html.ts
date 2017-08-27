@@ -56,7 +56,7 @@ const prepareProps = (props: GenericProps | null): GenericProps => {
     if (sub) {
       finalProps[mod] = finalProps[mod] || {};
       if (EVENT_MODULES.includes(mod)) {
-        finalProps[mod][sub] = actionHandler(props[prop]);
+        finalProps[mod][sub] = actionHandler(...props[prop]);
       } else {
         finalProps[mod][sub] = props[prop];
       }
