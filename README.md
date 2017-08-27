@@ -1,6 +1,9 @@
 # Snabbdom-Elm (selm)
 
-This is an experiment replicating the Elm architecture (kind of) using Snabbdom.
+This is an experiment replicating the [Elm
+architecture](https://guide.elm-lang.org/architecture/) (kind of) using
+[Snabbdom](https://github.com/snabbdom/snabbdom) and
+[TypeScript](http://www.typescriptlang.org/).
 
 ## Getting started
 
