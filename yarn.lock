@@ -31,7 +31,7 @@
 
 "@types/ramda@types/npm-ramda#dist":
   version "0.24.3"
-  resolved "https://codeload.github.com/types/npm-ramda/tar.gz/70db4e5f50a81cfdcb8de89c7732181bda2900be"
+  resolved "https://codeload.github.com/types/npm-ramda/tar.gz/45465aa13f454a9a5ef39fb6e0a5a8a468bb9633"
 
 "@types/relateurl@*":
   version "0.2.28"
