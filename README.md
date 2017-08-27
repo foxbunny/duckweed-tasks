@@ -25,6 +25,13 @@ yarn
 - [ ] Write tests for everything in the `src/runtime`
 - [ ] Write a more fully-featured app
 
+## Not strictly functional
+
+This experiement is not intended to adhere to functional programming paradigm.
+(After all, there's Elm for that.) Instead, it is solely concerned with bringing
+the gist of the Elm architecture to TypeScript. You will see things that are an
+anti-pattern in functional programming, such as try-catch and generators.
+
 ## Special mentions
 
 The following features deserve a special mention.
