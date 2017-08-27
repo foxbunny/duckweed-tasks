@@ -24,9 +24,9 @@ The following features deserve a special mention.
 
 ### off-events
 
-The off-events (e.g., `offclick`, `offfocus`, etc) are event handlers that are
-triggered when the event happens outside an element. These are implemented through
-`src/runtime/documentevents.ts`.
+The off-events (e.g., `off-click`, `off-focus`, etc) are event handlers that are
+triggered when the event happens outside an element. These are implemented
+through `src/runtime/documentevents.ts`.
 
 ### Actions
 

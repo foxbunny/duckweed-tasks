@@ -21,6 +21,8 @@ type RenderFunction<T = any> = (props?: T, children?: InlineChild) => VNode;
 
 type ActionHandler = (action?: any, ...args: any[]) => (e?: Event) => any;
 
+const EVENT_MODULES = ["on", "off"];
+
 // This is a default dummy action handler
 let actionHandler: ActionHandler = () => (e?: Event) => undefined;
 
@@ -48,23 +50,22 @@ const prepareProps = (props: GenericProps | null): GenericProps => {
   if (props == null) {
     return {};
   }
-  const finalProps: GenericProps = {
-    props: {},
-  };
+  const finalProps: GenericProps = {};
   Object.keys(props).forEach((prop) => {
-    if (prop === "class") {
+    const [mod, sub] = prop.split("-");
+    if (sub) {
+      finalProps[mod] = finalProps[mod] || {};
+      if (EVENT_MODULES.includes(mod)) {
+        finalProps[mod][sub] = actionHandler(props[prop]);
+      } else {
+        finalProps[mod][sub] = props[prop];
+      }
+    } else if (prop === "class") {
       finalProps.class = prepareClasses(props[prop]);
-    } else if (prop === "hook") {
-      finalProps.hook = props[prop];
     } else if (prop === "style") {
       finalProps.style = props[prop];
-    } else if (prop.slice(0, 2) === "on") {
-      finalProps.on = finalProps.on || {};
-      finalProps.on[prop.slice(2)] = actionHandler(...props[prop]);
-    } else if (prop.slice(0, 3) === "off") {
-      finalProps.off = finalProps.off || {};
-      finalProps.off[prop.slice(3)] = actionHandler(...props[prop]);
     } else {
+      finalProps.props = finalProps.props || {};
       finalProps.props[prop] = props[prop];
     }
   });

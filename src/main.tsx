@@ -34,11 +34,11 @@ const actions = {
 // View
 
 const view = (model: Model): JSX.Element =>
-  <div class="Hello" style={style} offclick={[Action.Test]}>
+  <div class="Hello" style={style} off-click={[Action.Test]}>
     <p>Hello {model.name || "World"}</p>
     <p>
-      <input value={model.name} oninput={[Action.Update]} />
-      <button onclick={[Action.Reset]}>Reset</button>
+      <input value={model.name} on-input={[Action.Update]} />
+      <button on-click={[Action.Reset]}>Reset</button>
     </p>
   </div>;
 
