@@ -13,5 +13,5 @@ import * as mainModule from "./main";
 
 require.ensure(["./main"], (require) => {
   const {init, actions, view} = require<typeof mainModule>("./main");
-  runner(init(), actions, view);
+  runner<mainModule.Model>(init(), actions, view);
 });
