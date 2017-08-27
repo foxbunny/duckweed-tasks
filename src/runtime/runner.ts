@@ -23,6 +23,12 @@ const patch = snabbdom.init([classes, style, events, props, documentevents]);
 const isInput = (target: any): target is HTMLInputElement =>
   typeof target.value !== "undefined";
 
+const isEvent = (event: any): event is Event =>
+  event instanceof Event;
+
+const isVNnode = (vnode: any): vnode is VNode =>
+  typeof vnode === "object" && "sel" in vnode;
+
 const runner = async (model: any, actions: Actions, view: RenderFunction, root: string = "#app") => {
   let currentVNodes: HTMLElement | VNode = document.querySelector(root) as HTMLElement;
   let currentModel = model;
@@ -31,11 +37,15 @@ const runner = async (model: any, actions: Actions, view: RenderFunction, root: 
 
   const render = () => currentVNodes = patch(currentVNodes, html(view, {model: currentModel}));
 
-  const actionHandler = (action: any, ...args: any[]) => async (e?: Event) => {
+  const actionHandler = (action: any, ...args: any[]) => async (e?: Event | VNode, ...eventArgs: any[]) => {
     const actionFn = actions[action];
 
-    // For convenience, process events and extract implied arguments
-    if (e && e.type === "input" && isInput(e.target)) {
+    if (isVNnode(e)) {
+      // This is mostly for hooks. We add the vnode object to args.
+      args = args.concat(e);
+      args = args.concat(eventArgs);
+    } else if (isEvent(e) && e.type === "input" && isInput(e.target)) {
+      // For convenience, process events and extract implied arguments
       args = [e.target.value].concat(args);
     }
 

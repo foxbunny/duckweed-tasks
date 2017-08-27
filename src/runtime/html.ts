@@ -21,7 +21,7 @@ type RenderFunction<T = any> = (props?: T, children?: InlineChild) => VNode;
 
 type ActionHandler = (action?: any, ...args: any[]) => (e?: Event) => any;
 
-const EVENT_MODULES = ["on", "off"];
+const EVENT_MODULES = ["on", "off", "hook"];
 
 // This is a default dummy action handler
 let actionHandler: ActionHandler = () => (e?: Event) => undefined;
