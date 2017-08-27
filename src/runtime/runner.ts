@@ -15,7 +15,7 @@ import documentevents from "runtime/documentevents";
 import html, {RenderFunction, setActionHandler} from "runtime/html";
 
 interface Actions {
-  [action: number]: (model: any, ...args: any[]) => Promise<any>;
+  [action: number]: (model: any, ...args: any[]) => AsyncIterableIterator<any>;
 }
 
 const patch = snabbdom.init([classes, style, events, props, documentevents]);
@@ -33,11 +33,16 @@ const runner = async (model: any, actions: Actions, view: RenderFunction) => {
 
   const actionHandler = (action: any, ...args: any[]) => async (e?: Event) => {
     const actionFn = actions[action];
-    if (e && isInput(e.target)) {
+
+    // For convenience, process events and extract implied arguments
+    if (e && e.type === "input" && isInput(e.target)) {
       args = [e.target.value].concat(args);
     }
-    currentModel = await actionFn(currentModel, ...args);
-    render();
+
+    for await (const updatedModel of actionFn(currentModel, ...args)) {
+      currentModel = updatedModel;
+      render();
+    }
   };
 
   setActionHandler(actionHandler);

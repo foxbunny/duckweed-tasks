@@ -26,9 +26,15 @@ enum Action {
 }
 
 const actions = {
-  [Action.Update]: async (model: Model, name: string) => assoc("name", name, model),
-  [Action.Reset]: async (model: Model) => assoc("name", "Snabbdom", model),
-  [Action.Test]: async (model: Model) => assoc("name", "Click!", model),
+  async *[Action.Update](model: Model, name: string) {
+    yield assoc("name", name, model);
+  },
+  async *[Action.Reset](model: Model) {
+    yield assoc("name", "Snabbdom", model);
+  },
+  async *[Action.Test](model: Model) {
+    yield assoc("name", "Click!", model);
+  },
 };
 
 // View

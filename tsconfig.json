@@ -3,9 +3,12 @@
     /* Basic Options */
     "target": "es5",
     "module": "commonjs",
-    "lib": ["es2015", "es2016", "dom"],
+    "lib": ["es2015", "es2016", "esnext.asynciterable", "dom"],
     "jsx": "react",
     "jsxFactory": "html",
+
+    // Make iterators compatible
+    "downlevelIteration": true,
 
     /* Strict Type-Checking Options */
     "strict": true,
