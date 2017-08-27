@@ -6,11 +6,15 @@ This is an experiment replicating the Elm architecture (kind of) using Snabbdom.
 
 Install yarn globally:
 
-    npm i -g yarn
+```shell
+npm i -g yarn
+```
 
 Init the project:
 
-    yarn
+```shell
+yarn
+```
 
 ## TODO
 
@@ -41,6 +45,28 @@ We use async iterators for action handlers. This means that a single action may
 `yield` multiple model mutations. The reason for this is handling long-running
 processes such as XHR reuquests, where we may need to alter the model state
 several times (e.g., set "loading" flag before start, clear it afterwards).
+
+For example:
+
+```typescript
+const actions = {
+  async *[Action.Save](model: Model, credentials: User.Credentials) {
+    yield assoc("loading", true, model);
+    try {
+      await xhr.post("/account", credentials);
+      yield merge(model, {
+        accountData: credentials,
+        loading: false,
+      });
+    } catch(e) {
+      yield merge(model, {
+        error: e,
+        loading: false
+      });
+    }
+  },
+};
+```
 
 ### Inline styles
 
