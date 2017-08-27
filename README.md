@@ -60,19 +60,19 @@ For example:
 
 ```typescript
 const actions = {
-  async *[Action.Save](model: Model, credentials: User.Credentials) {
-    yield assoc("loading", true, model);
+  async *[Action.Save](patch: ModelPatcher<Model>, credentials: User.Credentials) {
+    yield patch(assoc("loading", true));
     try {
       await xhr.post("/account", credentials);
-      yield merge(model, {
+      yield patch(merge(__, {
         accountData: credentials,
         loading: false,
-      });
+      }));
     } catch(e) {
-      yield merge(model, {
+      yield patch(merge(__, {
         error: e,
         loading: false
-      });
+      }));
     }
   },
 };

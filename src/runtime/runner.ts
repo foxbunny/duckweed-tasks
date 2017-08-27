@@ -14,8 +14,12 @@ import style from "snabbdom/modules/style";
 import documentevents from "runtime/documentevents";
 import html, {RenderFunction, setActionHandler} from "runtime/html";
 
-interface Actions {
-  [action: number]: (model: any, ...args: any[]) => AsyncIterableIterator<any>;
+type PatchFunction<T = any> = (model: T) => T;
+
+type ModelPatcher<T = any> = (fn: PatchFunction<T>) => void;
+
+interface Actions<T = any> {
+  [action: number]: (patch: ModelPatcher<T>, ...args: any[]) => AsyncIterableIterator<any>;
 }
 
 const patch = snabbdom.init([classes, style, events, props, documentevents]);
@@ -29,13 +33,17 @@ const isEvent = (event: any): event is Event =>
 const isVNnode = (vnode: any): vnode is VNode =>
   typeof vnode === "object" && "sel" in vnode;
 
-const runner = async (model: any, actions: Actions, view: RenderFunction, root: string = "#app") => {
+const runner = async <T = any> (model: T, actions: Actions<T>, view: RenderFunction, root: string = "#app") => {
   let currentVNodes: HTMLElement | VNode = document.querySelector(root) as HTMLElement;
   let currentModel = model;
 
   // Prepare helpers
 
   const render = () => currentVNodes = patch(currentVNodes, html(view, {model: currentModel}));
+
+  const patchModel: ModelPatcher<T> = (fn) => {
+    currentModel = fn(currentModel);
+  };
 
   const actionHandler = (action: any, ...args: any[]) => async (e?: Event | VNode, ...eventArgs: any[]) => {
     const actionFn = actions[action];
@@ -49,8 +57,7 @@ const runner = async (model: any, actions: Actions, view: RenderFunction, root: 
       args = [e.target.value].concat(args);
     }
 
-    for await (const updatedModel of actionFn(currentModel, ...args)) {
-      currentModel = updatedModel;
+    for await (const __ of actionFn(patchModel, ...args)) {
       render();
     }
   };
@@ -63,6 +70,8 @@ const runner = async (model: any, actions: Actions, view: RenderFunction, root: 
 };
 
 export {
+  PatchFunction,
+  ModelPatcher,
   Actions,
 };
 export default runner;
