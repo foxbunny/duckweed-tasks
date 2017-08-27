@@ -23,8 +23,8 @@ const patch = snabbdom.init([classes, style, events, props, documentevents]);
 const isInput = (target: any): target is HTMLInputElement =>
   typeof target.value !== "undefined";
 
-const runner = async (model: any, actions: Actions, view: RenderFunction) => {
-  let currentVNodes: HTMLElement | VNode = document.getElementById("app") as HTMLElement;
+const runner = async (model: any, actions: Actions, view: RenderFunction, root: string = "#app") => {
+  let currentVNodes: HTMLElement | VNode = document.querySelector(root) as HTMLElement;
   let currentModel = model;
 
   // Prepare helpers
