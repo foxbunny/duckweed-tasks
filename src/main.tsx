@@ -6,6 +6,7 @@
 import * as assoc from "ramda/src/assoc";
 
 import html from "runtime/html";
+import asyncPause from "util/async-pause";
 
 // Model
 
@@ -33,7 +34,10 @@ const actions = {
     yield assoc("name", "Snabbdom", model);
   },
   async *[Action.Test](model: Model) {
+    const currentName = model.name;
     yield assoc("name", "Click!", model);
+    await asyncPause(1000);
+    yield assoc("name", currentName, model);
   },
 };
 
