@@ -21,9 +21,11 @@ interface Model {
   text: string;
   done: boolean;
   editing: boolean;
+  created: number;
 }
 
 const init = (options: any): Model => ({
+  created: new Date().getTime(),
   done: options.done || false,
   editing: options.editing || false,
   text: options.text || "",
@@ -62,7 +64,7 @@ interface Props {
 
 const view = ({model, prefix = []}: Props) => {
   return (
-    <div class={css.task} style={style}>
+    <div class={css.task} style={style} key={model.created}>
       <label class={css.toggleDone} for={`task-${prefix.join("-")}`}>
         <input
           class={css.toggleCheckbox}
