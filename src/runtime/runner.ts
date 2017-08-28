@@ -19,7 +19,7 @@ type PatchFunction<T = any> = (model: T) => T;
 type ModelPatcher<T = any> = (fn: PatchFunction<T>) => void;
 
 interface Actions<T = any> {
-  [action: number]: (patch: ModelPatcher<T>, ...args: any[]) => AsyncIterableIterator<any>;
+  [action: string]: (patch: ModelPatcher<T>, ...args: any[]) => Promise<void>;
 }
 
 const patch = snabbdom.init([classes, style, events, props, documentevents]);
@@ -43,6 +43,7 @@ const runner = async <T = any> (model: T, actions: Actions<T>, view: RenderFunct
 
   const patchModel: ModelPatcher<T> = (fn) => {
     currentModel = fn(currentModel);
+    render();
   };
 
   const actionHandler = (action: any, ...args: any[]) => async (e?: Event | VNode, ...eventArgs: any[]) => {
@@ -54,12 +55,11 @@ const runner = async <T = any> (model: T, actions: Actions<T>, view: RenderFunct
       args = args.concat(eventArgs);
     } else if (isEvent(e) && e.type === "input" && isInput(e.target)) {
       // For convenience, process events and extract implied arguments
+      e.preventDefault();
       args = [e.target.value].concat(args);
     }
 
-    for await (const __ of actionFn(patchModel, ...args)) {
-      render();
-    }
+    actionFn(patchModel, ...args);
   };
 
   setActionHandler(actionHandler);

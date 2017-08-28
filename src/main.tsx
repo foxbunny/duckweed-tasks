@@ -5,53 +5,63 @@
 
 import * as always from "ramda/src/always";
 import * as assoc from "ramda/src/assoc";
+import * as assocPath from "ramda/src/assocPath";
+import * as lensPath from "ramda/src/lensPath";
+import * as over from "ramda/src/over";
 
 import html from "runtime/html";
-import {ModelPatcher} from "runtime/runner";
+import {ModelPatcher, PatchFunction} from "runtime/runner";
 import asyncPause from "util/async-pause";
+
+import * as input from "./input";
+
+const scopedPatch = <T, M>(scope: string[], patch: ModelPatcher<M>): ModelPatcher<T> =>
+  (fn: PatchFunction<T>) => patch(over(lensPath<any, any>(scope), fn));
 
 // Model
 
 interface Model {
-  name: string;
   time: Date;
+  input: input.Model;
 }
 
 const init = (): Model => ({
-  name: "Snabbdom",
+  input: input.init("Snabbdom"),
   time: new Date(),
 });
 
 // Action
 
 enum Action {
-  Update,
-  Reset,
-  Test,
-  Init,
+  Reset = "main.Reset",
+  Test = "main.Test",
+  Init = "main.Init",
 }
 
 const actions = {
-  async *[Action.Update](patch: ModelPatcher<Model>, name: string) {
-    yield patch(assoc("name", name));
+  [Action.Reset]: async (patch: ModelPatcher<Model>) => {
+    patch(always(init()));
   },
-  async *[Action.Reset](patch: ModelPatcher<Model>) {
-    yield patch(always(init()));
-  },
-  async *[Action.Test](patch: ModelPatcher<Model>) {
+  [Action.Test]: async (patch: ModelPatcher<Model>) => {
     let currentName;
-    yield patch((model) => {
-      currentName = model.name;
-      return assoc("name", "Click!", model);
+    patch((model) => {
+      currentName = model.input.value;
+      return assocPath(["input", "value"], "Click!", model);
     });
     await asyncPause(500);
-    yield patch(assoc("name", currentName));
+    patch(assocPath(["input", "value"], currentName));
   },
-  async *[Action.Init](patch: ModelPatcher<Model>) {
+  [Action.Init]: async (patch: ModelPatcher<Model>) => {
+    // FIXME: This while loop is practically unstoppable, we need a better
+    // solution (e.g., stop on destroy, etc)
     while (true) {
       await asyncPause(1000);
-      yield patch(assoc("time", new Date()));
+      patch(assoc("time", new Date()));
     }
+  },
+  [input.Action.Update]: async (patch: ModelPatcher<Model>, value: string) => {
+    const inputPatch = scopedPatch<input.Model, Model>(["input"], patch);
+    await input.actions[input.Action.Update](inputPatch, value);
   },
 };
 
@@ -69,9 +79,9 @@ const view = ({model}: Props): JSX.Element => {
       off-click={[Action.Test]}
       hook-insert={[Action.Init]}
     >
-      <p>Hello {model.name || "World"}</p>
+      <p>Hello {model.input.value || "World"}</p>
       <p>
-        <input value={model.name} on-input={[Action.Update]} />
+        <input.view model={model.input} />
         <button on-click={[Action.Reset]}>Reset</button>
       </p>
       <p>
