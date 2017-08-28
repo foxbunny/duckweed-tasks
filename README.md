@@ -49,35 +49,6 @@ enums](https://www.typescriptlang.org/docs/handbook/enums.html). Instead of
 using a single update function, we use a mapping from enums to `async`
 functions. See `src/main.tsx` for an example.
 
-### Async iterators
-
-We use async iterators for action handlers. This means that a single action may
-`yield` multiple model mutations. The reason for this is handling long-running
-processes such as XHR reuquests, where we may need to alter the model state
-several times (e.g., set "loading" flag before start, clear it afterwards).
-
-For example:
-
-```typescript
-const actions = {
-  async *[Action.Save](patch: ModelPatcher<Model>, credentials: User.Credentials) {
-    yield patch(assoc("loading", true));
-    try {
-      await xhr.post("/account", credentials);
-      yield patch(merge(__, {
-        accountData: credentials,
-        loading: false,
-      }));
-    } catch(e) {
-      yield patch(merge(__, {
-        error: e,
-        loading: false
-      }));
-    }
-  },
-};
-```
-
 ### Inline styles
 
 We use inline styles in the example code, but there is full support for Stylus

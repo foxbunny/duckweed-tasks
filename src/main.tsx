@@ -3,66 +3,91 @@
  * All rights reserved.
  */
 
-import * as always from "ramda/src/always";
-import * as assoc from "ramda/src/assoc";
-import * as assocPath from "ramda/src/assocPath";
-import * as lensPath from "ramda/src/lensPath";
+const css = require<CSSModule>("./main.styl");
+
+import * as adjust from "ramda/src/adjust";
+import * as filter from "ramda/src/filter";
+import * as lensProp from "ramda/src/lensProp";
 import * as over from "ramda/src/over";
+import * as pipe from "ramda/src/pipe";
+import * as prepend from "ramda/src/prepend";
+import * as prop from "ramda/src/prop";
+import * as propEq from "ramda/src/propEq";
+import * as tap from "ramda/src/tap";
 
 import html from "runtime/html";
 import {ModelPatcher, PatchFunction} from "runtime/runner";
-import asyncPause from "util/async-pause";
 
-import * as input from "./input";
+import * as task from "./task";
 
-const scopedPatch = <T, M>(scope: string[], patch: ModelPatcher<M>): ModelPatcher<T> =>
-  (fn: PatchFunction<T>) => patch(over(lensPath<any, any>(scope), fn));
+// Storage management
+
+const STORAGE_KEY = "tasks";
+
+const retrieve = () =>
+  JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+
+const store = pipe(
+  JSON.stringify,
+  localStorage.setItem.bind(localStorage, STORAGE_KEY),
+);
 
 // Model
 
 interface Model {
-  time: Date;
-  input: input.Model;
+  tasks: task.Model[];
 }
 
-const init = (): Model => ({
-  input: input.init("Snabbdom"),
-  time: new Date(),
-});
+const init = (): Model => {
+  const tasks = retrieve();
+  return {
+    tasks,
+  };
+};
 
 // Action
 
 enum Action {
-  Reset = "main.Reset",
-  Test = "main.Test",
-  Init = "main.Init",
+  Update,
+  Add,
 }
 
 const actions = {
-  [Action.Reset]: async (patch: ModelPatcher<Model>) => {
-    patch(always(init()));
-  },
-  [Action.Test]: async (patch: ModelPatcher<Model>) => {
-    let currentName;
-    patch((model) => {
-      currentName = model.input.value;
-      return assocPath(["input", "value"], "Click!", model);
-    });
-    await asyncPause(500);
-    patch(assocPath(["input", "value"], currentName));
-  },
-  [Action.Init]: async (patch: ModelPatcher<Model>) => {
-    // FIXME: This while loop is practically unstoppable, we need a better
-    // solution (e.g., stop on destroy, etc)
-    while (true) {
-      await asyncPause(1000);
-      patch(assoc("time", new Date()));
-    }
-  },
-  [input.Action.Update]: async (patch: ModelPatcher<Model>, value: string) => {
-    const inputPatch = scopedPatch<input.Model, Model>(["input"], patch);
-    await input.actions[input.Action.Update](inputPatch, value);
-  },
+  [Action.Update]:
+    async (patch: ModelPatcher<Model>, id: number, taskAction: task.Action, arg?: any) => {
+      // The scoped patcher will perform a patch on a particular item in the
+      // array. This is how we delegate to the task action.
+      const taskPatch = (fn: PatchFunction<task.Model>) =>
+        // FIXME: Come up with a nice utility function for creating scoped patchers
+        patch(over(
+          lensProp("tasks"),
+          adjust(fn, id),
+        ));
+
+      // FIXME: Temporary workaround until we figure out why we can't just do
+      // await task.actions[taskAction](taskPatch, arg)
+      await (task.actions[taskAction] as any)(taskPatch, arg);
+
+      patch(pipe(
+        // First filter the tasks that are not marked as done
+        over(
+          lensProp("tasks"),
+          filter(propEq("done", false)),
+        ),
+        // While we're at it, might as well store the tasks in local storage
+        tap(pipe(
+          prop("tasks"),
+          store,
+        )),
+      ));
+    },
+  [Action.Add]:
+    async (patch: ModelPatcher<Model>) => {
+      patch(over(
+        lensProp("tasks"),
+        prepend(task.init({editing: true, text: "Task"})),
+      ));
+    },
 };
 
 // View
@@ -73,34 +98,21 @@ interface Props {
 
 const view = ({model}: Props): JSX.Element => {
   return (
-    <div
-      class="Hello"
-      style={style}
-      off-click={[Action.Test]}
-      hook-insert={[Action.Init]}
-    >
-      <p>Hello {model.input.value || "World"}</p>
-      <p>
-        <input.view model={model.input} />
-        <button on-click={[Action.Reset]}>Reset</button>
-      </p>
-      <p>
-        Current time: {model.time.toLocaleTimeString()}
-      </p>
+    <div>
+      <main class={css.main}>
+        <h1 class={css.title}>Task list</h1>
+        <p class={css.buttonBar}>
+          <button class={css.add} on-click={[Action.Add]}>+ Add task</button>
+        </p>
+        {model.tasks.map((item: task.Model, index) =>
+          <task.view model={item} prefix={[Action.Update, index]} />,
+        )}
+      </main>
+      <aside class={css.aside}>
+        See the source code <a href="https://github.com/foxbunny/selm">on GitHub</a>
+      </aside>
     </div>
   );
-};
-
-// Stylesheets
-
-const style = {
-  delayed: {
-    opacity: 1,
-  },
-  fontFamily: "Arial, Helvetica, sans-serif",
-  fontSize: "16px",
-  opacity: 0,
-  transition: "opacity 1s",
 };
 
 // Component

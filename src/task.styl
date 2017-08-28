@@ -1,0 +1,52 @@
+/**
+ * (c) 2017 Hajime Yamasaki Vukelic
+ * All rights reserved.
+ */
+
+.task
+  margin: 1rem 0
+  display: flex
+  justify-content: space-between
+  align-content: center
+
+.toggleDone
+  display: inline-flex
+  border-radius: 20px
+  background: grey
+  width: 32px
+  height: 32px
+  align-items: center
+  transition: background 0.3s
+  margin-right: 1rem
+
+  &:hover
+    background: #883322
+
+.toggleCheckbox
+  display: none
+
+.toggleDoneLabel
+  display: inline-block
+  color: white
+  font-size: 80%
+  width: 32px
+  text-align: center;
+
+.editBox,
+.text
+  display: inline-block
+  padding: 0.2rem
+  width: 100%
+  font-size: 140%
+
+.editBox
+  border-bottom 1px dotted #dddddd
+
+.text
+  cursor: pointer
+
+.editButton
+  cursor: pointer
+  padding: 0.2rem 1rem
+  margin-left: 1rem
+  border-radius: 2px

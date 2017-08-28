@@ -13,6 +13,7 @@ import style from "snabbdom/modules/style";
 
 import documentevents from "runtime/documentevents";
 import html, {RenderFunction, setActionHandler} from "runtime/html";
+import keyevents from "runtime/keyevents";
 
 type PatchFunction<T = any> = (model: T) => T;
 
@@ -22,10 +23,13 @@ interface Actions<T = any> {
   [action: string]: (patch: ModelPatcher<T>, ...args: any[]) => Promise<void>;
 }
 
-const patch = snabbdom.init([classes, style, events, props, documentevents]);
+const patch = snabbdom.init([classes, style, events, props, documentevents, keyevents]);
 
 const isInput = (target: any): target is HTMLInputElement =>
   typeof target.value !== "undefined";
+
+const isCheckbox = (target: any): target is HTMLInputElement =>
+  typeof target.value !== "undefined" && target.type === "checkbox";
 
 const isEvent = (event: any): event is Event =>
   event instanceof Event;
@@ -53,10 +57,12 @@ const runner = async <T = any> (model: T, actions: Actions<T>, view: RenderFunct
       // This is mostly for hooks. We add the vnode object to args.
       args = args.concat(e);
       args = args.concat(eventArgs);
+    } else if (isEvent(e) && e.type === "change" && isCheckbox(e.target)) {
+      args = args.concat(e.target.checked);
     } else if (isEvent(e) && e.type === "input" && isInput(e.target)) {
       // For convenience, process events and extract implied arguments
       e.preventDefault();
-      args = [e.target.value].concat(args);
+      args = args.concat(e.target.value);
     }
 
     actionFn(patchModel, ...args);

@@ -70,6 +70,7 @@ const updateListeners = (oldVNode: VNode, vnode: VNode): void => {
   if (off) {
     const listener = (vnode as any).listener || (oldVNode as any).listener || createListener(elm);
     listener.vnode = vnode;
+    (vnode as any).offListener = listener;
     Object.keys(off)
       .filter((name) => !oldOff || !(name in oldOff))
       .forEach((name) => {

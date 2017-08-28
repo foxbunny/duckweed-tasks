@@ -1,0 +1,117 @@
+/**
+ * (c) 2017 Hajime Yamasaki Vukelic
+ * All rights reserved.
+ */
+
+const css = require<CSSModule>("./task.styl");
+
+import {VNode} from "snabbdom/src/vnode";
+
+import * as assoc from "ramda/src/assoc";
+import * as lensProp from "ramda/src/lensProp";
+import * as not from "ramda/src/not";
+import * as over from "ramda/src/over";
+
+import html from "runtime/html";
+import {ModelPatcher} from "runtime/runner";
+
+// Model
+
+interface Model {
+  text: string;
+  done: boolean;
+  editing: boolean;
+}
+
+const init = (options: any): Model => ({
+  done: options.done || false,
+  editing: options.editing || false,
+  text: options.text || "",
+});
+
+// Action
+
+enum Action {
+  Toggle,
+  ToggleEditing,
+  Update,
+  Focus,
+}
+
+const actions = {
+  [Action.Toggle]: async (patch: ModelPatcher<Model>, checked: boolean) => {
+    patch(assoc("done", checked));
+  },
+  [Action.ToggleEditing]: async (patch: ModelPatcher<Model>) => {
+    patch(over(lensProp("editing"), not));
+  },
+  [Action.Update]: async (patch: ModelPatcher<Model>, text: string) => {
+    patch(assoc("text", text));
+  },
+  [Action.Focus]: async (patch: ModelPatcher<Model>, vnode: VNode) => {
+    (vnode.elm as HTMLInputElement).focus();
+  },
+};
+
+// View
+
+interface Props {
+  model: Model;
+  prefix: any[];
+}
+
+const view = ({model, prefix = []}: Props) => {
+  return (
+    <div class={css.task} style={style}>
+      <label class={css.toggleDone} for={`task-${prefix.join("-")}`}>
+        <input
+          class={css.toggleCheckbox}
+          id={`task-${prefix.join("-")}`}
+          type="checkbox"
+          on-change={prefix.concat(Action.Toggle)}
+          checked={model.done}
+          />
+        <span class={css.toggleDoneLabel}>&mdash;</span>
+      </label>
+      {model.editing
+        ? <input
+            class={css.editBox}
+            value={model.text}
+            on-input={prefix.concat(Action.Update)}
+            keys-enter={prefix.concat(Action.ToggleEditing)}
+            keys-escape={prefix.concat(Action.ToggleEditing)}
+            hook-insert={prefix.concat(Action.Focus)}
+            autofocus={true} />
+        : <span
+            class={css.text}
+            style={{color: model.done ? "grey" : "black"}}
+            on-click={prefix.concat(Action.ToggleEditing)}
+          >
+              {model.text}
+          </span>
+      }
+      <button class={css.editButton} on-click={prefix.concat(Action.ToggleEditing)}>
+        {model.editing ? "Save" : "Edit"}
+      </button>
+    </div>
+  );
+};
+
+// Styles
+
+const style = {
+  opacity: 1,
+  remove: {
+    opacity: 0,
+  },
+  transition: "opacity 1s",
+};
+
+export {
+  Model,
+  init,
+  Action,
+  actions,
+  Props,
+  view,
+};
