@@ -2459,6 +2459,7 @@ var not = __webpack_require__(72);
 var over = __webpack_require__(33);
 var html_1 = __webpack_require__(3);
 var init = function (options) { return ({
+    created: new Date().getTime(),
     done: options.done || false,
     editing: options.editing || false,
     text: options.text || "",
@@ -2502,7 +2503,7 @@ var actions = (_a = {},
 exports.actions = actions;
 var view = function (_a) {
     var model = _a.model, _b = _a.prefix, prefix = _b === void 0 ? [] : _b;
-    return (html_1.default("div", { class: css.task, style: style },
+    return (html_1.default("div", { class: css.task, style: style, key: model.created },
         html_1.default("label", { class: css.toggleDone, for: "task-" + prefix.join("-") },
             html_1.default("input", { class: css.toggleCheckbox, id: "task-" + prefix.join("-"), type: "checkbox", "on-change": prefix.concat(Action.Toggle), checked: model.done }),
             html_1.default("span", { class: css.toggleDoneLabel }, "\u2014")),
@@ -2609,4 +2610,4 @@ module.exports = _curry1(function not(a) {
 
 /***/ })
 ]);
-//# sourceMappingURL=0-5f14a.js.map
+//# sourceMappingURL=0-1d799.js.map

@@ -86,7 +86,7 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
-/******/ 		script.src = __webpack_require__.p + "" + chunkId + "-" + "5f14a" + ".js";
+/******/ 		script.src = __webpack_require__.p + "" + chunkId + "-" + "1d799" + ".js";
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {
@@ -309,6 +309,9 @@ var prepareProps = function (props) {
             else {
                 finalProps[mod][sub] = props[prop];
             }
+        }
+        else if (prop === "key") {
+            finalProps.key = props[prop];
         }
         else if (prop === "class") {
             finalProps.class = prepareClasses(props[prop]);
@@ -1424,4 +1427,4 @@ exports.default = module;
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=shell-5f14a.js.map
+//# sourceMappingURL=shell-1d799.js.map
