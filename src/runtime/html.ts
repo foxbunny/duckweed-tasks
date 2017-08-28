@@ -60,6 +60,8 @@ const prepareProps = (props: GenericProps | null): GenericProps => {
       } else {
         finalProps[mod][sub] = props[prop];
       }
+    } else if (prop === "key") {
+      finalProps.key = props[prop];
     } else if (prop === "class") {
       finalProps.class = prepareClasses(props[prop]);
     } else if (prop === "style") {
