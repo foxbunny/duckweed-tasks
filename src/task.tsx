@@ -96,7 +96,7 @@ const view = ({model, prefix = [], classes = [], styles = {}}: Props) => {
       </label>
       {model.editing
         ? <input
-            class={css.editBox}
+            class={{[css.editBox]: true, [css.long]: model.text.length > 30}}
             value={model.text}
             on-input={prefix.concat(Action.Update)}
             keys-enter={prefix.concat(Action.ToggleEditing)}
@@ -104,7 +104,7 @@ const view = ({model, prefix = [], classes = [], styles = {}}: Props) => {
             hook-insert={prefix.concat(Action.Focus)}
             autofocus={true} />
         : <span
-            class={css.text}
+            class={{[css.text]: true, [css.long]: model.text.length > 30}}
             style={{color: model.done ? "grey" : "black"}}
             on-click={prefix.concat(Action.ToggleEditing)}
           >
