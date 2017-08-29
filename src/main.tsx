@@ -115,7 +115,11 @@ const view = ({model}: Props): JSX.Element => {
           <button class={css.add} on-click={[Action.Add]}>+ Add task</button>
         </p>
         <div class={css.tasks} style={{
-          height: `${listHeight}px`,
+          delayed: {
+            paddingBottom: `${listHeight}px`,
+          },
+          paddingBottom: "40px",
+          transition: "padding-bottom 1s",
         }}>
           {model.tasks.map((item: task.Model, index) =>
             <task.view
@@ -127,7 +131,7 @@ const view = ({model}: Props): JSX.Element => {
                   transform: `translateY(${listItemOffsets[index]}px)`,
                 },
                 transform: `translateY(0)`,
-                transition: "transform 0.5s, opacity 0.5s",
+                transition: "transform 1s, opacity 0.5s",
               }}
               />,
           )}
