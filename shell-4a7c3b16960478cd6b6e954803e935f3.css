@@ -1,0 +1,118 @@
+/**
+ * (c) 2017 Hajime Yamasaki Vukelic
+ * All rights reserved.
+ */
+* {
+  box-sizing: border-box;
+  font-size: 100%;
+  font-weight: normal;
+  font-style: normal;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  outline: 0;
+  border: 0;
+}
+html
+body {
+  background: #eee;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+}
+.main-3uSli {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 4px;
+}
+.title-3zEfp {
+  font-size: 120%;
+  color: #555;
+  text-align: center;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+}
+.buttonBar-il_rb {
+  text-align: right;
+  background: #efefef;
+  margin-bottom: 1rem;
+  border-radius: 2px;
+}
+.tasks-RMryC {
+  position: relative;
+}
+.task-2dPT- {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.add-34fqF {
+  background: #469;
+  color: #fff;
+  padding: 0.3rem 1rem;
+  border-radius: 2px;
+}
+.aside-fPBWO {
+  font-size: 80%;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+/**
+ * (c) 2017 Hajime Yamasaki Vukelic
+ * All rights reserved.
+ */
+.task-VWs1Y {
+  margin: 1rem 0;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-content: center;
+  transition: opacity 0.5s;
+}
+.toggleDone-3-ZdX {
+  display: inline-flex;
+  border-radius: 20px;
+  background: #808080;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  transition: background 0.3s;
+  margin-right: 1rem;
+}
+.toggleDone-3-ZdX:hover {
+  background: #832;
+}
+.toggleCheckbox-s8hh- {
+  display: none;
+}
+.toggleDoneLabel-2-woK {
+  display: inline-block;
+  color: #fff;
+  font-size: 80%;
+  width: 32px;
+  text-align: center;
+}
+.editBox-z3vkj,
+.text-vITNO {
+  display: inline-block;
+  padding: 0.2rem;
+  width: 100%;
+  font-size: 140%;
+}
+.editBox-z3vkj {
+  border-bottom: 1px dotted #ddd;
+}
+.text-vITNO {
+  cursor: pointer;
+  text-overflow: ellipsis;
+}
+.editButton-h-7L2 {
+  cursor: pointer;
+  padding: 0.2rem 1rem;
+  margin-left: 1rem;
+  border-radius: 2px;
+}
+
+/*# sourceMappingURL=shell-4a7c3b16960478cd6b6e954803e935f3.css.map*/

@@ -86,7 +86,7 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
-/******/ 		script.src = __webpack_require__.p + "" + chunkId + "-" + "1d799" + ".js";
+/******/ 		script.src = __webpack_require__.p + "" + chunkId + "-" + "bfa7f" + ".js";
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {
@@ -482,7 +482,9 @@ var runner = function (model, actions, view, root) {
             render = function () { return currentVNodes = patch(currentVNodes, html_1.default(view, { model: currentModel })); };
             patchModel = function (fn) {
                 currentModel = fn(currentModel);
-                render();
+                // Render on next tick in order to prevent recurisve rendering if hooks
+                // perform a patch
+                setTimeout(render);
             };
             actionHandler = function (action) {
                 var args = [];
@@ -1427,4 +1429,4 @@ exports.default = module;
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=shell-1d799.js.map
+//# sourceMappingURL=shell-bfa7f.js.map
