@@ -6,8 +6,10 @@
 .task
   margin: 1rem 0
   display: flex
+  width: 100%;
   justify-content: space-between
   align-content: center
+  transition: opacity 0.5s
 
 .toggleDone
   display: inline-flex
@@ -44,6 +46,7 @@
 
 .text
   cursor: pointer
+  text-overflow: ellipsis
 
 .editButton
   cursor: pointer

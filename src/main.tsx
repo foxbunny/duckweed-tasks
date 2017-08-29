@@ -8,11 +8,13 @@ const css = require<CSSModule>("./main.styl");
 import * as adjust from "ramda/src/adjust";
 import * as filter from "ramda/src/filter";
 import * as lensProp from "ramda/src/lensProp";
+import * as map from "ramda/src/map";
 import * as over from "ramda/src/over";
 import * as pipe from "ramda/src/pipe";
 import * as prepend from "ramda/src/prepend";
 import * as prop from "ramda/src/prop";
 import * as propEq from "ramda/src/propEq";
+import * as sum from "ramda/src/sum";
 import * as tap from "ramda/src/tap";
 
 import html from "runtime/html";
@@ -50,6 +52,7 @@ const init = (): Model => {
 enum Action {
   Update,
   Add,
+  RecalcHeight,
 }
 
 const actions = {
@@ -97,6 +100,13 @@ interface Props {
 }
 
 const view = ({model}: Props): JSX.Element => {
+  const listHeight = sum(map(prop("itemHeight"), model.tasks)) + model.tasks.length * 10;
+  const {offsets: listItemOffsets} = model.tasks.reduce((offsets, {itemHeight}) => {
+    (offsets.offsets as number[]).push(offsets.lastValue);
+    offsets.lastValue += itemHeight + 10;
+    return offsets;
+  }, {lastValue: 0, offsets: []});
+
   return (
     <div>
       <main class={css.main}>
@@ -104,9 +114,24 @@ const view = ({model}: Props): JSX.Element => {
         <p class={css.buttonBar}>
           <button class={css.add} on-click={[Action.Add]}>+ Add task</button>
         </p>
-        {model.tasks.map((item: task.Model, index) =>
-          <task.view model={item} prefix={[Action.Update, index]} />,
-        )}
+        <div class={css.tasks} style={{
+          height: `${listHeight}px`,
+        }}>
+          {model.tasks.map((item: task.Model, index) =>
+            <task.view
+              model={item}
+              prefix={[Action.Update, index]}
+              classes={[css.task]}
+              styles={{
+                delayed: {
+                  transform: `translateY(${listItemOffsets[index]}px)`,
+                },
+                transform: `translateY(0)`,
+                transition: "transform 0.5s, opacity 0.5s",
+              }}
+              />,
+          )}
+        </div>
       </main>
       <aside class={css.aside}>
         See the source code <a href="https://github.com/foxbunny/selm">on GitHub</a>

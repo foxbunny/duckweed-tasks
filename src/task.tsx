@@ -22,12 +22,14 @@ interface Model {
   done: boolean;
   editing: boolean;
   created: number;
+  itemHeight: number;
 }
 
 const init = (options: any): Model => ({
   created: new Date().getTime(),
   done: options.done || false,
   editing: options.editing || false,
+  itemHeight: 0,
   text: options.text || "",
 });
 
@@ -38,33 +40,50 @@ enum Action {
   ToggleEditing,
   Update,
   Focus,
+  RecalcHeight,
 }
 
 const actions = {
-  [Action.Toggle]: async (patch: ModelPatcher<Model>, checked: boolean) => {
-    patch(assoc("done", checked));
-  },
-  [Action.ToggleEditing]: async (patch: ModelPatcher<Model>) => {
-    patch(over(lensProp("editing"), not));
-  },
-  [Action.Update]: async (patch: ModelPatcher<Model>, text: string) => {
-    patch(assoc("text", text));
-  },
-  [Action.Focus]: async (patch: ModelPatcher<Model>, vnode: VNode) => {
-    (vnode.elm as HTMLInputElement).focus();
-  },
+  [Action.Toggle]:
+    async (patch: ModelPatcher<Model>, checked: boolean) => {
+      patch(assoc("done", checked));
+    },
+  [Action.ToggleEditing]:
+    async (patch: ModelPatcher<Model>) => {
+      patch(over(lensProp("editing"), not));
+    },
+  [Action.Update]:
+    async (patch: ModelPatcher<Model>, text: string) => {
+      patch(assoc("text", text));
+    },
+  [Action.Focus]:
+    async (patch: ModelPatcher<Model>, vnode: VNode) => {
+      (vnode.elm as HTMLInputElement).focus();
+    },
+  [Action.RecalcHeight]:
+    async (patch: ModelPatcher<Model>, vnode: VNode) => {
+      const h = (vnode.elm as HTMLElement).offsetHeight;
+      patch(assoc("itemHeight", h));
+    },
 };
 
 // View
 
 interface Props {
   model: Model;
-  prefix: any[];
+  prefix?: any[];
+  classes?: any[];
+  styles?: any;
 }
 
-const view = ({model, prefix = []}: Props) => {
+const view = ({model, prefix = [], classes = [], styles = {}}: Props) => {
   return (
-    <div class={css.task} style={style} key={model.created}>
+    <div
+      class={classes.concat([css.task])}
+      style={Object.assign({}, style, styles)}
+      key={model.created}
+      hook-insert={prefix.concat(Action.RecalcHeight)}
+    >
       <label class={css.toggleDone} for={`task-${prefix.join("-")}`}>
         <input
           class={css.toggleCheckbox}
@@ -106,7 +125,6 @@ const style = {
   remove: {
     opacity: 0,
   },
-  transition: "opacity 1s",
 };
 
 export {
