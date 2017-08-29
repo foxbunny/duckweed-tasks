@@ -107,12 +107,17 @@ body {
 .text-vITNO {
   cursor: pointer;
   text-overflow: ellipsis;
+  vertical-align: middle;
+}
+.long-xE-o9 {
+  font-size: 100%;
 }
 .editButton-h-7L2 {
   cursor: pointer;
   padding: 0.2rem 1rem;
   margin-left: 1rem;
   border-radius: 2px;
+  height: 32px;
 }
 
-/*# sourceMappingURL=shell-4a7c3b16960478cd6b6e954803e935f3.css.map*/
+/*# sourceMappingURL=shell-f3aadf7af3a55c7fb807517500d4c298.css.map*/

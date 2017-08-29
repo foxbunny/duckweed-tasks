@@ -2015,9 +2015,10 @@ var view = function (_a) {
             html_1.default("input", { class: css.toggleCheckbox, id: "task-" + prefix.join("-"), type: "checkbox", "on-change": prefix.concat(Action.Toggle), checked: model.done }),
             html_1.default("span", { class: css.toggleDoneLabel }, "\u2014")),
         model.editing
-            ? html_1.default("input", { class: css.editBox, value: model.text, "on-input": prefix.concat(Action.Update), "keys-enter": prefix.concat(Action.ToggleEditing), "keys-escape": prefix.concat(Action.ToggleEditing), "hook-insert": prefix.concat(Action.Focus), autofocus: true })
-            : html_1.default("span", { class: css.text, style: { color: model.done ? "grey" : "black" }, "on-click": prefix.concat(Action.ToggleEditing) }, model.text),
+            ? html_1.default("input", { class: (_e = {}, _e[css.editBox] = true, _e[css.long] = model.text.length > 30, _e), value: model.text, "on-input": prefix.concat(Action.Update), "keys-enter": prefix.concat(Action.ToggleEditing), "keys-escape": prefix.concat(Action.ToggleEditing), "hook-insert": prefix.concat(Action.Focus), autofocus: true })
+            : html_1.default("span", { class: (_f = {}, _f[css.text] = true, _f[css.long] = model.text.length > 30, _f), style: { color: model.done ? "grey" : "black" }, "on-click": prefix.concat(Action.ToggleEditing) }, model.text),
         html_1.default("button", { class: css.editButton, "on-click": prefix.concat(Action.ToggleEditing) }, model.editing ? "Save" : "Edit")));
+    var _e, _f;
 };
 exports.view = view;
 // Styles
@@ -2035,7 +2036,7 @@ var _a;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"task":"task-VWs1Y","toggleDone":"toggleDone-3-ZdX","toggleCheckbox":"toggleCheckbox-s8hh-","toggleDoneLabel":"toggleDoneLabel-2-woK","editBox":"editBox-z3vkj","text":"text-vITNO","editButton":"editButton-h-7L2"};
+module.exports = {"task":"task-VWs1Y","toggleDone":"toggleDone-3-ZdX","toggleCheckbox":"toggleCheckbox-s8hh-","toggleDoneLabel":"toggleDoneLabel-2-woK","editBox":"editBox-z3vkj","text":"text-vITNO","long":"long-xE-o9","editButton":"editButton-h-7L2"};
 
 /***/ }),
 /* 69 */
@@ -2070,4 +2071,4 @@ module.exports = _curry1(function not(a) {
 
 /***/ })
 ]);
-//# sourceMappingURL=0-bfa7f.js.map
+//# sourceMappingURL=0-5afcf.js.map
