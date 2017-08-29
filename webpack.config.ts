@@ -5,6 +5,7 @@
 
 import path = require("path");
 
+import ExtractTextPlugin = require("extract-text-webpack-plugin");
 import HTMLWebpackPlugin = require("html-webpack-plugin");
 import webpack = require("webpack");
 import {BundleAnalyzerPlugin} from "webpack-bundle-analyzer";
@@ -17,6 +18,10 @@ export default function(env: Env | void): webpack.Configuration {
   const commonPlugins = [
     new HTMLWebpackPlugin({
       template: path.resolve(__dirname, "static/index.html"),
+    }),
+    new ExtractTextPlugin({
+      allChunks: true,
+      filename: "[name]-[contenthash].css",
     }),
   ];
 
@@ -59,26 +64,28 @@ export default function(env: Env | void): webpack.Configuration {
         },
         {
           test: /.styl$/,
-          use: [
-            {
+          use: ExtractTextPlugin.extract({
+            fallback: {
               loader: "style-loader",
               options: {
                 sourceMap: true,
               },
             },
-            {
-              loader: "css-loader",
-              options: {
-                importLoaders: 1,
-                localIdentName: "[local]-[hash:base64:5]",
-                modules: true,
-                sourceMap: true,
+            use: [
+              {
+                loader: "css-loader",
+                options: {
+                  importLoaders: 1,
+                  localIdentName: "[local]-[hash:base64:5]",
+                  modules: true,
+                  sourceMap: true,
+                },
               },
-            },
-            {
-              loader: "stylus-loader",
-            },
-          ],
+              {
+                loader: "stylus-loader",
+              },
+            ],
+          }),
         },
       ],
     },
