@@ -47,7 +47,9 @@ const runner = async <T = any> (model: T, actions: Actions<T>, view: RenderFunct
 
   const patchModel: ModelPatcher<T> = (fn) => {
     currentModel = fn(currentModel);
-    render();
+    // Render on next tick in order to prevent recurisve rendering if hooks
+    // perform a patch
+    setTimeout(render);
   };
 
   const actionHandler = (action: any, ...args: any[]) => async (e?: Event | VNode, ...eventArgs: any[]) => {
