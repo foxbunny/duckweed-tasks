@@ -92,7 +92,12 @@ const view = ({model, prefix = [], classes = [], styles = {}}: Props) => {
           on-change={prefix.concat(Action.Toggle)}
           checked={model.done}
           />
-        <span class={css.toggleDoneLabel}>&mdash;</span>
+        <span class={css.toggleDoneLabel}>
+          {model.done
+            ? <span>+</span>
+            : <span>&mdash;</span>
+          }
+        </span>
       </label>
       {model.editing
         ? <input
@@ -104,7 +109,7 @@ const view = ({model, prefix = [], classes = [], styles = {}}: Props) => {
             hook-insert={prefix.concat(Action.Focus)}
             autofocus={true} />
         : <span
-            class={{[css.text]: true, [css.long]: model.text.length > 30}}
+            class={{[css.text]: true, [css.long]: model.text.length > 30, [css.done]: model.done}}
             style={{color: model.done ? "grey" : "black"}}
             on-click={model.done ? [] : prefix.concat(Action.ToggleEditing)}
           >

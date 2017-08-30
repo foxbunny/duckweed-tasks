@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-const css = require<CSSModule>("./main.styl");
+const css = require<CSSModule>("./list.styl");
 
 import * as adjust from "ramda/src/adjust";
 import * as apply from "ramda/src/apply";
