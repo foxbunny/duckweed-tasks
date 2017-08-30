@@ -86,7 +86,7 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
-/******/ 		script.src = __webpack_require__.p + "" + chunkId + "-" + "5afcf" + ".js";
+/******/ 		script.src = __webpack_require__.p + "" + chunkId + "-" + "7bc3f" + ".js";
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {
@@ -276,7 +276,7 @@ var EVENT_MODULES = ["on", "off", "hook", "keys"];
 // This is a default dummy action handler
 var actionHandler = function () { return function (e) { return undefined; }; };
 var isInlineChild = function (obj) {
-    return typeof obj === "object" && typeof obj.vnodes !== "undefined";
+    return typeof obj === "object" && obj !== null && typeof obj.vnodes !== "undefined";
 };
 var prepareClasses = function (classes) {
     if (classes == null) {
@@ -475,16 +475,23 @@ var runner = function (model, actions, view, root) {
     if (root === void 0) { root = "#app"; }
     return __awaiter(_this, void 0, void 0, function () {
         var _this = this;
-        var currentVNodes, currentModel, render, patchModel, actionHandler;
+        var currentVNodes, currentModel, renderTimer, render, patchModel, actionHandler;
         return __generator(this, function (_a) {
             currentVNodes = document.querySelector(root);
             currentModel = model;
-            render = function () { return currentVNodes = patch(currentVNodes, html_1.default(view, { model: currentModel })); };
+            renderTimer = null;
+            render = function () {
+                currentVNodes = patch(currentVNodes, html_1.default(view, { model: currentModel }));
+                renderTimer = null;
+            };
             patchModel = function (fn) {
                 currentModel = fn(currentModel);
                 // Render on next tick in order to prevent recurisve rendering if hooks
                 // perform a patch
-                setTimeout(render);
+                if (renderTimer) {
+                    clearTimeout(renderTimer);
+                }
+                renderTimer = setTimeout(render);
             };
             actionHandler = function (action) {
                 var args = [];
@@ -499,6 +506,9 @@ var runner = function (model, actions, view, root) {
                     return __awaiter(_this, void 0, void 0, function () {
                         var actionFn;
                         return __generator(this, function (_a) {
+                            if (action == null) {
+                                return [2 /*return*/];
+                            }
                             actionFn = actions[action];
                             if (isVNnode(e)) {
                                 // This is mostly for hooks. We add the vnode object to args.
@@ -1429,4 +1439,4 @@ exports.default = module;
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=shell-5afcf.js.map
+//# sourceMappingURL=shell-7bc3f.js.map
