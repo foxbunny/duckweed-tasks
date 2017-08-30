@@ -6,6 +6,9 @@
 const css = require<CSSModule>("./main.styl");
 
 import * as adjust from "ramda/src/adjust";
+import * as apply from "ramda/src/apply";
+import * as concat from "ramda/src/concat";
+import * as descend from "ramda/src/descend";
 import * as filter from "ramda/src/filter";
 import * as lensProp from "ramda/src/lensProp";
 import * as map from "ramda/src/map";
@@ -14,6 +17,7 @@ import * as pipe from "ramda/src/pipe";
 import * as prepend from "ramda/src/prepend";
 import * as prop from "ramda/src/prop";
 import * as propEq from "ramda/src/propEq";
+import * as sort from "ramda/src/sort";
 import * as sum from "ramda/src/sum";
 import * as tap from "ramda/src/tap";
 
@@ -41,10 +45,18 @@ interface Model {
 }
 
 const init = (): Model => {
-  const tasks = retrieve();
-  return {
-    tasks,
-  };
+  try {
+    const tasks = retrieve();
+    return {
+      tasks,
+    };
+  } catch (e) {
+    // tslint:disable:no-console
+    console.error("Cannot parse stored data");
+    return {
+      tasks: [],
+    };
+  }
 };
 
 // Action
@@ -52,8 +64,19 @@ const init = (): Model => {
 enum Action {
   Update,
   Add,
-  RecalcHeight,
+  ClearDone,
 }
+
+const sortByDate = sort<task.Model>(descend(prop("created")));
+
+const filterDone = (done: boolean) => filter<task.Model>(pipe(propEq("done", done)));
+
+const splitTask = (done: boolean) => pipe(filterDone(done), sortByDate);
+
+const splitTasks = (tasks: task.Model[]): [task.Model[], task.Model[]] =>
+  [splitTask(false)(tasks), splitTask(true)(tasks)];
+
+const sortTasks = pipe(splitTasks, apply(concat)) as (tasks: task.Model[]) => task.Model[];
 
 const actions = {
   [Action.Update]:
@@ -64,25 +87,16 @@ const actions = {
         // FIXME: Come up with a nice utility function for creating scoped patchers
         patch(over(
           lensProp("tasks"),
-          adjust(fn, id),
+          pipe(
+            adjust(fn, id),
+            sortTasks,
+            tap(store),
+          ),
         ));
 
       // FIXME: Temporary workaround until we figure out why we can't just do
       // await task.actions[taskAction](taskPatch, arg)
       await (task.actions[taskAction] as any)(taskPatch, arg);
-
-      patch(pipe(
-        // First filter the tasks that are not marked as done
-        over(
-          lensProp("tasks"),
-          filter(propEq("done", false)),
-        ),
-        // While we're at it, might as well store the tasks in local storage
-        tap(pipe(
-          prop("tasks"),
-          store,
-        )),
-      ));
     },
   [Action.Add]:
     async (patch: ModelPatcher<Model>) => {
@@ -90,6 +104,16 @@ const actions = {
         lensProp("tasks"),
         prepend(task.init({editing: true, text: "Task"})),
       ));
+    },
+  [Action.ClearDone]:
+    async (patch: ModelPatcher<Model>) => {
+      patch(pipe(over(
+        lensProp("tasks"),
+        pipe(
+          filterDone(false),
+          tap(store),
+        ),
+      )));
     },
 };
 
@@ -112,7 +136,8 @@ const view = ({model}: Props): JSX.Element => {
       <main class={css.main}>
         <h1 class={css.title}>Task list</h1>
         <p class={css.buttonBar}>
-          <button class={css.add} on-click={[Action.Add]}>+ Add task</button>
+          <button class={css.actionButton} on-click={[Action.Add]}>+ Add task</button>
+          <button class={css.actionButton} on-click={[Action.ClearDone]}>Clear done</button>
         </p>
         <div class={css.tasks} style={{
           delayed: {

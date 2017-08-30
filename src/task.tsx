@@ -106,14 +106,17 @@ const view = ({model, prefix = [], classes = [], styles = {}}: Props) => {
         : <span
             class={{[css.text]: true, [css.long]: model.text.length > 30}}
             style={{color: model.done ? "grey" : "black"}}
-            on-click={prefix.concat(Action.ToggleEditing)}
+            on-click={model.done ? [] : prefix.concat(Action.ToggleEditing)}
           >
               {model.text}
           </span>
       }
-      <button class={css.editButton} on-click={prefix.concat(Action.ToggleEditing)}>
-        {model.editing ? "Save" : "Edit"}
-      </button>
+      {model.done || !model.editing
+        ? null
+        : <button class={css.editButton} on-click={prefix.concat(Action.ToggleEditing)}>
+            Save
+          </button>
+      }
     </div>
   );
 };
