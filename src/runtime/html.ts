@@ -27,7 +27,7 @@ const EVENT_MODULES = ["on", "off", "hook", "keys"];
 let actionHandler: ActionHandler = () => (e?: Event) => undefined;
 
 const isInlineChild = (obj: any): obj is InlineChild => {
-  return typeof obj === "object" && typeof obj.vnodes !== "undefined";
+  return typeof obj === "object" && obj !== null && typeof obj.vnodes !== "undefined";
 };
 
 const prepareClasses = (classes: string | string[] | {[name: string]: any} | null | undefined) => {
