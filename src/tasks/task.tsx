@@ -46,7 +46,11 @@ enum Action {
 const actions = {
   [Action.Toggle]:
     async (patch: ModelPatcher<Model>, checked: boolean) => {
-      patch(assoc("done", checked));
+      patch((model) => ({
+        ...model,
+        done: checked,
+        editing: checked ? false : model.editing,
+      }));
     },
   [Action.ToggleEditing]:
     async (patch: ModelPatcher<Model>) => {
@@ -102,6 +106,7 @@ const view = ({model, prefix = [], classes = [], styles = {}}: Props) => {
         ? <input
             class={{[css.editBox]: true, [css.long]: model.text.length > 30}}
             value={model.text}
+            placeholder="What would you want to accomplish?"
             on-input={prefix.concat(Action.Update)}
             keys-enter={prefix.concat(Action.ToggleEditing)}
             keys-escape={prefix.concat(Action.ToggleEditing)}

@@ -73,6 +73,8 @@ const sortByDate = sort<task.Model>(descend(prop("created")));
 
 const filterDone = (done: boolean) => filter<task.Model>(pipe(propEq("done", done)));
 
+const notEmpty = (t: task.Model) => t.text.trim() !== "" || t.editing;
+
 const splitTask = (done: boolean) => pipe(filterDone(done), sortByDate);
 
 const splitTasks = (tasks: task.Model[]): [task.Model[], task.Model[]] =>
@@ -92,6 +94,7 @@ const actions = {
           pipe(
             adjust(fn, id),
             sortTasks,
+            filter(notEmpty),
             tap(store),
           ),
         ));
@@ -104,7 +107,7 @@ const actions = {
     async (patch: ModelPatcher<Model>) => {
       patch(over(
         lensProp("tasks"),
-        prepend(task.init({editing: true, text: "Task"})),
+        prepend(task.init({editing: true})),
       ));
     },
   [Action.ClearDone]:
@@ -126,7 +129,7 @@ interface Props extends PropsBase {
 }
 
 const view = ({model, prefix = []}: Props): JSX.Element => {
-  const listHeight = sum(map(prop("itemHeight"), model.tasks)) + model.tasks.length * 10;
+  const listHeight = Math.max(46, sum(map(prop("itemHeight"), model.tasks)) + model.tasks.length * 10);
   const {offsets: listItemOffsets} = model.tasks.reduce((offsets, {itemHeight}) => {
     (offsets.offsets as number[]).push(offsets.lastValue);
     offsets.lastValue += itemHeight + 10;
@@ -155,10 +158,16 @@ const view = ({model, prefix = []}: Props): JSX.Element => {
               classes={[css.task]}
               styles={{
                 delayed: {
+                  opacity: 1,
                   transform: `translateY(${listItemOffsets[index]}px)`,
                 },
+                opacity: 0,
+                remove: {
+                  opacity: 0,
+                  transform: `translateX(-100vw)`,
+                },
                 transform: `translateY(0)`,
-                transition: "transform 1s, opacity 0.5s",
+                transition: "transform 1s, opacity ease-out 0.5s",
               }}
               />,
           )}
