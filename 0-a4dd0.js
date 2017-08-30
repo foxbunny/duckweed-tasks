@@ -20,7 +20,7 @@ var html_1 = __webpack_require__(3);
 var fx = __webpack_require__(34);
 // View
 var view = function () {
-    return (html_1.default("div", { class: elements.wrapper, style: fx.crossFade() },
+    return (html_1.default("div", { class: elements.wrapper, style: fx.dropInTwistOut() },
         html_1.default("main", { class: elements.main },
             html_1.default("h1", { class: css.title }, "About this app"),
             html_1.default("div", { class: css.body },
@@ -133,6 +133,7 @@ var Action;
 exports.Action = Action;
 var sortByDate = sort(descend(prop("created")));
 var filterDone = function (done) { return filter(pipe(propEq("done", done))); };
+var notEmpty = function (t) { return t.text.trim() !== "" || t.editing; };
 var splitTask = function (done) { return pipe(filterDone(done), sortByDate); };
 var splitTasks = function (tasks) {
     return [splitTask(false)(tasks), splitTask(true)(tasks)];
@@ -146,7 +147,7 @@ var actions = (_a = {},
                 case 0:
                     taskPatch = function (fn) {
                         // FIXME: Come up with a nice utility function for creating scoped patchers
-                        return patch(over(lensProp("tasks"), pipe(adjust(fn, id), sortTasks, tap(store))));
+                        return patch(over(lensProp("tasks"), pipe(adjust(fn, id), sortTasks, filter(notEmpty), tap(store))));
                     };
                     // FIXME: Temporary workaround until we figure out why we can't just do
                     // await task.actions[taskAction](taskPatch, arg)
@@ -161,7 +162,7 @@ var actions = (_a = {},
     }); },
     _a[Action.Add] = function (patch) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            patch(over(lensProp("tasks"), prepend(task.init({ editing: true, text: "Task" }))));
+            patch(over(lensProp("tasks"), prepend(task.init({ editing: true }))));
             return [2 /*return*/];
         });
     }); },
@@ -175,14 +176,14 @@ var actions = (_a = {},
 exports.actions = actions;
 var view = function (_a) {
     var model = _a.model, _b = _a.prefix, prefix = _b === void 0 ? [] : _b;
-    var listHeight = sum(map(prop("itemHeight"), model.tasks)) + model.tasks.length * 10;
+    var listHeight = Math.max(46, sum(map(prop("itemHeight"), model.tasks)) + model.tasks.length * 10);
     var listItemOffsets = model.tasks.reduce(function (offsets, _a) {
         var itemHeight = _a.itemHeight;
         offsets.offsets.push(offsets.lastValue);
         offsets.lastValue += itemHeight + 10;
         return offsets;
     }, { lastValue: 0, offsets: [] }).offsets;
-    return (html_1.default("div", { class: elements.wrapper, style: fx.crossFade() },
+    return (html_1.default("div", { class: elements.wrapper, style: fx.dropInTwistOut() },
         html_1.default("main", { class: elements.main },
             html_1.default("h1", { class: css.title }, "Task list"),
             html_1.default("p", { class: css.buttonBar },
@@ -197,10 +198,16 @@ var view = function (_a) {
                 } }, model.tasks.map(function (item, index) {
                 return html_1.default(task.view, { model: item, prefix: prefix.concat(Action.Update, index), classes: [css.task], styles: {
                         delayed: {
+                            opacity: 1,
                             transform: "translateY(" + listItemOffsets[index] + "px)",
                         },
+                        opacity: 0,
+                        remove: {
+                            opacity: 0,
+                            transform: "translateX(-100vw)",
+                        },
                         transform: "translateY(0)",
-                        transition: "transform 1s, opacity 0.5s",
+                        transition: "transform 1s, opacity ease-out 0.5s",
                     } });
             }))),
         html_1.default("aside", { class: css.aside },
@@ -647,6 +654,35 @@ var flyIn = function (direction) { return ({
     transition: "transform ease-out 0.5s, opacity ease-in 0.3s",
 }); };
 exports.flyIn = flyIn;
+var zoom = function () { return ({
+    delayed: {
+        opacity: 1,
+        transform: "scale(1)",
+    },
+    opacity: 0,
+    remove: {
+        opacity: 0,
+        transform: "scale(0)",
+    },
+    transform: "scale(0)",
+    transition: "transform 0.5s, opacity ease-in 0.3s",
+}); };
+exports.zoom = zoom;
+var dropInTwistOut = function () { return ({
+    delayed: {
+        opacity: 1,
+        transform: "scale(1) translateY(0)",
+    },
+    opacity: 0,
+    remove: {
+        opacity: 0,
+        transform: "rotateY(-90deg)",
+        transition: "transform 0.5s, opacity ease-out 0.5s",
+    },
+    transform: "scale(0) translateY(-100vh)",
+    transition: "transform 0.5s, opacity ease-in 0.3s",
+}); };
+exports.dropInTwistOut = dropInTwistOut;
 
 
 /***/ }),
@@ -2526,6 +2562,14 @@ module.exports = _curry2(function tap(fn, x) {
  * (c) 2017 Hajime Yamasaki Vukelic
  * All rights reserved.
  */
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -2590,7 +2634,7 @@ exports.Action = Action;
 var actions = (_a = {},
     _a[Action.Toggle] = function (patch, checked) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            patch(assoc("done", checked));
+            patch(function (model) { return (__assign({}, model, { done: checked, editing: checked ? false : model.editing })); });
             return [2 /*return*/];
         });
     }); },
@@ -2631,7 +2675,7 @@ var view = function (_a) {
                 ? html_1.default("span", null, "+")
                 : html_1.default("span", null, "\u2014"))),
         model.editing
-            ? html_1.default("input", { class: (_e = {}, _e[css.editBox] = true, _e[css.long] = model.text.length > 30, _e), value: model.text, "on-input": prefix.concat(Action.Update), "keys-enter": prefix.concat(Action.ToggleEditing), "keys-escape": prefix.concat(Action.ToggleEditing), "hook-insert": prefix.concat(Action.Focus), autofocus: true })
+            ? html_1.default("input", { class: (_e = {}, _e[css.editBox] = true, _e[css.long] = model.text.length > 30, _e), value: model.text, placeholder: "What would you want to accomplish?", "on-input": prefix.concat(Action.Update), "keys-enter": prefix.concat(Action.ToggleEditing), "keys-escape": prefix.concat(Action.ToggleEditing), "hook-insert": prefix.concat(Action.Focus), autofocus: true })
             : html_1.default("span", { class: (_f = {}, _f[css.text] = true, _f[css.long] = model.text.length > 30, _f[css.done] = model.done, _f), style: { color: model.done ? "grey" : "black" }, "on-click": model.done ? [] : prefix.concat(Action.ToggleEditing) }, model.text),
         model.done || !model.editing
             ? null
@@ -3021,4 +3065,4 @@ module.exports = {"nav":"nav-mLhoT","link":"link-3zPtL"};
 
 /***/ })
 ]);
-//# sourceMappingURL=0-a1aba.js.map
+//# sourceMappingURL=0-a4dd0.js.map
