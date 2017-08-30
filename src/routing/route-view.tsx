@@ -32,8 +32,6 @@ interface RouteMatch {
   mod: BasicModule;
 }
 
-const ROUTE_PREFIX = process.env.ROUTE_PREFIX || "";
-
 // Utility functions
 
 const matchRoute = pipe(prop("re"), route.match(ROUTE_PREFIX));
