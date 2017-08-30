@@ -40,7 +40,38 @@ const flyIn = (direction: "left" | "right") => ({
   transition: "transform ease-out 0.5s, opacity ease-in 0.3s",
 });
 
+const zoom = () => ({
+  delayed: {
+    opacity: 1,
+    transform: "scale(1)",
+  },
+  opacity: 0,
+  remove: {
+    opacity: 0,
+    transform: "scale(0)",
+  },
+  transform: "scale(0)",
+  transition: "transform 0.5s, opacity ease-in 0.3s",
+});
+
+const dropInTwistOut = () => ({
+  delayed: {
+    opacity: 1,
+    transform: "scale(1) translateY(0)",
+  },
+  opacity: 0,
+  remove: {
+    opacity: 0,
+    transform: "rotateY(-90deg)",
+    transition: "transform 0.5s, opacity ease-out 0.5s",
+  },
+  transform: "scale(0) translateY(-100vh)",
+  transition: "transform 0.5s, opacity ease-in 0.3s",
+});
+
 export {
   crossFade,
   flyIn,
+  zoom,
+  dropInTwistOut,
 };

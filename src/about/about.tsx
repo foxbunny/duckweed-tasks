@@ -13,7 +13,7 @@ import * as fx from "shared/fx";
 
 const view = () => {
   return (
-    <div class={elements.wrapper} style={fx.crossFade()}>
+    <div class={elements.wrapper} style={fx.dropInTwistOut()}>
       <main class={elements.main}>
         <h1 class={css.title}>About this app</h1>
 

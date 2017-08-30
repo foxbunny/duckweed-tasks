@@ -137,7 +137,7 @@ const view = ({model, prefix = []}: Props): JSX.Element => {
   }, {lastValue: 0, offsets: []});
 
   return (
-    <div class={elements.wrapper} style={fx.crossFade()}>
+    <div class={elements.wrapper} style={fx.dropInTwistOut()}>
       <main class={elements.main}>
         <h1 class={css.title}>Task list</h1>
         <p class={css.buttonBar}>
