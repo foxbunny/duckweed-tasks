@@ -7,9 +7,11 @@ import * as curry from "ramda/src/curry";
 
 import * as qs from "query-string";
 
+const ROUTE_PREFIX = process.env.ROUTE_PREFIX || "";
+
 const go = (path: string, query: {[param: string]: any} = {}): void => {
   const q = qs.stringify(query);
-  const next = path + (q ? `?${q}` : "");
+  const next = ROUTE_PREFIX + path + (q ? `?${q}` : "");
   window.history.pushState(undefined, "", next);
   window.dispatchEvent(new Event("popstate"));
 };
