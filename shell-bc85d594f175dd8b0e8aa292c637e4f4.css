@@ -1,0 +1,177 @@
+/**
+ * (c) 2017 Hajime Yamasaki Vukelic
+ * All rights reserved.
+ */
+.wrapper-1mVco {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+}
+.main-3Cs3s {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 4px;
+}
+/**
+ * (c) 2017 Hajime Yamasaki Vukelic
+ * All rights reserved.
+ */
+.title-3wfn8 {
+  font-size: 200%;
+  margin: 1rem 0 2rem;
+}
+.body-29zdx > p {
+  margin-bottom: 1rem;
+  color: #777;
+}
+/**
+ * (c) 2017 Hajime Yamasaki Vukelic
+ * All rights reserved.
+ */
+.title-2Vzar {
+  font-size: 120%;
+  color: #555;
+  text-align: center;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+}
+.buttonBar-3RWL3 {
+  text-align: right;
+  background: #efefef;
+  margin-bottom: 1rem;
+  border-radius: 2px;
+}
+.tasks-mY1lL {
+  position: relative;
+}
+.task-18Jn4 {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.actionButton-3rOZ_ {
+  background: #469;
+  color: #fff;
+  padding: 0.3rem 1rem;
+  border-radius: 2px;
+  margin-left: 0.5rem;
+}
+.aside-1Xbnx {
+  font-size: 80%;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+/**
+ * (c) 2017 Hajime Yamasaki Vukelic
+ * All rights reserved.
+ */
+.task-y7fco {
+  margin: 1rem 0;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-content: center;
+  transition: opacity 0.5s;
+}
+.toggleDone-hF3mY {
+  display: inline-flex;
+  border-radius: 20px;
+  background: #808080;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  transition: background 0.3s;
+  margin-right: 1rem;
+}
+.toggleDone-hF3mY:hover {
+  background: #832;
+}
+.toggleCheckbox-1F668 {
+  display: none;
+}
+.toggleDoneLabel-16y6c {
+  display: inline-block;
+  color: #fff;
+  font-size: 80%;
+  width: 32px;
+  text-align: center;
+}
+.editBox-2Mb0s,
+.text-39h4M {
+  display: inline-block;
+  padding: 0.2rem;
+  width: 100%;
+  font-size: 140%;
+}
+.editBox-2Mb0s {
+  border-bottom: 1px dotted #ddd;
+}
+.text-39h4M {
+  cursor: pointer;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+.long-dnv71 {
+  font-size: 100%;
+}
+.done-5xpXe {
+  text-decoration: line-through;
+}
+.editButton-paaFV {
+  cursor: pointer;
+  padding: 0.2rem 1rem;
+  margin-left: 1rem;
+  border-radius: 2px;
+  height: 32px;
+}
+/**
+ * (c) 2017 Hajime Yamasaki Vukelic
+ * All rights reserved.
+ */
+* {
+  box-sizing: border-box;
+  font-size: 100%;
+  font-weight: normal;
+  font-style: normal;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  outline: 0;
+  border: 0;
+}
+html,
+body {
+  background: #eee;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+}
+/**
+ * (c) 2017 Hajime Yamasaki Vukelic
+ * All rights reserved.
+ */
+.nav-mLhoT {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  background: #fff;
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  text-align: right;
+  padding: 0.2rem 1rem;
+}
+.link-3zPtL {
+  text-transform: uppercase;
+  margin-left: 1rem;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.link-3zPtL:hover {
+  color: #579;
+}
+
+/*# sourceMappingURL=shell-bc85d594f175dd8b0e8aa292c637e4f4.css.map*/

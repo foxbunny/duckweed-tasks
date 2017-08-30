@@ -86,7 +86,7 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
-/******/ 		script.src = __webpack_require__.p + "" + chunkId + "-" + "7bc3f" + ".js";
+/******/ 		script.src = __webpack_require__.p + "" + chunkId + "-" + "684c4" + ".js";
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {
@@ -142,7 +142,7 @@
 /******/ 	__webpack_require__.oe = function(err) { console.error(err); throw err; };
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -319,6 +319,9 @@ var prepareProps = function (props) {
         else if (prop === "style") {
             finalProps.style = props[prop];
         }
+        else if (prop === "route") {
+            finalProps.route = actionHandler.apply(void 0, __spread(props[prop]));
+        }
         else {
             finalProps.props = finalProps.props || {};
             finalProps.props[prop] = props[prop];
@@ -342,7 +345,13 @@ var renderIntrinsic = function (elm, props, children) {
     return h_1.default(elm, prepareProps(props), children);
 };
 var renderFunction = function (func, props, children) {
-    return func(props, { __vnodes: children });
+    var key = props.key;
+    if (key) {
+        delete props.key;
+    }
+    var vnode = func(props, { __vnodes: children });
+    vnode.key = vnode.key || key;
+    return vnode;
 };
 var setActionHandler = function (func) { return actionHandler = func; };
 exports.setActionHandler = setActionHandler;
@@ -362,8 +371,223 @@ exports.default = html;
 
 
 /***/ }),
-/* 4 */,
-/* 5 */
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var strictUriEncode = __webpack_require__(20);
+var objectAssign = __webpack_require__(21);
+var decodeComponent = __webpack_require__(22);
+
+function encoderForArrayFormat(opts) {
+	switch (opts.arrayFormat) {
+		case 'index':
+			return function (key, value, index) {
+				return value === null ? [
+					encode(key, opts),
+					'[',
+					index,
+					']'
+				].join('') : [
+					encode(key, opts),
+					'[',
+					encode(index, opts),
+					']=',
+					encode(value, opts)
+				].join('');
+			};
+
+		case 'bracket':
+			return function (key, value) {
+				return value === null ? encode(key, opts) : [
+					encode(key, opts),
+					'[]=',
+					encode(value, opts)
+				].join('');
+			};
+
+		default:
+			return function (key, value) {
+				return value === null ? encode(key, opts) : [
+					encode(key, opts),
+					'=',
+					encode(value, opts)
+				].join('');
+			};
+	}
+}
+
+function parserForArrayFormat(opts) {
+	var result;
+
+	switch (opts.arrayFormat) {
+		case 'index':
+			return function (key, value, accumulator) {
+				result = /\[(\d*)\]$/.exec(key);
+
+				key = key.replace(/\[\d*\]$/, '');
+
+				if (!result) {
+					accumulator[key] = value;
+					return;
+				}
+
+				if (accumulator[key] === undefined) {
+					accumulator[key] = {};
+				}
+
+				accumulator[key][result[1]] = value;
+			};
+
+		case 'bracket':
+			return function (key, value, accumulator) {
+				result = /(\[\])$/.exec(key);
+				key = key.replace(/\[\]$/, '');
+
+				if (!result) {
+					accumulator[key] = value;
+					return;
+				} else if (accumulator[key] === undefined) {
+					accumulator[key] = [value];
+					return;
+				}
+
+				accumulator[key] = [].concat(accumulator[key], value);
+			};
+
+		default:
+			return function (key, value, accumulator) {
+				if (accumulator[key] === undefined) {
+					accumulator[key] = value;
+					return;
+				}
+
+				accumulator[key] = [].concat(accumulator[key], value);
+			};
+	}
+}
+
+function encode(value, opts) {
+	if (opts.encode) {
+		return opts.strict ? strictUriEncode(value) : encodeURIComponent(value);
+	}
+
+	return value;
+}
+
+function keysSorter(input) {
+	if (Array.isArray(input)) {
+		return input.sort();
+	} else if (typeof input === 'object') {
+		return keysSorter(Object.keys(input)).sort(function (a, b) {
+			return Number(a) - Number(b);
+		}).map(function (key) {
+			return input[key];
+		});
+	}
+
+	return input;
+}
+
+exports.extract = function (str) {
+	return str.split('?')[1] || '';
+};
+
+exports.parse = function (str, opts) {
+	opts = objectAssign({arrayFormat: 'none'}, opts);
+
+	var formatter = parserForArrayFormat(opts);
+
+	// Create an object with no prototype
+	// https://github.com/sindresorhus/query-string/issues/47
+	var ret = Object.create(null);
+
+	if (typeof str !== 'string') {
+		return ret;
+	}
+
+	str = str.trim().replace(/^(\?|#|&)/, '');
+
+	if (!str) {
+		return ret;
+	}
+
+	str.split('&').forEach(function (param) {
+		var parts = param.replace(/\+/g, ' ').split('=');
+		// Firefox (pre 40) decodes `%3D` to `=`
+		// https://github.com/sindresorhus/query-string/pull/37
+		var key = parts.shift();
+		var val = parts.length > 0 ? parts.join('=') : undefined;
+
+		// missing `=` should be `null`:
+		// http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
+		val = val === undefined ? null : decodeComponent(val);
+
+		formatter(decodeComponent(key), val, ret);
+	});
+
+	return Object.keys(ret).sort().reduce(function (result, key) {
+		var val = ret[key];
+		if (Boolean(val) && typeof val === 'object' && !Array.isArray(val)) {
+			// Sort object keys, not values
+			result[key] = keysSorter(val);
+		} else {
+			result[key] = val;
+		}
+
+		return result;
+	}, Object.create(null));
+};
+
+exports.stringify = function (obj, opts) {
+	var defaults = {
+		encode: true,
+		strict: true,
+		arrayFormat: 'none'
+	};
+
+	opts = objectAssign(defaults, opts);
+
+	var formatter = encoderForArrayFormat(opts);
+
+	return obj ? Object.keys(obj).sort().map(function (key) {
+		var val = obj[key];
+
+		if (val === undefined) {
+			return '';
+		}
+
+		if (val === null) {
+			return encode(key, opts);
+		}
+
+		if (Array.isArray(val)) {
+			var result = [];
+
+			val.slice().forEach(function (val2) {
+				if (val2 === undefined) {
+					return;
+				}
+
+				result.push(formatter(key, val2, result.length));
+			});
+
+			return result.join('&');
+		}
+
+		return encode(key, opts) + '=' + encode(val, opts);
+	}).filter(function (x) {
+		return x.length > 0;
+	}).join('&') : '';
+};
+
+
+/***/ }),
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -373,18 +597,26 @@ exports.default = html;
  * All rights reserved.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-var runner_1 = __webpack_require__(6);
+var runner_1 = __webpack_require__(9);
 // Define a symbol to make iterators work
 // See: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-3.html
 Symbol.asyncIterator = Symbol.asyncIterator || Symbol.for("Symbol.asyncIterator");
 __webpack_require__.e/* require.ensure */(0).then((function (require) {
-    var _a = __webpack_require__(4), init = _a.init, actions = _a.actions, view = _a.view;
-    runner_1.default(init(), actions, view);
+    var ROUTES = [
+        { re: /\/about$/, mod: __webpack_require__(5) },
+        { re: /^\/$/, mod: __webpack_require__(6) },
+    ];
+    var LINKS = [
+        ["/", "Tasks"],
+        ["/about", "About"],
+    ];
+    var _a = __webpack_require__(7), init = _a.init, actions = _a.actions, view = _a.view;
+    runner_1.default(init(ROUTES, LINKS), actions, view);
 }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 
 
 /***/ }),
-/* 6 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -450,26 +682,41 @@ var __spread = (this && this.__spread) || function () {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var snabbdom = __webpack_require__(7);
-var class_1 = __webpack_require__(10);
-var eventlisteners_1 = __webpack_require__(11);
-var props_1 = __webpack_require__(12);
-var style_1 = __webpack_require__(13);
-var documentevents_1 = __webpack_require__(14);
+var snabbdom = __webpack_require__(10);
+var class_1 = __webpack_require__(13);
+var eventlisteners_1 = __webpack_require__(14);
+var props_1 = __webpack_require__(15);
+var style_1 = __webpack_require__(16);
+var documentevents_1 = __webpack_require__(17);
 var html_1 = __webpack_require__(3);
-var keyevents_1 = __webpack_require__(15);
-var patch = snabbdom.init([class_1.default, style_1.default, eventlisteners_1.default, props_1.default, documentevents_1.default, keyevents_1.default]);
+var keyevents_1 = __webpack_require__(18);
+var routeevents_1 = __webpack_require__(19);
+var patch = snabbdom.init([
+    class_1.default,
+    style_1.default,
+    eventlisteners_1.default,
+    props_1.default,
+    documentevents_1.default,
+    keyevents_1.default,
+    routeevents_1.default,
+]);
 var isInput = function (target) {
-    return typeof target.value !== "undefined";
+    return target.tagName === "INPUT";
 };
 var isCheckbox = function (target) {
-    return typeof target.value !== "undefined" && target.type === "checkbox";
+    return target.tagName === "INPUT" && target.type === "checkbox";
+};
+var isAnchor = function (target) {
+    return target.tagName === "A";
 };
 var isEvent = function (event) {
     return event instanceof Event;
 };
 var isVNnode = function (vnode) {
     return typeof vnode === "object" && "sel" in vnode;
+};
+var isPathData = function (data) {
+    return typeof data === "object" && typeof data.pathname === "string";
 };
 var runner = function (model, actions, view, root) {
     if (root === void 0) { root = "#app"; }
@@ -523,6 +770,15 @@ var runner = function (model, actions, view, root) {
                                 e.preventDefault();
                                 args = args.concat(e.target.value);
                             }
+                            else if (isEvent(e) && isAnchor(e.target)) {
+                                e.preventDefault();
+                                if (e.target.href) {
+                                    args = args.concat(e.target.href.replace(location.origin, ""));
+                                }
+                            }
+                            else if (isPathData(e)) {
+                                args = args.concat(e);
+                            }
                             actionFn.apply(void 0, __spread([patchModel], args));
                             return [2 /*return*/];
                         });
@@ -540,7 +796,7 @@ exports.default = runner;
 
 
 /***/ }),
-/* 7 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -548,7 +804,7 @@ exports.default = runner;
 Object.defineProperty(exports, "__esModule", { value: true });
 var vnode_1 = __webpack_require__(1);
 var is = __webpack_require__(2);
-var htmldomapi_1 = __webpack_require__(8);
+var htmldomapi_1 = __webpack_require__(11);
 function isUndef(s) { return s === undefined; }
 function isDef(s) { return s !== undefined; }
 var emptyNode = vnode_1.default('', {}, [], undefined, undefined);
@@ -573,7 +829,7 @@ function createKeyToOldIdx(children, beginIdx, endIdx) {
 var hooks = ['create', 'update', 'remove', 'destroy', 'pre', 'post'];
 var h_1 = __webpack_require__(0);
 exports.h = h_1.h;
-var thunk_1 = __webpack_require__(9);
+var thunk_1 = __webpack_require__(12);
 exports.thunk = thunk_1.thunk;
 function init(modules, domApi) {
     var i, j, cbs = {};
@@ -853,7 +1109,7 @@ exports.init = init;
 //# sourceMappingURL=snabbdom.js.map
 
 /***/ }),
-/* 8 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -925,7 +1181,7 @@ exports.default = exports.htmlDomApi;
 //# sourceMappingURL=htmldomapi.js.map
 
 /***/ }),
-/* 9 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -978,7 +1234,7 @@ exports.default = exports.thunk;
 //# sourceMappingURL=thunk.js.map
 
 /***/ }),
-/* 10 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1009,7 +1265,7 @@ exports.default = exports.classModule;
 //# sourceMappingURL=class.js.map
 
 /***/ }),
-/* 11 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1110,7 +1366,7 @@ exports.default = exports.eventListenersModule;
 //# sourceMappingURL=eventlisteners.js.map
 
 /***/ }),
-/* 12 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1142,7 +1398,7 @@ exports.default = exports.propsModule;
 //# sourceMappingURL=props.js.map
 
 /***/ }),
-/* 13 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1234,7 +1490,7 @@ exports.default = exports.styleModule;
 //# sourceMappingURL=style.js.map
 
 /***/ }),
-/* 14 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1333,7 +1589,7 @@ exports.default = module;
 
 
 /***/ }),
-/* 15 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1437,6 +1693,275 @@ exports.module = module;
 exports.default = module;
 
 
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/**
+ * (c) 2017 Hajime Yamasaki Vukelic
+ * All rights reserved.
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+var qs = __webpack_require__(4);
+var handleEvent = function (data, vnode) {
+    var route = vnode.data.route;
+    if (typeof route === "function") {
+        route(data);
+    }
+};
+var createListener = function () {
+    var handler = function (event) {
+        var pathData = {
+            hash: location.hash,
+            params: qs.parse(location.search),
+            pathname: location.pathname,
+            query: location.search,
+            type: "popstate",
+        };
+        handleEvent(pathData, handler.vnode);
+    };
+    return handler;
+};
+var updateListener = function (oldVNode, vnode) {
+    var oldRoute = oldVNode.data.route;
+    var route = vnode && vnode.data.route;
+    if (oldRoute === route) {
+        return;
+    }
+    var oldListener = oldVNode.routeListener;
+    // Remove existing listener
+    if (oldRoute && oldListener) {
+        window.removeEventListener("popstate", oldListener, false);
+    }
+    if (route) {
+        var listener = createListener();
+        listener.vnode = vnode;
+        vnode.routeListener = listener;
+        window.addEventListener("popstate", listener, false);
+    }
+};
+var module = {
+    create: updateListener,
+    destroy: updateListener,
+    update: updateListener,
+};
+exports.module = module;
+exports.default = module;
+
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+module.exports = function (str) {
+	return encodeURIComponent(str).replace(/[!'()*]/g, function (c) {
+		return '%' + c.charCodeAt(0).toString(16).toUpperCase();
+	});
+};
+
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+
+
+/* eslint-disable no-unused-vars */
+var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+function toObject(val) {
+	if (val === null || val === undefined) {
+		throw new TypeError('Object.assign cannot be called with null or undefined');
+	}
+
+	return Object(val);
+}
+
+function shouldUseNative() {
+	try {
+		if (!Object.assign) {
+			return false;
+		}
+
+		// Detect buggy property enumeration order in older V8 versions.
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
+		var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
+		test1[5] = 'de';
+		if (Object.getOwnPropertyNames(test1)[0] === '5') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test2 = {};
+		for (var i = 0; i < 10; i++) {
+			test2['_' + String.fromCharCode(i)] = i;
+		}
+		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
+			return test2[n];
+		});
+		if (order2.join('') !== '0123456789') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test3 = {};
+		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+			test3[letter] = letter;
+		});
+		if (Object.keys(Object.assign({}, test3)).join('') !==
+				'abcdefghijklmnopqrst') {
+			return false;
+		}
+
+		return true;
+	} catch (err) {
+		// We don't expect any of the above to throw, but better to be safe.
+		return false;
+	}
+}
+
+module.exports = shouldUseNative() ? Object.assign : function (target, source) {
+	var from;
+	var to = toObject(target);
+	var symbols;
+
+	for (var s = 1; s < arguments.length; s++) {
+		from = Object(arguments[s]);
+
+		for (var key in from) {
+			if (hasOwnProperty.call(from, key)) {
+				to[key] = from[key];
+			}
+		}
+
+		if (getOwnPropertySymbols) {
+			symbols = getOwnPropertySymbols(from);
+			for (var i = 0; i < symbols.length; i++) {
+				if (propIsEnumerable.call(from, symbols[i])) {
+					to[symbols[i]] = from[symbols[i]];
+				}
+			}
+		}
+	}
+
+	return to;
+};
+
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var token = '%[a-f0-9]{2}';
+var singleMatcher = new RegExp(token, 'gi');
+var multiMatcher = new RegExp('(' + token + ')+', 'gi');
+
+function decodeComponents(components, split) {
+	try {
+		// Try to decode the entire string first
+		return decodeURIComponent(components.join(''));
+	} catch (err) {
+		// Do nothing
+	}
+
+	if (components.length === 1) {
+		return components;
+	}
+
+	split = split || 1;
+
+	// Split the array in 2 parts
+	var left = components.slice(0, split);
+	var right = components.slice(split);
+
+	return Array.prototype.concat.call([], decodeComponents(left), decodeComponents(right));
+}
+
+function decode(input) {
+	try {
+		return decodeURIComponent(input);
+	} catch (err) {
+		var tokens = input.match(singleMatcher);
+
+		for (var i = 1; i < tokens.length; i++) {
+			input = decodeComponents(tokens, i).join('');
+
+			tokens = input.match(singleMatcher);
+		}
+
+		return input;
+	}
+}
+
+function customDecodeURIComponent(input) {
+	// Keep track of all the replacements and prefill the map with the `BOM`
+	var replaceMap = {
+		'%FE%FF': '\uFFFD\uFFFD',
+		'%FF%FE': '\uFFFD\uFFFD'
+	};
+
+	var match = multiMatcher.exec(input);
+	while (match) {
+		try {
+			// Decode as big chunks as possible
+			replaceMap[match[0]] = decodeURIComponent(match[0]);
+		} catch (err) {
+			var result = decode(match[0]);
+
+			if (result !== match[0]) {
+				replaceMap[match[0]] = result;
+			}
+		}
+
+		match = multiMatcher.exec(input);
+	}
+
+	// Add `%C2` at the end of the map to make sure it does not replace the combinator before everything else
+	replaceMap['%C2'] = '\uFFFD';
+
+	var entries = Object.keys(replaceMap);
+
+	for (var i = 0; i < entries.length; i++) {
+		// Replace all decoded components
+		var key = entries[i];
+		input = input.replace(new RegExp(key, 'g'), replaceMap[key]);
+	}
+
+	return input;
+}
+
+module.exports = function (encodedURI) {
+	if (typeof encodedURI !== 'string') {
+		throw new TypeError('Expected `encodedURI` to be of type `string`, got `' + typeof encodedURI + '`');
+	}
+
+	try {
+		encodedURI = encodedURI.replace(/\+/g, ' ');
+
+		// Try the built in decoder first
+		return decodeURIComponent(encodedURI);
+	} catch (err) {
+		// Fallback to a more advanced decoder
+		return customDecodeURIComponent(encodedURI);
+	}
+};
+
+
 /***/ })
 /******/ ]);
-//# sourceMappingURL=shell-7bc3f.js.map
+//# sourceMappingURL=shell-684c4.js.map
