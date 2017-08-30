@@ -40,19 +40,30 @@ const isVNnode = (vnode: any): vnode is VNode =>
 const runner = async <T = any> (model: T, actions: Actions<T>, view: RenderFunction, root: string = "#app") => {
   let currentVNodes: HTMLElement | VNode = document.querySelector(root) as HTMLElement;
   let currentModel = model;
+  let renderTimer: number | null = null;
 
   // Prepare helpers
 
-  const render = () => currentVNodes = patch(currentVNodes, html(view, {model: currentModel}));
+  const render = () => {
+    currentVNodes = patch(currentVNodes, html(view, {model: currentModel}));
+    renderTimer = null;
+  };
 
   const patchModel: ModelPatcher<T> = (fn) => {
     currentModel = fn(currentModel);
     // Render on next tick in order to prevent recurisve rendering if hooks
     // perform a patch
-    setTimeout(render);
+    if (renderTimer) {
+      clearTimeout(renderTimer);
+    }
+    renderTimer = setTimeout(render);
   };
 
   const actionHandler = (action: any, ...args: any[]) => async (e?: Event | VNode, ...eventArgs: any[]) => {
+    if (action == null) {
+      return;
+    }
+
     const actionFn = actions[action];
 
     if (isVNnode(e)) {
