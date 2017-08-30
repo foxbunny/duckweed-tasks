@@ -14,6 +14,7 @@ import style from "snabbdom/modules/style";
 import documentevents from "runtime/documentevents";
 import html, {RenderFunction, setActionHandler} from "runtime/html";
 import keyevents from "runtime/keyevents";
+import routeevents, {PathData} from "runtime/routeevents";
 
 type PatchFunction<T = any> = (model: T) => T;
 
@@ -23,19 +24,33 @@ interface Actions<T = any> {
   [action: string]: (patch: ModelPatcher<T>, ...args: any[]) => Promise<void>;
 }
 
-const patch = snabbdom.init([classes, style, events, props, documentevents, keyevents]);
+const patch = snabbdom.init([
+  classes,
+  style,
+  events,
+  props,
+  documentevents,
+  keyevents,
+  routeevents,
+]);
 
 const isInput = (target: any): target is HTMLInputElement =>
-  typeof target.value !== "undefined";
+  target.tagName === "INPUT";
 
 const isCheckbox = (target: any): target is HTMLInputElement =>
-  typeof target.value !== "undefined" && target.type === "checkbox";
+  target.tagName === "INPUT" && target.type === "checkbox";
+
+const isAnchor = (target: any): target is HTMLAnchorElement =>
+  target.tagName === "A";
 
 const isEvent = (event: any): event is Event =>
   event instanceof Event;
 
 const isVNnode = (vnode: any): vnode is VNode =>
   typeof vnode === "object" && "sel" in vnode;
+
+const isPathData = (data: any): data is PathData =>
+  typeof data === "object" && typeof data.pathname === "string";
 
 const runner = async <T = any> (model: T, actions: Actions<T>, view: RenderFunction, root: string = "#app") => {
   let currentVNodes: HTMLElement | VNode = document.querySelector(root) as HTMLElement;
@@ -59,7 +74,7 @@ const runner = async <T = any> (model: T, actions: Actions<T>, view: RenderFunct
     renderTimer = setTimeout(render);
   };
 
-  const actionHandler = (action: any, ...args: any[]) => async (e?: Event | VNode, ...eventArgs: any[]) => {
+  const actionHandler = (action: any, ...args: any[]) => async (e?: Event | VNode | PathData, ...eventArgs: any[]) => {
     if (action == null) {
       return;
     }
@@ -76,6 +91,13 @@ const runner = async <T = any> (model: T, actions: Actions<T>, view: RenderFunct
       // For convenience, process events and extract implied arguments
       e.preventDefault();
       args = args.concat(e.target.value);
+    } else if (isEvent(e) && isAnchor(e.target)) {
+      e.preventDefault();
+      if (e.target.href) {
+        args = args.concat(e.target.href.replace(location.origin, ""));
+      }
+    } else if (isPathData(e)) {
+      args = args.concat(e);
     }
 
     actionFn(patchModel, ...args);

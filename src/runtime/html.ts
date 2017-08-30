@@ -17,6 +17,11 @@ interface GenericProps {
   [prop: string]: any;
 }
 
+interface PropsBase {
+  key?: string;
+  prefix?: any[];
+}
+
 type RenderFunction<T = any> = (props?: T, children?: InlineChild) => VNode;
 
 type ActionHandler = (action?: any, ...args: any[]) => (e?: Event) => any;
@@ -66,6 +71,8 @@ const prepareProps = (props: GenericProps | null): GenericProps => {
       finalProps.class = prepareClasses(props[prop]);
     } else if (prop === "style") {
       finalProps.style = props[prop];
+    } else if (prop === "route") {
+      finalProps.route = actionHandler(...props[prop]);
     } else {
       finalProps.props = finalProps.props || {};
       finalProps.props[prop] = props[prop];
@@ -91,7 +98,13 @@ const renderIntrinsic = (elm: string, props: GenericProps, children: ChildVNodes
 };
 
 const renderFunction = (func: RenderFunction, props: any, children: ChildVNodes): VNode => {
-  return func(props, {__vnodes: children});
+  const key = props.key;
+  if (key) {
+    delete props.key;
+  }
+  const vnode = func(props, {__vnodes: children});
+  vnode.key = vnode.key || key;
+  return vnode;
 };
 
 const setActionHandler = (func: ActionHandler) => actionHandler = func;
@@ -106,6 +119,7 @@ const html = (elm: string | RenderFunction, props: any, ...children: ChildVNodes
 
 export {
   GenericProps,
+  PropsBase,
   RenderFunction,
   ActionHandler,
   setActionHandler,

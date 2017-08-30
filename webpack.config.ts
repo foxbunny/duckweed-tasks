@@ -16,6 +16,9 @@ interface Env {
 
 export default function(env: Env | void): webpack.Configuration {
   const commonPlugins = [
+    new webpack.DefinePlugin({
+      ROUTE_PREFIX: JSON.stringify(env && env.prefix || ""),
+    }),
     new HTMLWebpackPlugin({
       template: path.resolve(__dirname, "static/index.html"),
     }),

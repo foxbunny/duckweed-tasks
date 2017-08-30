@@ -3,6 +3,7 @@
  * All rights reserved.
  */
 
+const elements = require<CSSModule>("shared/elements.styl");
 const css = require<CSSModule>("./list.styl");
 
 import * as adjust from "ramda/src/adjust";
@@ -21,8 +22,9 @@ import * as sort from "ramda/src/sort";
 import * as sum from "ramda/src/sum";
 import * as tap from "ramda/src/tap";
 
-import html from "runtime/html";
+import html, {PropsBase} from "runtime/html";
 import {ModelPatcher, PatchFunction} from "runtime/runner";
+import * as fx from "shared/fx";
 
 import * as task from "./task";
 
@@ -119,11 +121,11 @@ const actions = {
 
 // View
 
-interface Props {
+interface Props extends PropsBase {
   model: Model;
 }
 
-const view = ({model}: Props): JSX.Element => {
+const view = ({model, prefix = []}: Props): JSX.Element => {
   const listHeight = sum(map(prop("itemHeight"), model.tasks)) + model.tasks.length * 10;
   const {offsets: listItemOffsets} = model.tasks.reduce((offsets, {itemHeight}) => {
     (offsets.offsets as number[]).push(offsets.lastValue);
@@ -132,21 +134,12 @@ const view = ({model}: Props): JSX.Element => {
   }, {lastValue: 0, offsets: []});
 
   return (
-    <div style={{
-      delayed: {
-        transform: "translateX(0)",
-      },
-      remove: {
-        transform: "translateX(-100vw)",
-      },
-      transform: "translateX(-100vw)",
-      transition: "transform 1s",
-    }}>
-      <main class={css.main}>
+    <div class={elements.wrapper} style={fx.crossFade()}>
+      <main class={elements.main}>
         <h1 class={css.title}>Task list</h1>
         <p class={css.buttonBar}>
-          <button class={css.actionButton} on-click={[Action.Add]}>+ Add task</button>
-          <button class={css.actionButton} on-click={[Action.ClearDone]}>Clear done</button>
+          <button class={css.actionButton} on-click={prefix.concat(Action.Add)}>+ Add task</button>
+          <button class={css.actionButton} on-click={prefix.concat(Action.ClearDone)}>Clear done</button>
         </p>
         <div class={css.tasks} style={{
           delayed: {
@@ -158,7 +151,7 @@ const view = ({model}: Props): JSX.Element => {
           {model.tasks.map((item: task.Model, index) =>
             <task.view
               model={item}
-              prefix={[Action.Update, index]}
+              prefix={prefix.concat(Action.Update, index)}
               classes={[css.task]}
               styles={{
                 delayed: {

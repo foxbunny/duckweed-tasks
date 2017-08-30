@@ -12,7 +12,7 @@ import * as lensProp from "ramda/src/lensProp";
 import * as not from "ramda/src/not";
 import * as over from "ramda/src/over";
 
-import html from "runtime/html";
+import html, {PropsBase} from "runtime/html";
 import {ModelPatcher} from "runtime/runner";
 
 // Model
@@ -69,9 +69,8 @@ const actions = {
 
 // View
 
-interface Props {
+interface Props extends PropsBase {
   model: Model;
-  prefix?: any[];
   classes?: any[];
   styles?: any;
 }

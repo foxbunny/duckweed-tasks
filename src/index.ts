@@ -7,11 +7,29 @@ import runner from "runtime/runner";
 
 import * as mainModule from "./main";
 
+import * as aboutModule from "about/about";
+import * as taskListModule from "tasks/list";
+
 // Define a symbol to make iterators work
 // See: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-3.html
 (Symbol as any).asyncIterator = Symbol.asyncIterator || Symbol.for("Symbol.asyncIterator");
 
-require.ensure(["./main"], (require) => {
+require.ensure([
+  "about/about",
+  "tasks/list",
+  "./main",
+], (require) => {
+
+  const ROUTES = [
+    {re: /\/about$/,  mod: require<typeof aboutModule>("about/about")},
+    {re: /^\/$/,      mod: require<typeof taskListModule>("tasks/list")},
+  ];
+
+  const LINKS: Array<[string, string]> = [
+    ["/", "Tasks"],
+    ["/about", "About"],
+  ];
+
   const {init, actions, view} = require<typeof mainModule>("./main");
-  runner<mainModule.Model>(init(), actions, view);
+  runner<mainModule.Model>(init(ROUTES, LINKS), actions, view);
 });
