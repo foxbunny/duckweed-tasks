@@ -15,7 +15,7 @@ webpackJsonp([0],[
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 var elements = __webpack_require__(33);
-var css = __webpack_require__(51);
+var css = __webpack_require__(52);
 var html_1 = __webpack_require__(3);
 var fx = __webpack_require__(34);
 // View
@@ -82,25 +82,25 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var elements = __webpack_require__(33);
-var css = __webpack_require__(52);
-var adjust = __webpack_require__(53);
-var apply = __webpack_require__(54);
-var concat = __webpack_require__(55);
-var descend = __webpack_require__(78);
+var css = __webpack_require__(53);
+var adjust = __webpack_require__(54);
+var apply = __webpack_require__(55);
+var concat = __webpack_require__(56);
+var descend = __webpack_require__(79);
 var filter = __webpack_require__(39);
 var lensProp = __webpack_require__(42);
 var map = __webpack_require__(44);
 var over = __webpack_require__(46);
 var pipe = __webpack_require__(47);
-var prepend = __webpack_require__(85);
+var prepend = __webpack_require__(86);
 var prop = __webpack_require__(32);
-var propEq = __webpack_require__(86);
-var sort = __webpack_require__(87);
-var sum = __webpack_require__(88);
-var tap = __webpack_require__(90);
+var propEq = __webpack_require__(87);
+var sort = __webpack_require__(88);
+var sum = __webpack_require__(89);
+var tap = __webpack_require__(91);
 var html_1 = __webpack_require__(3);
 var fx = __webpack_require__(34);
-var task = __webpack_require__(91);
+var task = __webpack_require__(92);
 // Storage management
 var STORAGE_KEY = "tasks";
 var retrieve = function () {
@@ -225,8 +225,8 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__webpack_require__(94);
-__export(__webpack_require__(95));
+__webpack_require__(95);
+__export(__webpack_require__(96));
 
 
 /***/ }),
@@ -388,7 +388,7 @@ module.exports = Array.isArray || function _isArray(val) {
 
 var _curry1 = __webpack_require__(24);
 var _has = __webpack_require__(30);
-var _isArguments = __webpack_require__(65);
+var _isArguments = __webpack_require__(66);
 
 
 /**
@@ -498,9 +498,9 @@ module.exports = function _has(prop, obj) {
 /* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _isArrayLike = __webpack_require__(74);
-var _xwrap = __webpack_require__(75);
-var bind = __webpack_require__(76);
+var _isArrayLike = __webpack_require__(75);
+var _xwrap = __webpack_require__(76);
+var bind = __webpack_require__(77);
 
 
 module.exports = (function() {
@@ -700,7 +700,7 @@ module.exports = function _isString(x) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(23);
-var _equals = __webpack_require__(61);
+var _equals = __webpack_require__(62);
 
 
 /**
@@ -755,10 +755,10 @@ module.exports = function _map(fn, functor) {
 
 var _curry2 = __webpack_require__(23);
 var _dispatchable = __webpack_require__(40);
-var _filter = __webpack_require__(72);
-var _isObject = __webpack_require__(73);
+var _filter = __webpack_require__(73);
+var _isObject = __webpack_require__(74);
 var _reduce = __webpack_require__(31);
-var _xfilter = __webpack_require__(77);
+var _xfilter = __webpack_require__(78);
 var keys = __webpack_require__(28);
 
 
@@ -809,7 +809,7 @@ module.exports = _curry2(_dispatchable(['filter'], _xfilter, function(pred, filt
 /***/ (function(module, exports, __webpack_require__) {
 
 var _isArray = __webpack_require__(27);
-var _isTransformer = __webpack_require__(71);
+var _isTransformer = __webpack_require__(72);
 
 
 /**
@@ -871,7 +871,7 @@ module.exports = {
 
 var _curry1 = __webpack_require__(24);
 var assoc = __webpack_require__(43);
-var lens = __webpack_require__(79);
+var lens = __webpack_require__(80);
 var prop = __webpack_require__(32);
 
 
@@ -945,7 +945,7 @@ var _curry2 = __webpack_require__(23);
 var _dispatchable = __webpack_require__(40);
 var _map = __webpack_require__(38);
 var _reduce = __webpack_require__(31);
-var _xmap = __webpack_require__(80);
+var _xmap = __webpack_require__(81);
 var curryN = __webpack_require__(45);
 var keys = __webpack_require__(28);
 
@@ -1009,7 +1009,7 @@ module.exports = _curry2(_dispatchable(['fantasy-land/map', 'map'], _xmap, funct
 var _arity = __webpack_require__(29);
 var _curry1 = __webpack_require__(24);
 var _curry2 = __webpack_require__(23);
-var _curryN = __webpack_require__(81);
+var _curryN = __webpack_require__(82);
 
 
 /**
@@ -1112,9 +1112,9 @@ module.exports = (function() {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _arity = __webpack_require__(29);
-var _pipe = __webpack_require__(82);
+var _pipe = __webpack_require__(83);
 var reduce = __webpack_require__(48);
-var tail = __webpack_require__(83);
+var tail = __webpack_require__(84);
 
 
 /**
@@ -1239,1637 +1239,6 @@ module.exports = function _checkForMethod(methodname, fn) {
 
 /***/ }),
 /* 50 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/**
- * (c) 2017 Hajime Yamasaki Vukelic
- * All rights reserved.
- */
-Object.defineProperty(exports, "__esModule", { value: true });
-var curry = __webpack_require__(97);
-var qs = __webpack_require__(4);
-var go = function (path, query) {
-    if (query === void 0) { query = {}; }
-    var q = qs.stringify(query);
-    var next = path + (q ? "?" + q : "");
-    window.history.pushState(undefined, "", next);
-    window.dispatchEvent(new Event("popstate"));
-};
-exports.go = go;
-var match = curry(function (prefix, re) {
-    var m = re.exec(location.pathname.slice(prefix.length));
-    return m
-        ? m.slice(1)
-        : false;
-});
-exports.match = match;
-
-
-/***/ }),
-/* 51 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-module.exports = {"title":"title-3wfn8","body":"body-29zdx"};
-
-/***/ }),
-/* 52 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-module.exports = {"title":"title-2Vzar","buttonBar":"buttonBar-3RWL3","tasks":"tasks-mY1lL","task":"task-18Jn4","actionButton":"actionButton-3rOZ_","aside":"aside-1Xbnx"};
-
-/***/ }),
-/* 53 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _concat = __webpack_require__(35);
-var _curry3 = __webpack_require__(25);
-
-
-/**
- * Applies a function to the value at the given index of an array, returning a
- * new copy of the array with the element at the given index replaced with the
- * result of the function application.
- *
- * @func
- * @memberOf R
- * @since v0.14.0
- * @category List
- * @sig (a -> a) -> Number -> [a] -> [a]
- * @param {Function} fn The function to apply.
- * @param {Number} idx The index.
- * @param {Array|Arguments} list An array-like object whose value
- *        at the supplied index will be replaced.
- * @return {Array} A copy of the supplied array-like object with
- *         the element at index `idx` replaced with the value
- *         returned by applying `fn` to the existing element.
- * @see R.update
- * @example
- *
- *      R.adjust(R.add(10), 1, [1, 2, 3]);     //=> [1, 12, 3]
- *      R.adjust(R.add(10))(1)([1, 2, 3]);     //=> [1, 12, 3]
- * @symb R.adjust(f, -1, [a, b]) = [a, f(b)]
- * @symb R.adjust(f, 0, [a, b]) = [f(a), b]
- */
-module.exports = _curry3(function adjust(fn, idx, list) {
-  if (idx >= list.length || idx < -list.length) {
-    return list;
-  }
-  var start = idx < 0 ? list.length : 0;
-  var _idx = start + idx;
-  var _list = _concat(list);
-  _list[_idx] = fn(list[_idx]);
-  return _list;
-});
-
-
-/***/ }),
-/* 54 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _curry2 = __webpack_require__(23);
-
-
-/**
- * Applies function `fn` to the argument list `args`. This is useful for
- * creating a fixed-arity function from a variadic function. `fn` should be a
- * bound function if context is significant.
- *
- * @func
- * @memberOf R
- * @since v0.7.0
- * @category Function
- * @sig (*... -> a) -> [*] -> a
- * @param {Function} fn The function which will be called with `args`
- * @param {Array} args The arguments to call `fn` with
- * @return {*} result The result, equivalent to `fn(...args)`
- * @see R.call, R.unapply
- * @example
- *
- *      var nums = [1, 2, 3, -99, 42, 6, 7];
- *      R.apply(Math.max, nums); //=> 42
- * @symb R.apply(f, [a, b, c]) = f(a, b, c)
- */
-module.exports = _curry2(function apply(fn, args) {
-  return fn.apply(this, args);
-});
-
-
-/***/ }),
-/* 55 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _curry2 = __webpack_require__(23);
-var _isArray = __webpack_require__(27);
-var _isFunction = __webpack_require__(56);
-var _isString = __webpack_require__(36);
-var toString = __webpack_require__(57);
-
-
-/**
- * Returns the result of concatenating the given lists or strings.
- *
- * Note: `R.concat` expects both arguments to be of the same type,
- * unlike the native `Array.prototype.concat` method. It will throw
- * an error if you `concat` an Array with a non-Array value.
- *
- * Dispatches to the `concat` method of the first argument, if present.
- *
- * @func
- * @memberOf R
- * @since v0.1.0
- * @category List
- * @sig [a] -> [a] -> [a]
- * @sig String -> String -> String
- * @param {Array|String} firstList The first list
- * @param {Array|String} secondList The second list
- * @return {Array|String} A list consisting of the elements of `firstList` followed by the elements of
- * `secondList`.
- *
- * @example
- *
- *      R.concat('ABC', 'DEF'); // 'ABCDEF'
- *      R.concat([4, 5, 6], [1, 2, 3]); //=> [4, 5, 6, 1, 2, 3]
- *      R.concat([], []); //=> []
- */
-module.exports = _curry2(function concat(a, b) {
-  if (_isArray(a)) {
-    if (_isArray(b)) {
-      return a.concat(b);
-    }
-    throw new TypeError(toString(b) + ' is not an array');
-  }
-  if (_isString(a)) {
-    if (_isString(b)) {
-      return a + b;
-    }
-    throw new TypeError(toString(b) + ' is not a string');
-  }
-  if (a != null && _isFunction(a['fantasy-land/concat'])) {
-    return a['fantasy-land/concat'](b);
-  }
-  if (a != null && _isFunction(a.concat)) {
-    return a.concat(b);
-  }
-  throw new TypeError(toString(a) + ' does not have a method named "concat" or "fantasy-land/concat"');
-});
-
-
-/***/ }),
-/* 56 */
-/***/ (function(module, exports) {
-
-module.exports = function _isFunction(x) {
-  return Object.prototype.toString.call(x) === '[object Function]';
-};
-
-
-/***/ }),
-/* 57 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _curry1 = __webpack_require__(24);
-var _toString = __webpack_require__(58);
-
-
-/**
- * Returns the string representation of the given value. `eval`'ing the output
- * should result in a value equivalent to the input value. Many of the built-in
- * `toString` methods do not satisfy this requirement.
- *
- * If the given value is an `[object Object]` with a `toString` method other
- * than `Object.prototype.toString`, this method is invoked with no arguments
- * to produce the return value. This means user-defined constructor functions
- * can provide a suitable `toString` method. For example:
- *
- *     function Point(x, y) {
- *       this.x = x;
- *       this.y = y;
- *     }
- *
- *     Point.prototype.toString = function() {
- *       return 'new Point(' + this.x + ', ' + this.y + ')';
- *     };
- *
- *     R.toString(new Point(1, 2)); //=> 'new Point(1, 2)'
- *
- * @func
- * @memberOf R
- * @since v0.14.0
- * @category String
- * @sig * -> String
- * @param {*} val
- * @return {String}
- * @example
- *
- *      R.toString(42); //=> '42'
- *      R.toString('abc'); //=> '"abc"'
- *      R.toString([1, 2, 3]); //=> '[1, 2, 3]'
- *      R.toString({foo: 1, bar: 2, baz: 3}); //=> '{"bar": 2, "baz": 3, "foo": 1}'
- *      R.toString(new Date('2001-02-03T04:05:06Z')); //=> 'new Date("2001-02-03T04:05:06.000Z")'
- */
-module.exports = _curry1(function toString(val) { return _toString(val, []); });
-
-
-/***/ }),
-/* 58 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _contains = __webpack_require__(59);
-var _map = __webpack_require__(38);
-var _quote = __webpack_require__(67);
-var _toISOString = __webpack_require__(68);
-var keys = __webpack_require__(28);
-var reject = __webpack_require__(69);
-
-
-module.exports = function _toString(x, seen) {
-  var recur = function recur(y) {
-    var xs = seen.concat([x]);
-    return _contains(y, xs) ? '<Circular>' : _toString(y, xs);
-  };
-
-  //  mapPairs :: (Object, [String]) -> [String]
-  var mapPairs = function(obj, keys) {
-    return _map(function(k) { return _quote(k) + ': ' + recur(obj[k]); }, keys.slice().sort());
-  };
-
-  switch (Object.prototype.toString.call(x)) {
-    case '[object Arguments]':
-      return '(function() { return arguments; }(' + _map(recur, x).join(', ') + '))';
-    case '[object Array]':
-      return '[' + _map(recur, x).concat(mapPairs(x, reject(function(k) { return /^\d+$/.test(k); }, keys(x)))).join(', ') + ']';
-    case '[object Boolean]':
-      return typeof x === 'object' ? 'new Boolean(' + recur(x.valueOf()) + ')' : x.toString();
-    case '[object Date]':
-      return 'new Date(' + (isNaN(x.valueOf()) ? recur(NaN) : _quote(_toISOString(x))) + ')';
-    case '[object Null]':
-      return 'null';
-    case '[object Number]':
-      return typeof x === 'object' ? 'new Number(' + recur(x.valueOf()) + ')' : 1 / x === -Infinity ? '-0' : x.toString(10);
-    case '[object String]':
-      return typeof x === 'object' ? 'new String(' + recur(x.valueOf()) + ')' : _quote(x);
-    case '[object Undefined]':
-      return 'undefined';
-    default:
-      if (typeof x.toString === 'function') {
-        var repr = x.toString();
-        if (repr !== '[object Object]') {
-          return repr;
-        }
-      }
-      return '{' + mapPairs(x, keys(x)).join(', ') + '}';
-  }
-};
-
-
-/***/ }),
-/* 59 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _indexOf = __webpack_require__(60);
-
-
-module.exports = function _contains(a, list) {
-  return _indexOf(list, a, 0) >= 0;
-};
-
-
-/***/ }),
-/* 60 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var equals = __webpack_require__(37);
-
-
-module.exports = function _indexOf(list, a, idx) {
-  var inf, item;
-  // Array.prototype.indexOf doesn't exist below IE9
-  if (typeof list.indexOf === 'function') {
-    switch (typeof a) {
-      case 'number':
-        if (a === 0) {
-          // manually crawl the list to distinguish between +0 and -0
-          inf = 1 / a;
-          while (idx < list.length) {
-            item = list[idx];
-            if (item === 0 && 1 / item === inf) {
-              return idx;
-            }
-            idx += 1;
-          }
-          return -1;
-        } else if (a !== a) {
-          // NaN
-          while (idx < list.length) {
-            item = list[idx];
-            if (typeof item === 'number' && item !== item) {
-              return idx;
-            }
-            idx += 1;
-          }
-          return -1;
-        }
-        // non-zero numbers can utilise Set
-        return list.indexOf(a, idx);
-
-      // all these types can utilise Set
-      case 'string':
-      case 'boolean':
-      case 'function':
-      case 'undefined':
-        return list.indexOf(a, idx);
-
-      case 'object':
-        if (a === null) {
-          // null can utilise Set
-          return list.indexOf(a, idx);
-        }
-    }
-  }
-  // anything else not covered above, defer to R.equals
-  while (idx < list.length) {
-    if (equals(list[idx], a)) {
-      return idx;
-    }
-    idx += 1;
-  }
-  return -1;
-};
-
-
-/***/ }),
-/* 61 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _arrayFromIterator = __webpack_require__(62);
-var _functionName = __webpack_require__(63);
-var _has = __webpack_require__(30);
-var identical = __webpack_require__(64);
-var keys = __webpack_require__(28);
-var type = __webpack_require__(66);
-
-
-module.exports = function _equals(a, b, stackA, stackB) {
-  if (identical(a, b)) {
-    return true;
-  }
-
-  if (type(a) !== type(b)) {
-    return false;
-  }
-
-  if (a == null || b == null) {
-    return false;
-  }
-
-  if (typeof a['fantasy-land/equals'] === 'function' || typeof b['fantasy-land/equals'] === 'function') {
-    return typeof a['fantasy-land/equals'] === 'function' && a['fantasy-land/equals'](b) &&
-           typeof b['fantasy-land/equals'] === 'function' && b['fantasy-land/equals'](a);
-  }
-
-  if (typeof a.equals === 'function' || typeof b.equals === 'function') {
-    return typeof a.equals === 'function' && a.equals(b) &&
-           typeof b.equals === 'function' && b.equals(a);
-  }
-
-  switch (type(a)) {
-    case 'Arguments':
-    case 'Array':
-    case 'Object':
-      if (typeof a.constructor === 'function' &&
-          _functionName(a.constructor) === 'Promise') {
-        return a === b;
-      }
-      break;
-    case 'Boolean':
-    case 'Number':
-    case 'String':
-      if (!(typeof a === typeof b && identical(a.valueOf(), b.valueOf()))) {
-        return false;
-      }
-      break;
-    case 'Date':
-      if (!identical(a.valueOf(), b.valueOf())) {
-        return false;
-      }
-      break;
-    case 'Error':
-      return a.name === b.name && a.message === b.message;
-    case 'RegExp':
-      if (!(a.source === b.source &&
-            a.global === b.global &&
-            a.ignoreCase === b.ignoreCase &&
-            a.multiline === b.multiline &&
-            a.sticky === b.sticky &&
-            a.unicode === b.unicode)) {
-        return false;
-      }
-      break;
-    case 'Map':
-    case 'Set':
-      if (!_equals(_arrayFromIterator(a.entries()), _arrayFromIterator(b.entries()), stackA, stackB)) {
-        return false;
-      }
-      break;
-    case 'Int8Array':
-    case 'Uint8Array':
-    case 'Uint8ClampedArray':
-    case 'Int16Array':
-    case 'Uint16Array':
-    case 'Int32Array':
-    case 'Uint32Array':
-    case 'Float32Array':
-    case 'Float64Array':
-      break;
-    case 'ArrayBuffer':
-      break;
-    default:
-      // Values of other types are only equal if identical.
-      return false;
-  }
-
-  var keysA = keys(a);
-  if (keysA.length !== keys(b).length) {
-    return false;
-  }
-
-  var idx = stackA.length - 1;
-  while (idx >= 0) {
-    if (stackA[idx] === a) {
-      return stackB[idx] === b;
-    }
-    idx -= 1;
-  }
-
-  stackA.push(a);
-  stackB.push(b);
-  idx = keysA.length - 1;
-  while (idx >= 0) {
-    var key = keysA[idx];
-    if (!(_has(key, b) && _equals(b[key], a[key], stackA, stackB))) {
-      return false;
-    }
-    idx -= 1;
-  }
-  stackA.pop();
-  stackB.pop();
-  return true;
-};
-
-
-/***/ }),
-/* 62 */
-/***/ (function(module, exports) {
-
-module.exports = function _arrayFromIterator(iter) {
-  var list = [];
-  var next;
-  while (!(next = iter.next()).done) {
-    list.push(next.value);
-  }
-  return list;
-};
-
-
-/***/ }),
-/* 63 */
-/***/ (function(module, exports) {
-
-module.exports = function _functionName(f) {
-  // String(x => x) evaluates to "x => x", so the pattern may not match.
-  var match = String(f).match(/^function (\w*)/);
-  return match == null ? '' : match[1];
-};
-
-
-/***/ }),
-/* 64 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _curry2 = __webpack_require__(23);
-
-
-/**
- * Returns true if its arguments are identical, false otherwise. Values are
- * identical if they reference the same memory. `NaN` is identical to `NaN`;
- * `0` and `-0` are not identical.
- *
- * @func
- * @memberOf R
- * @since v0.15.0
- * @category Relation
- * @sig a -> a -> Boolean
- * @param {*} a
- * @param {*} b
- * @return {Boolean}
- * @example
- *
- *      var o = {};
- *      R.identical(o, o); //=> true
- *      R.identical(1, 1); //=> true
- *      R.identical(1, '1'); //=> false
- *      R.identical([], []); //=> false
- *      R.identical(0, -0); //=> false
- *      R.identical(NaN, NaN); //=> true
- */
-module.exports = _curry2(function identical(a, b) {
-  // SameValue algorithm
-  if (a === b) { // Steps 1-5, 7-10
-    // Steps 6.b-6.e: +0 != -0
-    return a !== 0 || 1 / a === 1 / b;
-  } else {
-    // Step 6.a: NaN == NaN
-    return a !== a && b !== b;
-  }
-});
-
-
-/***/ }),
-/* 65 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _has = __webpack_require__(30);
-
-
-module.exports = (function() {
-  var toString = Object.prototype.toString;
-  return toString.call(arguments) === '[object Arguments]' ?
-    function _isArguments(x) { return toString.call(x) === '[object Arguments]'; } :
-    function _isArguments(x) { return _has('callee', x); };
-}());
-
-
-/***/ }),
-/* 66 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _curry1 = __webpack_require__(24);
-
-
-/**
- * Gives a single-word string description of the (native) type of a value,
- * returning such answers as 'Object', 'Number', 'Array', or 'Null'. Does not
- * attempt to distinguish user Object types any further, reporting them all as
- * 'Object'.
- *
- * @func
- * @memberOf R
- * @since v0.8.0
- * @category Type
- * @sig (* -> {*}) -> String
- * @param {*} val The value to test
- * @return {String}
- * @example
- *
- *      R.type({}); //=> "Object"
- *      R.type(1); //=> "Number"
- *      R.type(false); //=> "Boolean"
- *      R.type('s'); //=> "String"
- *      R.type(null); //=> "Null"
- *      R.type([]); //=> "Array"
- *      R.type(/[A-z]/); //=> "RegExp"
- *      R.type(() => {}); //=> "Function"
- */
-module.exports = _curry1(function type(val) {
-  return val === null      ? 'Null'      :
-         val === undefined ? 'Undefined' :
-         Object.prototype.toString.call(val).slice(8, -1);
-});
-
-
-/***/ }),
-/* 67 */
-/***/ (function(module, exports) {
-
-module.exports = function _quote(s) {
-  var escaped = s
-    .replace(/\\/g, '\\\\')
-    .replace(/[\b]/g, '\\b')  // \b matches word boundary; [\b] matches backspace
-    .replace(/\f/g, '\\f')
-    .replace(/\n/g, '\\n')
-    .replace(/\r/g, '\\r')
-    .replace(/\t/g, '\\t')
-    .replace(/\v/g, '\\v')
-    .replace(/\0/g, '\\0');
-
-  return '"' + escaped.replace(/"/g, '\\"') + '"';
-};
-
-
-/***/ }),
-/* 68 */
-/***/ (function(module, exports) {
-
-/**
- * Polyfill from <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString>.
- */
-module.exports = (function() {
-  var pad = function pad(n) { return (n < 10 ? '0' : '') + n; };
-
-  return typeof Date.prototype.toISOString === 'function' ?
-    function _toISOString(d) {
-      return d.toISOString();
-    } :
-    function _toISOString(d) {
-      return (
-        d.getUTCFullYear() + '-' +
-        pad(d.getUTCMonth() + 1) + '-' +
-        pad(d.getUTCDate()) + 'T' +
-        pad(d.getUTCHours()) + ':' +
-        pad(d.getUTCMinutes()) + ':' +
-        pad(d.getUTCSeconds()) + '.' +
-        (d.getUTCMilliseconds() / 1000).toFixed(3).slice(2, 5) + 'Z'
-      );
-    };
-}());
-
-
-/***/ }),
-/* 69 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _complement = __webpack_require__(70);
-var _curry2 = __webpack_require__(23);
-var filter = __webpack_require__(39);
-
-
-/**
- * The complement of [`filter`](#filter).
- *
- * Acts as a transducer if a transformer is given in list position. Filterable
- * objects include plain objects or any object that has a filter method such
- * as `Array`.
- *
- * @func
- * @memberOf R
- * @since v0.1.0
- * @category List
- * @sig Filterable f => (a -> Boolean) -> f a -> f a
- * @param {Function} pred
- * @param {Array} filterable
- * @return {Array}
- * @see R.filter, R.transduce, R.addIndex
- * @example
- *
- *      var isOdd = (n) => n % 2 === 1;
- *
- *      R.reject(isOdd, [1, 2, 3, 4]); //=> [2, 4]
- *
- *      R.reject(isOdd, {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, d: 4}
- */
-module.exports = _curry2(function reject(pred, filterable) {
-  return filter(_complement(pred), filterable);
-});
-
-
-/***/ }),
-/* 70 */
-/***/ (function(module, exports) {
-
-module.exports = function _complement(f) {
-  return function() {
-    return !f.apply(this, arguments);
-  };
-};
-
-
-/***/ }),
-/* 71 */
-/***/ (function(module, exports) {
-
-module.exports = function _isTransformer(obj) {
-  return typeof obj['@@transducer/step'] === 'function';
-};
-
-
-/***/ }),
-/* 72 */
-/***/ (function(module, exports) {
-
-module.exports = function _filter(fn, list) {
-  var idx = 0;
-  var len = list.length;
-  var result = [];
-
-  while (idx < len) {
-    if (fn(list[idx])) {
-      result[result.length] = list[idx];
-    }
-    idx += 1;
-  }
-  return result;
-};
-
-
-/***/ }),
-/* 73 */
-/***/ (function(module, exports) {
-
-module.exports = function _isObject(x) {
-  return Object.prototype.toString.call(x) === '[object Object]';
-};
-
-
-/***/ }),
-/* 74 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _curry1 = __webpack_require__(24);
-var _isArray = __webpack_require__(27);
-var _isString = __webpack_require__(36);
-
-
-/**
- * Tests whether or not an object is similar to an array.
- *
- * @private
- * @category Type
- * @category List
- * @sig * -> Boolean
- * @param {*} x The object to test.
- * @return {Boolean} `true` if `x` has a numeric length property and extreme indices defined; `false` otherwise.
- * @example
- *
- *      _isArrayLike([]); //=> true
- *      _isArrayLike(true); //=> false
- *      _isArrayLike({}); //=> false
- *      _isArrayLike({length: 10}); //=> false
- *      _isArrayLike({0: 'zero', 9: 'nine', length: 10}); //=> true
- */
-module.exports = _curry1(function isArrayLike(x) {
-  if (_isArray(x)) { return true; }
-  if (!x) { return false; }
-  if (typeof x !== 'object') { return false; }
-  if (_isString(x)) { return false; }
-  if (x.nodeType === 1) { return !!x.length; }
-  if (x.length === 0) { return true; }
-  if (x.length > 0) {
-    return x.hasOwnProperty(0) && x.hasOwnProperty(x.length - 1);
-  }
-  return false;
-});
-
-
-/***/ }),
-/* 75 */
-/***/ (function(module, exports) {
-
-module.exports = (function() {
-  function XWrap(fn) {
-    this.f = fn;
-  }
-  XWrap.prototype['@@transducer/init'] = function() {
-    throw new Error('init not implemented on XWrap');
-  };
-  XWrap.prototype['@@transducer/result'] = function(acc) { return acc; };
-  XWrap.prototype['@@transducer/step'] = function(acc, x) {
-    return this.f(acc, x);
-  };
-
-  return function _xwrap(fn) { return new XWrap(fn); };
-}());
-
-
-/***/ }),
-/* 76 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _arity = __webpack_require__(29);
-var _curry2 = __webpack_require__(23);
-
-
-/**
- * Creates a function that is bound to a context.
- * Note: `R.bind` does not provide the additional argument-binding capabilities of
- * [Function.prototype.bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind).
- *
- * @func
- * @memberOf R
- * @since v0.6.0
- * @category Function
- * @category Object
- * @sig (* -> *) -> {*} -> (* -> *)
- * @param {Function} fn The function to bind to context
- * @param {Object} thisObj The context to bind `fn` to
- * @return {Function} A function that will execute in the context of `thisObj`.
- * @see R.partial
- * @example
- *
- *      var log = R.bind(console.log, console);
- *      R.pipe(R.assoc('a', 2), R.tap(log), R.assoc('a', 3))({a: 1}); //=> {a: 3}
- *      // logs {a: 2}
- * @symb R.bind(f, o)(a, b) = f.call(o, a, b)
- */
-module.exports = _curry2(function bind(fn, thisObj) {
-  return _arity(fn.length, function() {
-    return fn.apply(thisObj, arguments);
-  });
-});
-
-
-/***/ }),
-/* 77 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _curry2 = __webpack_require__(23);
-var _xfBase = __webpack_require__(41);
-
-
-module.exports = (function() {
-  function XFilter(f, xf) {
-    this.xf = xf;
-    this.f = f;
-  }
-  XFilter.prototype['@@transducer/init'] = _xfBase.init;
-  XFilter.prototype['@@transducer/result'] = _xfBase.result;
-  XFilter.prototype['@@transducer/step'] = function(result, input) {
-    return this.f(input) ? this.xf['@@transducer/step'](result, input) : result;
-  };
-
-  return _curry2(function _xfilter(f, xf) { return new XFilter(f, xf); });
-}());
-
-
-/***/ }),
-/* 78 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _curry3 = __webpack_require__(25);
-
-
-/**
- * Makes a descending comparator function out of a function that returns a value
- * that can be compared with `<` and `>`.
- *
- * @func
- * @memberOf R
- * @since v0.23.0
- * @category Function
- * @sig Ord b => (a -> b) -> a -> a -> Number
- * @param {Function} fn A function of arity one that returns a value that can be compared
- * @param {*} a The first item to be compared.
- * @param {*} b The second item to be compared.
- * @return {Number} `-1` if fn(a) > fn(b), `1` if fn(b) > fn(a), otherwise `0`
- * @see R.ascend
- * @example
- *
- *      var byAge = R.descend(R.prop('age'));
- *      var people = [
- *        // ...
- *      ];
- *      var peopleByOldestFirst = R.sort(byAge, people);
- */
-module.exports = _curry3(function descend(fn, a, b) {
-  var aa = fn(a);
-  var bb = fn(b);
-  return aa > bb ? -1 : aa < bb ? 1 : 0;
-});
-
-
-/***/ }),
-/* 79 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _curry2 = __webpack_require__(23);
-var map = __webpack_require__(44);
-
-
-/**
- * Returns a lens for the given getter and setter functions. The getter "gets"
- * the value of the focus; the setter "sets" the value of the focus. The setter
- * should not mutate the data structure.
- *
- * @func
- * @memberOf R
- * @since v0.8.0
- * @category Object
- * @typedefn Lens s a = Functor f => (a -> f a) -> s -> f s
- * @sig (s -> a) -> ((a, s) -> s) -> Lens s a
- * @param {Function} getter
- * @param {Function} setter
- * @return {Lens}
- * @see R.view, R.set, R.over, R.lensIndex, R.lensProp
- * @example
- *
- *      var xLens = R.lens(R.prop('x'), R.assoc('x'));
- *
- *      R.view(xLens, {x: 1, y: 2});            //=> 1
- *      R.set(xLens, 4, {x: 1, y: 2});          //=> {x: 4, y: 2}
- *      R.over(xLens, R.negate, {x: 1, y: 2});  //=> {x: -1, y: 2}
- */
-module.exports = _curry2(function lens(getter, setter) {
-  return function(toFunctorFn) {
-    return function(target) {
-      return map(
-        function(focus) {
-          return setter(focus, target);
-        },
-        toFunctorFn(getter(target))
-      );
-    };
-  };
-});
-
-
-/***/ }),
-/* 80 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _curry2 = __webpack_require__(23);
-var _xfBase = __webpack_require__(41);
-
-
-module.exports = (function() {
-  function XMap(f, xf) {
-    this.xf = xf;
-    this.f = f;
-  }
-  XMap.prototype['@@transducer/init'] = _xfBase.init;
-  XMap.prototype['@@transducer/result'] = _xfBase.result;
-  XMap.prototype['@@transducer/step'] = function(result, input) {
-    return this.xf['@@transducer/step'](result, this.f(input));
-  };
-
-  return _curry2(function _xmap(f, xf) { return new XMap(f, xf); });
-}());
-
-
-/***/ }),
-/* 81 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _arity = __webpack_require__(29);
-var _isPlaceholder = __webpack_require__(26);
-
-
-/**
- * Internal curryN function.
- *
- * @private
- * @category Function
- * @param {Number} length The arity of the curried function.
- * @param {Array} received An array of arguments received thus far.
- * @param {Function} fn The function to curry.
- * @return {Function} The curried function.
- */
-module.exports = function _curryN(length, received, fn) {
-  return function() {
-    var combined = [];
-    var argsIdx = 0;
-    var left = length;
-    var combinedIdx = 0;
-    while (combinedIdx < received.length || argsIdx < arguments.length) {
-      var result;
-      if (combinedIdx < received.length &&
-          (!_isPlaceholder(received[combinedIdx]) ||
-           argsIdx >= arguments.length)) {
-        result = received[combinedIdx];
-      } else {
-        result = arguments[argsIdx];
-        argsIdx += 1;
-      }
-      combined[combinedIdx] = result;
-      if (!_isPlaceholder(result)) {
-        left -= 1;
-      }
-      combinedIdx += 1;
-    }
-    return left <= 0 ? fn.apply(this, combined)
-                     : _arity(left, _curryN(length, combined, fn));
-  };
-};
-
-
-/***/ }),
-/* 82 */
-/***/ (function(module, exports) {
-
-module.exports = function _pipe(f, g) {
-  return function() {
-    return g.call(this, f.apply(this, arguments));
-  };
-};
-
-
-/***/ }),
-/* 83 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _checkForMethod = __webpack_require__(49);
-var _curry1 = __webpack_require__(24);
-var slice = __webpack_require__(84);
-
-
-/**
- * Returns all but the first element of the given list or string (or object
- * with a `tail` method).
- *
- * Dispatches to the `slice` method of the first argument, if present.
- *
- * @func
- * @memberOf R
- * @since v0.1.0
- * @category List
- * @sig [a] -> [a]
- * @sig String -> String
- * @param {*} list
- * @return {*}
- * @see R.head, R.init, R.last
- * @example
- *
- *      R.tail([1, 2, 3]);  //=> [2, 3]
- *      R.tail([1, 2]);     //=> [2]
- *      R.tail([1]);        //=> []
- *      R.tail([]);         //=> []
- *
- *      R.tail('abc');  //=> 'bc'
- *      R.tail('ab');   //=> 'b'
- *      R.tail('a');    //=> ''
- *      R.tail('');     //=> ''
- */
-module.exports = _curry1(_checkForMethod('tail', slice(1, Infinity)));
-
-
-/***/ }),
-/* 84 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _checkForMethod = __webpack_require__(49);
-var _curry3 = __webpack_require__(25);
-
-
-/**
- * Returns the elements of the given list or string (or object with a `slice`
- * method) from `fromIndex` (inclusive) to `toIndex` (exclusive).
- *
- * Dispatches to the `slice` method of the third argument, if present.
- *
- * @func
- * @memberOf R
- * @since v0.1.4
- * @category List
- * @sig Number -> Number -> [a] -> [a]
- * @sig Number -> Number -> String -> String
- * @param {Number} fromIndex The start index (inclusive).
- * @param {Number} toIndex The end index (exclusive).
- * @param {*} list
- * @return {*}
- * @example
- *
- *      R.slice(1, 3, ['a', 'b', 'c', 'd']);        //=> ['b', 'c']
- *      R.slice(1, Infinity, ['a', 'b', 'c', 'd']); //=> ['b', 'c', 'd']
- *      R.slice(0, -1, ['a', 'b', 'c', 'd']);       //=> ['a', 'b', 'c']
- *      R.slice(-3, -1, ['a', 'b', 'c', 'd']);      //=> ['b', 'c']
- *      R.slice(0, 3, 'ramda');                     //=> 'ram'
- */
-module.exports = _curry3(_checkForMethod('slice', function slice(fromIndex, toIndex, list) {
-  return Array.prototype.slice.call(list, fromIndex, toIndex);
-}));
-
-
-/***/ }),
-/* 85 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _concat = __webpack_require__(35);
-var _curry2 = __webpack_require__(23);
-
-
-/**
- * Returns a new list with the given element at the front, followed by the
- * contents of the list.
- *
- * @func
- * @memberOf R
- * @since v0.1.0
- * @category List
- * @sig a -> [a] -> [a]
- * @param {*} el The item to add to the head of the output list.
- * @param {Array} list The array to add to the tail of the output list.
- * @return {Array} A new array.
- * @see R.append
- * @example
- *
- *      R.prepend('fee', ['fi', 'fo', 'fum']); //=> ['fee', 'fi', 'fo', 'fum']
- */
-module.exports = _curry2(function prepend(el, list) {
-  return _concat([el], list);
-});
-
-
-/***/ }),
-/* 86 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _curry3 = __webpack_require__(25);
-var equals = __webpack_require__(37);
-
-
-/**
- * Returns `true` if the specified object property is equal, in
- * [`R.equals`](#equals) terms, to the given value; `false` otherwise.
- *
- * @func
- * @memberOf R
- * @since v0.1.0
- * @category Relation
- * @sig String -> a -> Object -> Boolean
- * @param {String} name
- * @param {*} val
- * @param {*} obj
- * @return {Boolean}
- * @see R.equals, R.propSatisfies
- * @example
- *
- *      var abby = {name: 'Abby', age: 7, hair: 'blond'};
- *      var fred = {name: 'Fred', age: 12, hair: 'brown'};
- *      var rusty = {name: 'Rusty', age: 10, hair: 'brown'};
- *      var alois = {name: 'Alois', age: 15, disposition: 'surly'};
- *      var kids = [abby, fred, rusty, alois];
- *      var hasBrownHair = R.propEq('hair', 'brown');
- *      R.filter(hasBrownHair, kids); //=> [fred, rusty]
- */
-module.exports = _curry3(function propEq(name, val, obj) {
-  return equals(val, obj[name]);
-});
-
-
-/***/ }),
-/* 87 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _curry2 = __webpack_require__(23);
-
-
-/**
- * Returns a copy of the list, sorted according to the comparator function,
- * which should accept two values at a time and return a negative number if the
- * first value is smaller, a positive number if it's larger, and zero if they
- * are equal. Please note that this is a **copy** of the list. It does not
- * modify the original.
- *
- * @func
- * @memberOf R
- * @since v0.1.0
- * @category List
- * @sig (a,a -> Number) -> [a] -> [a]
- * @param {Function} comparator A sorting function :: a -> b -> Int
- * @param {Array} list The list to sort
- * @return {Array} a new array with its elements sorted by the comparator function.
- * @example
- *
- *      var diff = function(a, b) { return a - b; };
- *      R.sort(diff, [4,2,7,5]); //=> [2, 4, 5, 7]
- */
-module.exports = _curry2(function sort(comparator, list) {
-  return Array.prototype.slice.call(list, 0).sort(comparator);
-});
-
-
-/***/ }),
-/* 88 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var add = __webpack_require__(89);
-var reduce = __webpack_require__(48);
-
-
-/**
- * Adds together all the elements of a list.
- *
- * @func
- * @memberOf R
- * @since v0.1.0
- * @category Math
- * @sig [Number] -> Number
- * @param {Array} list An array of numbers
- * @return {Number} The sum of all the numbers in the list.
- * @see R.reduce
- * @example
- *
- *      R.sum([2,4,6,8,100,1]); //=> 121
- */
-module.exports = reduce(add, 0);
-
-
-/***/ }),
-/* 89 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _curry2 = __webpack_require__(23);
-
-
-/**
- * Adds two values.
- *
- * @func
- * @memberOf R
- * @since v0.1.0
- * @category Math
- * @sig Number -> Number -> Number
- * @param {Number} a
- * @param {Number} b
- * @return {Number}
- * @see R.subtract
- * @example
- *
- *      R.add(2, 3);       //=>  5
- *      R.add(7)(10);      //=> 17
- */
-module.exports = _curry2(function add(a, b) {
-  return Number(a) + Number(b);
-});
-
-
-/***/ }),
-/* 90 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _curry2 = __webpack_require__(23);
-
-
-/**
- * Runs the given function with the supplied object, then returns the object.
- *
- * @func
- * @memberOf R
- * @since v0.1.0
- * @category Function
- * @sig (a -> *) -> a -> a
- * @param {Function} fn The function to call with `x`. The return value of `fn` will be thrown away.
- * @param {*} x
- * @return {*} `x`.
- * @example
- *
- *      var sayX = x => console.log('x is ' + x);
- *      R.tap(sayX, 100); //=> 100
- *      // logs 'x is 100'
- * @symb R.tap(f, a) = a
- */
-module.exports = _curry2(function tap(fn, x) {
-  fn(x);
-  return x;
-});
-
-
-/***/ }),
-/* 91 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/**
- * (c) 2017 Hajime Yamasaki Vukelic
- * All rights reserved.
- */
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [0, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-var _this = this;
-Object.defineProperty(exports, "__esModule", { value: true });
-var css = __webpack_require__(92);
-var assoc = __webpack_require__(43);
-var lensProp = __webpack_require__(42);
-var not = __webpack_require__(93);
-var over = __webpack_require__(46);
-var html_1 = __webpack_require__(3);
-var init = function (options) { return ({
-    created: new Date().getTime(),
-    done: options.done || false,
-    editing: options.editing || false,
-    itemHeight: 0,
-    text: options.text || "",
-}); };
-exports.init = init;
-// Action
-var Action;
-(function (Action) {
-    Action[Action["Toggle"] = 0] = "Toggle";
-    Action[Action["ToggleEditing"] = 1] = "ToggleEditing";
-    Action[Action["Update"] = 2] = "Update";
-    Action[Action["Focus"] = 3] = "Focus";
-    Action[Action["RecalcHeight"] = 4] = "RecalcHeight";
-})(Action || (Action = {}));
-exports.Action = Action;
-var actions = (_a = {},
-    _a[Action.Toggle] = function (patch, checked) { return __awaiter(_this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            patch(assoc("done", checked));
-            return [2 /*return*/];
-        });
-    }); },
-    _a[Action.ToggleEditing] = function (patch) { return __awaiter(_this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            patch(over(lensProp("editing"), not));
-            return [2 /*return*/];
-        });
-    }); },
-    _a[Action.Update] = function (patch, text) { return __awaiter(_this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            patch(assoc("text", text));
-            return [2 /*return*/];
-        });
-    }); },
-    _a[Action.Focus] = function (patch, vnode) { return __awaiter(_this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            vnode.elm.focus();
-            return [2 /*return*/];
-        });
-    }); },
-    _a[Action.RecalcHeight] = function (patch, vnode) { return __awaiter(_this, void 0, void 0, function () {
-        var h;
-        return __generator(this, function (_a) {
-            h = vnode.elm.offsetHeight;
-            patch(assoc("itemHeight", h));
-            return [2 /*return*/];
-        });
-    }); },
-    _a);
-exports.actions = actions;
-var view = function (_a) {
-    var model = _a.model, _b = _a.prefix, prefix = _b === void 0 ? [] : _b, _c = _a.classes, classes = _c === void 0 ? [] : _c, _d = _a.styles, styles = _d === void 0 ? {} : _d;
-    return (html_1.default("div", { class: classes.concat([css.task]), style: Object.assign({}, style, styles), key: model.created, "hook-insert": prefix.concat(Action.RecalcHeight) },
-        html_1.default("label", { class: css.toggleDone, for: "task-" + prefix.join("-") },
-            html_1.default("input", { class: css.toggleCheckbox, id: "task-" + prefix.join("-"), type: "checkbox", "on-change": prefix.concat(Action.Toggle), checked: model.done }),
-            html_1.default("span", { class: css.toggleDoneLabel }, model.done
-                ? html_1.default("span", null, "+")
-                : html_1.default("span", null, "\u2014"))),
-        model.editing
-            ? html_1.default("input", { class: (_e = {}, _e[css.editBox] = true, _e[css.long] = model.text.length > 30, _e), value: model.text, "on-input": prefix.concat(Action.Update), "keys-enter": prefix.concat(Action.ToggleEditing), "keys-escape": prefix.concat(Action.ToggleEditing), "hook-insert": prefix.concat(Action.Focus), autofocus: true })
-            : html_1.default("span", { class: (_f = {}, _f[css.text] = true, _f[css.long] = model.text.length > 30, _f[css.done] = model.done, _f), style: { color: model.done ? "grey" : "black" }, "on-click": model.done ? [] : prefix.concat(Action.ToggleEditing) }, model.text),
-        model.done || !model.editing
-            ? null
-            : html_1.default("button", { class: css.editButton, "on-click": prefix.concat(Action.ToggleEditing) }, "Save")));
-    var _e, _f;
-};
-exports.view = view;
-// Styles
-var style = {
-    opacity: 1,
-    remove: {
-        opacity: 0,
-    },
-};
-var _a;
-
-
-/***/ }),
-/* 92 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-module.exports = {"task":"task-y7fco","toggleDone":"toggleDone-hF3mY","toggleCheckbox":"toggleCheckbox-1F668","toggleDoneLabel":"toggleDoneLabel-16y6c","editBox":"editBox-2Mb0s","text":"text-39h4M","long":"long-dnv71","done":"done-5xpXe","editButton":"editButton-paaFV"};
-
-/***/ }),
-/* 93 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _curry1 = __webpack_require__(24);
-
-
-/**
- * A function that returns the `!` of its argument. It will return `true` when
- * passed false-y value, and `false` when passed a truth-y one.
- *
- * @func
- * @memberOf R
- * @since v0.1.0
- * @category Logic
- * @sig * -> Boolean
- * @param {*} a any value
- * @return {Boolean} the logical inverse of passed argument.
- * @see R.complement
- * @example
- *
- *      R.not(true); //=> false
- *      R.not(false); //=> true
- *      R.not(0); //=> true
- *      R.not(1); //=> false
- */
-module.exports = _curry1(function not(a) {
-  return !a;
-});
-
-
-/***/ }),
-/* 94 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 95 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-/**
- * (c) 2017 Hajime Yamasaki Vukelic
- * All rights reserved.
- */
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [0, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-var __read = (this && this.__read) || function (o, n) {
-    var m = typeof Symbol === "function" && o[Symbol.iterator];
-    if (!m) return o;
-    var i = m.call(o), r, ar = [], e;
-    try {
-        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-    }
-    catch (error) { e = { error: error }; }
-    finally {
-        try {
-            if (r && !r.done && (m = i["return"])) m.call(i);
-        }
-        finally { if (e) throw e.error; }
-    }
-    return ar;
-};
-var __spread = (this && this.__spread) || function () {
-    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
-    return ar;
-};
-var _this = this;
-Object.defineProperty(exports, "__esModule", { value: true });
-var pipe = __webpack_require__(47);
-var prop = __webpack_require__(32);
-var html_1 = __webpack_require__(3);
-var route = __webpack_require__(50);
-var navbar = __webpack_require__(98);
-var ROUTE_PREFIX = process.env.ROUTE_PREFIX || "";
-// Utility functions
-var matchRoute = pipe(prop("re"), route.match(ROUTE_PREFIX));
-var getMatchingRoute = function (routes) {
-    if (!routes.length) {
-        // tslint:disable:no-console
-        console.log("No futher routes found");
-        return undefined;
-    }
-    var _a = __read(routes), current = _a[0], remaining = _a.slice(1);
-    var args = matchRoute(current);
-    if (args === false) {
-        return getMatchingRoute(remaining) || {
-            args: [],
-            mod: current.mod,
-        };
-    }
-    return {
-        args: args,
-        mod: current.mod,
-    };
-};
-var init = function (routes, links) {
-    if (!routes.length) {
-        throw Error("No route definitions found");
-    }
-    var _a = getMatchingRoute(routes), mod = _a.mod, args = _a.args;
-    return {
-        actions: mod.actions,
-        links: links,
-        model: mod.init && mod.init.apply(mod, __spread(args)),
-        path: location.pathname,
-        routes: routes,
-        view: mod.view,
-    };
-};
-exports.init = init;
-// Actions
-var Action;
-(function (Action) {
-    Action[Action["ModuleAction"] = 0] = "ModuleAction";
-    Action[Action["SwitchRoute"] = 1] = "SwitchRoute";
-    Action[Action["Navbar"] = 2] = "Navbar";
-})(Action || (Action = {}));
-exports.Action = Action;
-var actions = (_a = {},
-    _a[Action.ModuleAction] = function (patch, moduleActions, moduleAction) {
-        var args = [];
-        for (var _i = 3; _i < arguments.length; _i++) {
-            args[_i - 3] = arguments[_i];
-        }
-        return __awaiter(_this, void 0, void 0, function () {
-            var modulePatcher, action;
-            return __generator(this, function (_a) {
-                if (!moduleActions) {
-                    return [2 /*return*/];
-                }
-                modulePatcher = function (fn) { return patch(function (model) { return (__assign({}, model, { model: fn(model.model) })); }); };
-                action = moduleActions[moduleAction];
-                if (action) {
-                    action.apply(void 0, __spread([modulePatcher], args));
-                }
-                return [2 /*return*/];
-            });
-        });
-    },
-    _a[Action.SwitchRoute] = function (patch) { return __awaiter(_this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            patch(function (model) { return (__assign({}, model, init(model.routes, model.links))); });
-            return [2 /*return*/];
-        });
-    }); },
-    _a[Action.Navbar] = function (_, action, path) { return __awaiter(_this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, navbar.actions[action](_, path)];
-                case 1:
-                    _a.sent();
-                    return [2 /*return*/];
-            }
-        });
-    }); },
-    _a);
-exports.actions = actions;
-var view = function (_a) {
-    var model = _a.model;
-    return (html_1.default("div", { route: [Action.SwitchRoute] },
-        html_1.default(navbar.view, { prefix: [Action.Navbar], links: model.links }),
-        html_1.default(model.view, { model: model.model, prefix: [Action.ModuleAction, model.actions], key: model.path })));
-};
-exports.view = view;
-var _a;
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(96)))
-
-/***/ }),
-/* 96 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -3059,6 +1428,1639 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+/**
+ * (c) 2017 Hajime Yamasaki Vukelic
+ * All rights reserved.
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+var curry = __webpack_require__(97);
+var qs = __webpack_require__(4);
+var ROUTE_PREFIX = process.env.ROUTE_PREFIX || "";
+var go = function (path, query) {
+    if (query === void 0) { query = {}; }
+    var q = qs.stringify(query);
+    var next = ROUTE_PREFIX + path + (q ? "?" + q : "");
+    window.history.pushState(undefined, "", next);
+    window.dispatchEvent(new Event("popstate"));
+};
+exports.go = go;
+var match = curry(function (prefix, re) {
+    var m = re.exec(location.pathname.slice(prefix.length));
+    return m
+        ? m.slice(1)
+        : false;
+});
+exports.match = match;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(50)))
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+module.exports = {"title":"title-3wfn8","body":"body-29zdx"};
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+module.exports = {"title":"title-2Vzar","buttonBar":"buttonBar-3RWL3","tasks":"tasks-mY1lL","task":"task-18Jn4","actionButton":"actionButton-3rOZ_","aside":"aside-1Xbnx"};
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _concat = __webpack_require__(35);
+var _curry3 = __webpack_require__(25);
+
+
+/**
+ * Applies a function to the value at the given index of an array, returning a
+ * new copy of the array with the element at the given index replaced with the
+ * result of the function application.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.14.0
+ * @category List
+ * @sig (a -> a) -> Number -> [a] -> [a]
+ * @param {Function} fn The function to apply.
+ * @param {Number} idx The index.
+ * @param {Array|Arguments} list An array-like object whose value
+ *        at the supplied index will be replaced.
+ * @return {Array} A copy of the supplied array-like object with
+ *         the element at index `idx` replaced with the value
+ *         returned by applying `fn` to the existing element.
+ * @see R.update
+ * @example
+ *
+ *      R.adjust(R.add(10), 1, [1, 2, 3]);     //=> [1, 12, 3]
+ *      R.adjust(R.add(10))(1)([1, 2, 3]);     //=> [1, 12, 3]
+ * @symb R.adjust(f, -1, [a, b]) = [a, f(b)]
+ * @symb R.adjust(f, 0, [a, b]) = [f(a), b]
+ */
+module.exports = _curry3(function adjust(fn, idx, list) {
+  if (idx >= list.length || idx < -list.length) {
+    return list;
+  }
+  var start = idx < 0 ? list.length : 0;
+  var _idx = start + idx;
+  var _list = _concat(list);
+  _list[_idx] = fn(list[_idx]);
+  return _list;
+});
+
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _curry2 = __webpack_require__(23);
+
+
+/**
+ * Applies function `fn` to the argument list `args`. This is useful for
+ * creating a fixed-arity function from a variadic function. `fn` should be a
+ * bound function if context is significant.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.7.0
+ * @category Function
+ * @sig (*... -> a) -> [*] -> a
+ * @param {Function} fn The function which will be called with `args`
+ * @param {Array} args The arguments to call `fn` with
+ * @return {*} result The result, equivalent to `fn(...args)`
+ * @see R.call, R.unapply
+ * @example
+ *
+ *      var nums = [1, 2, 3, -99, 42, 6, 7];
+ *      R.apply(Math.max, nums); //=> 42
+ * @symb R.apply(f, [a, b, c]) = f(a, b, c)
+ */
+module.exports = _curry2(function apply(fn, args) {
+  return fn.apply(this, args);
+});
+
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _curry2 = __webpack_require__(23);
+var _isArray = __webpack_require__(27);
+var _isFunction = __webpack_require__(57);
+var _isString = __webpack_require__(36);
+var toString = __webpack_require__(58);
+
+
+/**
+ * Returns the result of concatenating the given lists or strings.
+ *
+ * Note: `R.concat` expects both arguments to be of the same type,
+ * unlike the native `Array.prototype.concat` method. It will throw
+ * an error if you `concat` an Array with a non-Array value.
+ *
+ * Dispatches to the `concat` method of the first argument, if present.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.1.0
+ * @category List
+ * @sig [a] -> [a] -> [a]
+ * @sig String -> String -> String
+ * @param {Array|String} firstList The first list
+ * @param {Array|String} secondList The second list
+ * @return {Array|String} A list consisting of the elements of `firstList` followed by the elements of
+ * `secondList`.
+ *
+ * @example
+ *
+ *      R.concat('ABC', 'DEF'); // 'ABCDEF'
+ *      R.concat([4, 5, 6], [1, 2, 3]); //=> [4, 5, 6, 1, 2, 3]
+ *      R.concat([], []); //=> []
+ */
+module.exports = _curry2(function concat(a, b) {
+  if (_isArray(a)) {
+    if (_isArray(b)) {
+      return a.concat(b);
+    }
+    throw new TypeError(toString(b) + ' is not an array');
+  }
+  if (_isString(a)) {
+    if (_isString(b)) {
+      return a + b;
+    }
+    throw new TypeError(toString(b) + ' is not a string');
+  }
+  if (a != null && _isFunction(a['fantasy-land/concat'])) {
+    return a['fantasy-land/concat'](b);
+  }
+  if (a != null && _isFunction(a.concat)) {
+    return a.concat(b);
+  }
+  throw new TypeError(toString(a) + ' does not have a method named "concat" or "fantasy-land/concat"');
+});
+
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports) {
+
+module.exports = function _isFunction(x) {
+  return Object.prototype.toString.call(x) === '[object Function]';
+};
+
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _curry1 = __webpack_require__(24);
+var _toString = __webpack_require__(59);
+
+
+/**
+ * Returns the string representation of the given value. `eval`'ing the output
+ * should result in a value equivalent to the input value. Many of the built-in
+ * `toString` methods do not satisfy this requirement.
+ *
+ * If the given value is an `[object Object]` with a `toString` method other
+ * than `Object.prototype.toString`, this method is invoked with no arguments
+ * to produce the return value. This means user-defined constructor functions
+ * can provide a suitable `toString` method. For example:
+ *
+ *     function Point(x, y) {
+ *       this.x = x;
+ *       this.y = y;
+ *     }
+ *
+ *     Point.prototype.toString = function() {
+ *       return 'new Point(' + this.x + ', ' + this.y + ')';
+ *     };
+ *
+ *     R.toString(new Point(1, 2)); //=> 'new Point(1, 2)'
+ *
+ * @func
+ * @memberOf R
+ * @since v0.14.0
+ * @category String
+ * @sig * -> String
+ * @param {*} val
+ * @return {String}
+ * @example
+ *
+ *      R.toString(42); //=> '42'
+ *      R.toString('abc'); //=> '"abc"'
+ *      R.toString([1, 2, 3]); //=> '[1, 2, 3]'
+ *      R.toString({foo: 1, bar: 2, baz: 3}); //=> '{"bar": 2, "baz": 3, "foo": 1}'
+ *      R.toString(new Date('2001-02-03T04:05:06Z')); //=> 'new Date("2001-02-03T04:05:06.000Z")'
+ */
+module.exports = _curry1(function toString(val) { return _toString(val, []); });
+
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _contains = __webpack_require__(60);
+var _map = __webpack_require__(38);
+var _quote = __webpack_require__(68);
+var _toISOString = __webpack_require__(69);
+var keys = __webpack_require__(28);
+var reject = __webpack_require__(70);
+
+
+module.exports = function _toString(x, seen) {
+  var recur = function recur(y) {
+    var xs = seen.concat([x]);
+    return _contains(y, xs) ? '<Circular>' : _toString(y, xs);
+  };
+
+  //  mapPairs :: (Object, [String]) -> [String]
+  var mapPairs = function(obj, keys) {
+    return _map(function(k) { return _quote(k) + ': ' + recur(obj[k]); }, keys.slice().sort());
+  };
+
+  switch (Object.prototype.toString.call(x)) {
+    case '[object Arguments]':
+      return '(function() { return arguments; }(' + _map(recur, x).join(', ') + '))';
+    case '[object Array]':
+      return '[' + _map(recur, x).concat(mapPairs(x, reject(function(k) { return /^\d+$/.test(k); }, keys(x)))).join(', ') + ']';
+    case '[object Boolean]':
+      return typeof x === 'object' ? 'new Boolean(' + recur(x.valueOf()) + ')' : x.toString();
+    case '[object Date]':
+      return 'new Date(' + (isNaN(x.valueOf()) ? recur(NaN) : _quote(_toISOString(x))) + ')';
+    case '[object Null]':
+      return 'null';
+    case '[object Number]':
+      return typeof x === 'object' ? 'new Number(' + recur(x.valueOf()) + ')' : 1 / x === -Infinity ? '-0' : x.toString(10);
+    case '[object String]':
+      return typeof x === 'object' ? 'new String(' + recur(x.valueOf()) + ')' : _quote(x);
+    case '[object Undefined]':
+      return 'undefined';
+    default:
+      if (typeof x.toString === 'function') {
+        var repr = x.toString();
+        if (repr !== '[object Object]') {
+          return repr;
+        }
+      }
+      return '{' + mapPairs(x, keys(x)).join(', ') + '}';
+  }
+};
+
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _indexOf = __webpack_require__(61);
+
+
+module.exports = function _contains(a, list) {
+  return _indexOf(list, a, 0) >= 0;
+};
+
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var equals = __webpack_require__(37);
+
+
+module.exports = function _indexOf(list, a, idx) {
+  var inf, item;
+  // Array.prototype.indexOf doesn't exist below IE9
+  if (typeof list.indexOf === 'function') {
+    switch (typeof a) {
+      case 'number':
+        if (a === 0) {
+          // manually crawl the list to distinguish between +0 and -0
+          inf = 1 / a;
+          while (idx < list.length) {
+            item = list[idx];
+            if (item === 0 && 1 / item === inf) {
+              return idx;
+            }
+            idx += 1;
+          }
+          return -1;
+        } else if (a !== a) {
+          // NaN
+          while (idx < list.length) {
+            item = list[idx];
+            if (typeof item === 'number' && item !== item) {
+              return idx;
+            }
+            idx += 1;
+          }
+          return -1;
+        }
+        // non-zero numbers can utilise Set
+        return list.indexOf(a, idx);
+
+      // all these types can utilise Set
+      case 'string':
+      case 'boolean':
+      case 'function':
+      case 'undefined':
+        return list.indexOf(a, idx);
+
+      case 'object':
+        if (a === null) {
+          // null can utilise Set
+          return list.indexOf(a, idx);
+        }
+    }
+  }
+  // anything else not covered above, defer to R.equals
+  while (idx < list.length) {
+    if (equals(list[idx], a)) {
+      return idx;
+    }
+    idx += 1;
+  }
+  return -1;
+};
+
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _arrayFromIterator = __webpack_require__(63);
+var _functionName = __webpack_require__(64);
+var _has = __webpack_require__(30);
+var identical = __webpack_require__(65);
+var keys = __webpack_require__(28);
+var type = __webpack_require__(67);
+
+
+module.exports = function _equals(a, b, stackA, stackB) {
+  if (identical(a, b)) {
+    return true;
+  }
+
+  if (type(a) !== type(b)) {
+    return false;
+  }
+
+  if (a == null || b == null) {
+    return false;
+  }
+
+  if (typeof a['fantasy-land/equals'] === 'function' || typeof b['fantasy-land/equals'] === 'function') {
+    return typeof a['fantasy-land/equals'] === 'function' && a['fantasy-land/equals'](b) &&
+           typeof b['fantasy-land/equals'] === 'function' && b['fantasy-land/equals'](a);
+  }
+
+  if (typeof a.equals === 'function' || typeof b.equals === 'function') {
+    return typeof a.equals === 'function' && a.equals(b) &&
+           typeof b.equals === 'function' && b.equals(a);
+  }
+
+  switch (type(a)) {
+    case 'Arguments':
+    case 'Array':
+    case 'Object':
+      if (typeof a.constructor === 'function' &&
+          _functionName(a.constructor) === 'Promise') {
+        return a === b;
+      }
+      break;
+    case 'Boolean':
+    case 'Number':
+    case 'String':
+      if (!(typeof a === typeof b && identical(a.valueOf(), b.valueOf()))) {
+        return false;
+      }
+      break;
+    case 'Date':
+      if (!identical(a.valueOf(), b.valueOf())) {
+        return false;
+      }
+      break;
+    case 'Error':
+      return a.name === b.name && a.message === b.message;
+    case 'RegExp':
+      if (!(a.source === b.source &&
+            a.global === b.global &&
+            a.ignoreCase === b.ignoreCase &&
+            a.multiline === b.multiline &&
+            a.sticky === b.sticky &&
+            a.unicode === b.unicode)) {
+        return false;
+      }
+      break;
+    case 'Map':
+    case 'Set':
+      if (!_equals(_arrayFromIterator(a.entries()), _arrayFromIterator(b.entries()), stackA, stackB)) {
+        return false;
+      }
+      break;
+    case 'Int8Array':
+    case 'Uint8Array':
+    case 'Uint8ClampedArray':
+    case 'Int16Array':
+    case 'Uint16Array':
+    case 'Int32Array':
+    case 'Uint32Array':
+    case 'Float32Array':
+    case 'Float64Array':
+      break;
+    case 'ArrayBuffer':
+      break;
+    default:
+      // Values of other types are only equal if identical.
+      return false;
+  }
+
+  var keysA = keys(a);
+  if (keysA.length !== keys(b).length) {
+    return false;
+  }
+
+  var idx = stackA.length - 1;
+  while (idx >= 0) {
+    if (stackA[idx] === a) {
+      return stackB[idx] === b;
+    }
+    idx -= 1;
+  }
+
+  stackA.push(a);
+  stackB.push(b);
+  idx = keysA.length - 1;
+  while (idx >= 0) {
+    var key = keysA[idx];
+    if (!(_has(key, b) && _equals(b[key], a[key], stackA, stackB))) {
+      return false;
+    }
+    idx -= 1;
+  }
+  stackA.pop();
+  stackB.pop();
+  return true;
+};
+
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports) {
+
+module.exports = function _arrayFromIterator(iter) {
+  var list = [];
+  var next;
+  while (!(next = iter.next()).done) {
+    list.push(next.value);
+  }
+  return list;
+};
+
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports) {
+
+module.exports = function _functionName(f) {
+  // String(x => x) evaluates to "x => x", so the pattern may not match.
+  var match = String(f).match(/^function (\w*)/);
+  return match == null ? '' : match[1];
+};
+
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _curry2 = __webpack_require__(23);
+
+
+/**
+ * Returns true if its arguments are identical, false otherwise. Values are
+ * identical if they reference the same memory. `NaN` is identical to `NaN`;
+ * `0` and `-0` are not identical.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.15.0
+ * @category Relation
+ * @sig a -> a -> Boolean
+ * @param {*} a
+ * @param {*} b
+ * @return {Boolean}
+ * @example
+ *
+ *      var o = {};
+ *      R.identical(o, o); //=> true
+ *      R.identical(1, 1); //=> true
+ *      R.identical(1, '1'); //=> false
+ *      R.identical([], []); //=> false
+ *      R.identical(0, -0); //=> false
+ *      R.identical(NaN, NaN); //=> true
+ */
+module.exports = _curry2(function identical(a, b) {
+  // SameValue algorithm
+  if (a === b) { // Steps 1-5, 7-10
+    // Steps 6.b-6.e: +0 != -0
+    return a !== 0 || 1 / a === 1 / b;
+  } else {
+    // Step 6.a: NaN == NaN
+    return a !== a && b !== b;
+  }
+});
+
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _has = __webpack_require__(30);
+
+
+module.exports = (function() {
+  var toString = Object.prototype.toString;
+  return toString.call(arguments) === '[object Arguments]' ?
+    function _isArguments(x) { return toString.call(x) === '[object Arguments]'; } :
+    function _isArguments(x) { return _has('callee', x); };
+}());
+
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _curry1 = __webpack_require__(24);
+
+
+/**
+ * Gives a single-word string description of the (native) type of a value,
+ * returning such answers as 'Object', 'Number', 'Array', or 'Null'. Does not
+ * attempt to distinguish user Object types any further, reporting them all as
+ * 'Object'.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.8.0
+ * @category Type
+ * @sig (* -> {*}) -> String
+ * @param {*} val The value to test
+ * @return {String}
+ * @example
+ *
+ *      R.type({}); //=> "Object"
+ *      R.type(1); //=> "Number"
+ *      R.type(false); //=> "Boolean"
+ *      R.type('s'); //=> "String"
+ *      R.type(null); //=> "Null"
+ *      R.type([]); //=> "Array"
+ *      R.type(/[A-z]/); //=> "RegExp"
+ *      R.type(() => {}); //=> "Function"
+ */
+module.exports = _curry1(function type(val) {
+  return val === null      ? 'Null'      :
+         val === undefined ? 'Undefined' :
+         Object.prototype.toString.call(val).slice(8, -1);
+});
+
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports) {
+
+module.exports = function _quote(s) {
+  var escaped = s
+    .replace(/\\/g, '\\\\')
+    .replace(/[\b]/g, '\\b')  // \b matches word boundary; [\b] matches backspace
+    .replace(/\f/g, '\\f')
+    .replace(/\n/g, '\\n')
+    .replace(/\r/g, '\\r')
+    .replace(/\t/g, '\\t')
+    .replace(/\v/g, '\\v')
+    .replace(/\0/g, '\\0');
+
+  return '"' + escaped.replace(/"/g, '\\"') + '"';
+};
+
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports) {
+
+/**
+ * Polyfill from <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString>.
+ */
+module.exports = (function() {
+  var pad = function pad(n) { return (n < 10 ? '0' : '') + n; };
+
+  return typeof Date.prototype.toISOString === 'function' ?
+    function _toISOString(d) {
+      return d.toISOString();
+    } :
+    function _toISOString(d) {
+      return (
+        d.getUTCFullYear() + '-' +
+        pad(d.getUTCMonth() + 1) + '-' +
+        pad(d.getUTCDate()) + 'T' +
+        pad(d.getUTCHours()) + ':' +
+        pad(d.getUTCMinutes()) + ':' +
+        pad(d.getUTCSeconds()) + '.' +
+        (d.getUTCMilliseconds() / 1000).toFixed(3).slice(2, 5) + 'Z'
+      );
+    };
+}());
+
+
+/***/ }),
+/* 70 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _complement = __webpack_require__(71);
+var _curry2 = __webpack_require__(23);
+var filter = __webpack_require__(39);
+
+
+/**
+ * The complement of [`filter`](#filter).
+ *
+ * Acts as a transducer if a transformer is given in list position. Filterable
+ * objects include plain objects or any object that has a filter method such
+ * as `Array`.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.1.0
+ * @category List
+ * @sig Filterable f => (a -> Boolean) -> f a -> f a
+ * @param {Function} pred
+ * @param {Array} filterable
+ * @return {Array}
+ * @see R.filter, R.transduce, R.addIndex
+ * @example
+ *
+ *      var isOdd = (n) => n % 2 === 1;
+ *
+ *      R.reject(isOdd, [1, 2, 3, 4]); //=> [2, 4]
+ *
+ *      R.reject(isOdd, {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, d: 4}
+ */
+module.exports = _curry2(function reject(pred, filterable) {
+  return filter(_complement(pred), filterable);
+});
+
+
+/***/ }),
+/* 71 */
+/***/ (function(module, exports) {
+
+module.exports = function _complement(f) {
+  return function() {
+    return !f.apply(this, arguments);
+  };
+};
+
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports) {
+
+module.exports = function _isTransformer(obj) {
+  return typeof obj['@@transducer/step'] === 'function';
+};
+
+
+/***/ }),
+/* 73 */
+/***/ (function(module, exports) {
+
+module.exports = function _filter(fn, list) {
+  var idx = 0;
+  var len = list.length;
+  var result = [];
+
+  while (idx < len) {
+    if (fn(list[idx])) {
+      result[result.length] = list[idx];
+    }
+    idx += 1;
+  }
+  return result;
+};
+
+
+/***/ }),
+/* 74 */
+/***/ (function(module, exports) {
+
+module.exports = function _isObject(x) {
+  return Object.prototype.toString.call(x) === '[object Object]';
+};
+
+
+/***/ }),
+/* 75 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _curry1 = __webpack_require__(24);
+var _isArray = __webpack_require__(27);
+var _isString = __webpack_require__(36);
+
+
+/**
+ * Tests whether or not an object is similar to an array.
+ *
+ * @private
+ * @category Type
+ * @category List
+ * @sig * -> Boolean
+ * @param {*} x The object to test.
+ * @return {Boolean} `true` if `x` has a numeric length property and extreme indices defined; `false` otherwise.
+ * @example
+ *
+ *      _isArrayLike([]); //=> true
+ *      _isArrayLike(true); //=> false
+ *      _isArrayLike({}); //=> false
+ *      _isArrayLike({length: 10}); //=> false
+ *      _isArrayLike({0: 'zero', 9: 'nine', length: 10}); //=> true
+ */
+module.exports = _curry1(function isArrayLike(x) {
+  if (_isArray(x)) { return true; }
+  if (!x) { return false; }
+  if (typeof x !== 'object') { return false; }
+  if (_isString(x)) { return false; }
+  if (x.nodeType === 1) { return !!x.length; }
+  if (x.length === 0) { return true; }
+  if (x.length > 0) {
+    return x.hasOwnProperty(0) && x.hasOwnProperty(x.length - 1);
+  }
+  return false;
+});
+
+
+/***/ }),
+/* 76 */
+/***/ (function(module, exports) {
+
+module.exports = (function() {
+  function XWrap(fn) {
+    this.f = fn;
+  }
+  XWrap.prototype['@@transducer/init'] = function() {
+    throw new Error('init not implemented on XWrap');
+  };
+  XWrap.prototype['@@transducer/result'] = function(acc) { return acc; };
+  XWrap.prototype['@@transducer/step'] = function(acc, x) {
+    return this.f(acc, x);
+  };
+
+  return function _xwrap(fn) { return new XWrap(fn); };
+}());
+
+
+/***/ }),
+/* 77 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _arity = __webpack_require__(29);
+var _curry2 = __webpack_require__(23);
+
+
+/**
+ * Creates a function that is bound to a context.
+ * Note: `R.bind` does not provide the additional argument-binding capabilities of
+ * [Function.prototype.bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind).
+ *
+ * @func
+ * @memberOf R
+ * @since v0.6.0
+ * @category Function
+ * @category Object
+ * @sig (* -> *) -> {*} -> (* -> *)
+ * @param {Function} fn The function to bind to context
+ * @param {Object} thisObj The context to bind `fn` to
+ * @return {Function} A function that will execute in the context of `thisObj`.
+ * @see R.partial
+ * @example
+ *
+ *      var log = R.bind(console.log, console);
+ *      R.pipe(R.assoc('a', 2), R.tap(log), R.assoc('a', 3))({a: 1}); //=> {a: 3}
+ *      // logs {a: 2}
+ * @symb R.bind(f, o)(a, b) = f.call(o, a, b)
+ */
+module.exports = _curry2(function bind(fn, thisObj) {
+  return _arity(fn.length, function() {
+    return fn.apply(thisObj, arguments);
+  });
+});
+
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _curry2 = __webpack_require__(23);
+var _xfBase = __webpack_require__(41);
+
+
+module.exports = (function() {
+  function XFilter(f, xf) {
+    this.xf = xf;
+    this.f = f;
+  }
+  XFilter.prototype['@@transducer/init'] = _xfBase.init;
+  XFilter.prototype['@@transducer/result'] = _xfBase.result;
+  XFilter.prototype['@@transducer/step'] = function(result, input) {
+    return this.f(input) ? this.xf['@@transducer/step'](result, input) : result;
+  };
+
+  return _curry2(function _xfilter(f, xf) { return new XFilter(f, xf); });
+}());
+
+
+/***/ }),
+/* 79 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _curry3 = __webpack_require__(25);
+
+
+/**
+ * Makes a descending comparator function out of a function that returns a value
+ * that can be compared with `<` and `>`.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.23.0
+ * @category Function
+ * @sig Ord b => (a -> b) -> a -> a -> Number
+ * @param {Function} fn A function of arity one that returns a value that can be compared
+ * @param {*} a The first item to be compared.
+ * @param {*} b The second item to be compared.
+ * @return {Number} `-1` if fn(a) > fn(b), `1` if fn(b) > fn(a), otherwise `0`
+ * @see R.ascend
+ * @example
+ *
+ *      var byAge = R.descend(R.prop('age'));
+ *      var people = [
+ *        // ...
+ *      ];
+ *      var peopleByOldestFirst = R.sort(byAge, people);
+ */
+module.exports = _curry3(function descend(fn, a, b) {
+  var aa = fn(a);
+  var bb = fn(b);
+  return aa > bb ? -1 : aa < bb ? 1 : 0;
+});
+
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _curry2 = __webpack_require__(23);
+var map = __webpack_require__(44);
+
+
+/**
+ * Returns a lens for the given getter and setter functions. The getter "gets"
+ * the value of the focus; the setter "sets" the value of the focus. The setter
+ * should not mutate the data structure.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.8.0
+ * @category Object
+ * @typedefn Lens s a = Functor f => (a -> f a) -> s -> f s
+ * @sig (s -> a) -> ((a, s) -> s) -> Lens s a
+ * @param {Function} getter
+ * @param {Function} setter
+ * @return {Lens}
+ * @see R.view, R.set, R.over, R.lensIndex, R.lensProp
+ * @example
+ *
+ *      var xLens = R.lens(R.prop('x'), R.assoc('x'));
+ *
+ *      R.view(xLens, {x: 1, y: 2});            //=> 1
+ *      R.set(xLens, 4, {x: 1, y: 2});          //=> {x: 4, y: 2}
+ *      R.over(xLens, R.negate, {x: 1, y: 2});  //=> {x: -1, y: 2}
+ */
+module.exports = _curry2(function lens(getter, setter) {
+  return function(toFunctorFn) {
+    return function(target) {
+      return map(
+        function(focus) {
+          return setter(focus, target);
+        },
+        toFunctorFn(getter(target))
+      );
+    };
+  };
+});
+
+
+/***/ }),
+/* 81 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _curry2 = __webpack_require__(23);
+var _xfBase = __webpack_require__(41);
+
+
+module.exports = (function() {
+  function XMap(f, xf) {
+    this.xf = xf;
+    this.f = f;
+  }
+  XMap.prototype['@@transducer/init'] = _xfBase.init;
+  XMap.prototype['@@transducer/result'] = _xfBase.result;
+  XMap.prototype['@@transducer/step'] = function(result, input) {
+    return this.xf['@@transducer/step'](result, this.f(input));
+  };
+
+  return _curry2(function _xmap(f, xf) { return new XMap(f, xf); });
+}());
+
+
+/***/ }),
+/* 82 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _arity = __webpack_require__(29);
+var _isPlaceholder = __webpack_require__(26);
+
+
+/**
+ * Internal curryN function.
+ *
+ * @private
+ * @category Function
+ * @param {Number} length The arity of the curried function.
+ * @param {Array} received An array of arguments received thus far.
+ * @param {Function} fn The function to curry.
+ * @return {Function} The curried function.
+ */
+module.exports = function _curryN(length, received, fn) {
+  return function() {
+    var combined = [];
+    var argsIdx = 0;
+    var left = length;
+    var combinedIdx = 0;
+    while (combinedIdx < received.length || argsIdx < arguments.length) {
+      var result;
+      if (combinedIdx < received.length &&
+          (!_isPlaceholder(received[combinedIdx]) ||
+           argsIdx >= arguments.length)) {
+        result = received[combinedIdx];
+      } else {
+        result = arguments[argsIdx];
+        argsIdx += 1;
+      }
+      combined[combinedIdx] = result;
+      if (!_isPlaceholder(result)) {
+        left -= 1;
+      }
+      combinedIdx += 1;
+    }
+    return left <= 0 ? fn.apply(this, combined)
+                     : _arity(left, _curryN(length, combined, fn));
+  };
+};
+
+
+/***/ }),
+/* 83 */
+/***/ (function(module, exports) {
+
+module.exports = function _pipe(f, g) {
+  return function() {
+    return g.call(this, f.apply(this, arguments));
+  };
+};
+
+
+/***/ }),
+/* 84 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _checkForMethod = __webpack_require__(49);
+var _curry1 = __webpack_require__(24);
+var slice = __webpack_require__(85);
+
+
+/**
+ * Returns all but the first element of the given list or string (or object
+ * with a `tail` method).
+ *
+ * Dispatches to the `slice` method of the first argument, if present.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.1.0
+ * @category List
+ * @sig [a] -> [a]
+ * @sig String -> String
+ * @param {*} list
+ * @return {*}
+ * @see R.head, R.init, R.last
+ * @example
+ *
+ *      R.tail([1, 2, 3]);  //=> [2, 3]
+ *      R.tail([1, 2]);     //=> [2]
+ *      R.tail([1]);        //=> []
+ *      R.tail([]);         //=> []
+ *
+ *      R.tail('abc');  //=> 'bc'
+ *      R.tail('ab');   //=> 'b'
+ *      R.tail('a');    //=> ''
+ *      R.tail('');     //=> ''
+ */
+module.exports = _curry1(_checkForMethod('tail', slice(1, Infinity)));
+
+
+/***/ }),
+/* 85 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _checkForMethod = __webpack_require__(49);
+var _curry3 = __webpack_require__(25);
+
+
+/**
+ * Returns the elements of the given list or string (or object with a `slice`
+ * method) from `fromIndex` (inclusive) to `toIndex` (exclusive).
+ *
+ * Dispatches to the `slice` method of the third argument, if present.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.1.4
+ * @category List
+ * @sig Number -> Number -> [a] -> [a]
+ * @sig Number -> Number -> String -> String
+ * @param {Number} fromIndex The start index (inclusive).
+ * @param {Number} toIndex The end index (exclusive).
+ * @param {*} list
+ * @return {*}
+ * @example
+ *
+ *      R.slice(1, 3, ['a', 'b', 'c', 'd']);        //=> ['b', 'c']
+ *      R.slice(1, Infinity, ['a', 'b', 'c', 'd']); //=> ['b', 'c', 'd']
+ *      R.slice(0, -1, ['a', 'b', 'c', 'd']);       //=> ['a', 'b', 'c']
+ *      R.slice(-3, -1, ['a', 'b', 'c', 'd']);      //=> ['b', 'c']
+ *      R.slice(0, 3, 'ramda');                     //=> 'ram'
+ */
+module.exports = _curry3(_checkForMethod('slice', function slice(fromIndex, toIndex, list) {
+  return Array.prototype.slice.call(list, fromIndex, toIndex);
+}));
+
+
+/***/ }),
+/* 86 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _concat = __webpack_require__(35);
+var _curry2 = __webpack_require__(23);
+
+
+/**
+ * Returns a new list with the given element at the front, followed by the
+ * contents of the list.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.1.0
+ * @category List
+ * @sig a -> [a] -> [a]
+ * @param {*} el The item to add to the head of the output list.
+ * @param {Array} list The array to add to the tail of the output list.
+ * @return {Array} A new array.
+ * @see R.append
+ * @example
+ *
+ *      R.prepend('fee', ['fi', 'fo', 'fum']); //=> ['fee', 'fi', 'fo', 'fum']
+ */
+module.exports = _curry2(function prepend(el, list) {
+  return _concat([el], list);
+});
+
+
+/***/ }),
+/* 87 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _curry3 = __webpack_require__(25);
+var equals = __webpack_require__(37);
+
+
+/**
+ * Returns `true` if the specified object property is equal, in
+ * [`R.equals`](#equals) terms, to the given value; `false` otherwise.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.1.0
+ * @category Relation
+ * @sig String -> a -> Object -> Boolean
+ * @param {String} name
+ * @param {*} val
+ * @param {*} obj
+ * @return {Boolean}
+ * @see R.equals, R.propSatisfies
+ * @example
+ *
+ *      var abby = {name: 'Abby', age: 7, hair: 'blond'};
+ *      var fred = {name: 'Fred', age: 12, hair: 'brown'};
+ *      var rusty = {name: 'Rusty', age: 10, hair: 'brown'};
+ *      var alois = {name: 'Alois', age: 15, disposition: 'surly'};
+ *      var kids = [abby, fred, rusty, alois];
+ *      var hasBrownHair = R.propEq('hair', 'brown');
+ *      R.filter(hasBrownHair, kids); //=> [fred, rusty]
+ */
+module.exports = _curry3(function propEq(name, val, obj) {
+  return equals(val, obj[name]);
+});
+
+
+/***/ }),
+/* 88 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _curry2 = __webpack_require__(23);
+
+
+/**
+ * Returns a copy of the list, sorted according to the comparator function,
+ * which should accept two values at a time and return a negative number if the
+ * first value is smaller, a positive number if it's larger, and zero if they
+ * are equal. Please note that this is a **copy** of the list. It does not
+ * modify the original.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.1.0
+ * @category List
+ * @sig (a,a -> Number) -> [a] -> [a]
+ * @param {Function} comparator A sorting function :: a -> b -> Int
+ * @param {Array} list The list to sort
+ * @return {Array} a new array with its elements sorted by the comparator function.
+ * @example
+ *
+ *      var diff = function(a, b) { return a - b; };
+ *      R.sort(diff, [4,2,7,5]); //=> [2, 4, 5, 7]
+ */
+module.exports = _curry2(function sort(comparator, list) {
+  return Array.prototype.slice.call(list, 0).sort(comparator);
+});
+
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var add = __webpack_require__(90);
+var reduce = __webpack_require__(48);
+
+
+/**
+ * Adds together all the elements of a list.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.1.0
+ * @category Math
+ * @sig [Number] -> Number
+ * @param {Array} list An array of numbers
+ * @return {Number} The sum of all the numbers in the list.
+ * @see R.reduce
+ * @example
+ *
+ *      R.sum([2,4,6,8,100,1]); //=> 121
+ */
+module.exports = reduce(add, 0);
+
+
+/***/ }),
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _curry2 = __webpack_require__(23);
+
+
+/**
+ * Adds two values.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.1.0
+ * @category Math
+ * @sig Number -> Number -> Number
+ * @param {Number} a
+ * @param {Number} b
+ * @return {Number}
+ * @see R.subtract
+ * @example
+ *
+ *      R.add(2, 3);       //=>  5
+ *      R.add(7)(10);      //=> 17
+ */
+module.exports = _curry2(function add(a, b) {
+  return Number(a) + Number(b);
+});
+
+
+/***/ }),
+/* 91 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _curry2 = __webpack_require__(23);
+
+
+/**
+ * Runs the given function with the supplied object, then returns the object.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.1.0
+ * @category Function
+ * @sig (a -> *) -> a -> a
+ * @param {Function} fn The function to call with `x`. The return value of `fn` will be thrown away.
+ * @param {*} x
+ * @return {*} `x`.
+ * @example
+ *
+ *      var sayX = x => console.log('x is ' + x);
+ *      R.tap(sayX, 100); //=> 100
+ *      // logs 'x is 100'
+ * @symb R.tap(f, a) = a
+ */
+module.exports = _curry2(function tap(fn, x) {
+  fn(x);
+  return x;
+});
+
+
+/***/ }),
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/**
+ * (c) 2017 Hajime Yamasaki Vukelic
+ * All rights reserved.
+ */
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var _this = this;
+Object.defineProperty(exports, "__esModule", { value: true });
+var css = __webpack_require__(93);
+var assoc = __webpack_require__(43);
+var lensProp = __webpack_require__(42);
+var not = __webpack_require__(94);
+var over = __webpack_require__(46);
+var html_1 = __webpack_require__(3);
+var init = function (options) { return ({
+    created: new Date().getTime(),
+    done: options.done || false,
+    editing: options.editing || false,
+    itemHeight: 0,
+    text: options.text || "",
+}); };
+exports.init = init;
+// Action
+var Action;
+(function (Action) {
+    Action[Action["Toggle"] = 0] = "Toggle";
+    Action[Action["ToggleEditing"] = 1] = "ToggleEditing";
+    Action[Action["Update"] = 2] = "Update";
+    Action[Action["Focus"] = 3] = "Focus";
+    Action[Action["RecalcHeight"] = 4] = "RecalcHeight";
+})(Action || (Action = {}));
+exports.Action = Action;
+var actions = (_a = {},
+    _a[Action.Toggle] = function (patch, checked) { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            patch(assoc("done", checked));
+            return [2 /*return*/];
+        });
+    }); },
+    _a[Action.ToggleEditing] = function (patch) { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            patch(over(lensProp("editing"), not));
+            return [2 /*return*/];
+        });
+    }); },
+    _a[Action.Update] = function (patch, text) { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            patch(assoc("text", text));
+            return [2 /*return*/];
+        });
+    }); },
+    _a[Action.Focus] = function (patch, vnode) { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            vnode.elm.focus();
+            return [2 /*return*/];
+        });
+    }); },
+    _a[Action.RecalcHeight] = function (patch, vnode) { return __awaiter(_this, void 0, void 0, function () {
+        var h;
+        return __generator(this, function (_a) {
+            h = vnode.elm.offsetHeight;
+            patch(assoc("itemHeight", h));
+            return [2 /*return*/];
+        });
+    }); },
+    _a);
+exports.actions = actions;
+var view = function (_a) {
+    var model = _a.model, _b = _a.prefix, prefix = _b === void 0 ? [] : _b, _c = _a.classes, classes = _c === void 0 ? [] : _c, _d = _a.styles, styles = _d === void 0 ? {} : _d;
+    return (html_1.default("div", { class: classes.concat([css.task]), style: Object.assign({}, style, styles), key: model.created, "hook-insert": prefix.concat(Action.RecalcHeight) },
+        html_1.default("label", { class: css.toggleDone, for: "task-" + prefix.join("-") },
+            html_1.default("input", { class: css.toggleCheckbox, id: "task-" + prefix.join("-"), type: "checkbox", "on-change": prefix.concat(Action.Toggle), checked: model.done }),
+            html_1.default("span", { class: css.toggleDoneLabel }, model.done
+                ? html_1.default("span", null, "+")
+                : html_1.default("span", null, "\u2014"))),
+        model.editing
+            ? html_1.default("input", { class: (_e = {}, _e[css.editBox] = true, _e[css.long] = model.text.length > 30, _e), value: model.text, "on-input": prefix.concat(Action.Update), "keys-enter": prefix.concat(Action.ToggleEditing), "keys-escape": prefix.concat(Action.ToggleEditing), "hook-insert": prefix.concat(Action.Focus), autofocus: true })
+            : html_1.default("span", { class: (_f = {}, _f[css.text] = true, _f[css.long] = model.text.length > 30, _f[css.done] = model.done, _f), style: { color: model.done ? "grey" : "black" }, "on-click": model.done ? [] : prefix.concat(Action.ToggleEditing) }, model.text),
+        model.done || !model.editing
+            ? null
+            : html_1.default("button", { class: css.editButton, "on-click": prefix.concat(Action.ToggleEditing) }, "Save")));
+    var _e, _f;
+};
+exports.view = view;
+// Styles
+var style = {
+    opacity: 1,
+    remove: {
+        opacity: 0,
+    },
+};
+var _a;
+
+
+/***/ }),
+/* 93 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+module.exports = {"task":"task-y7fco","toggleDone":"toggleDone-hF3mY","toggleCheckbox":"toggleCheckbox-1F668","toggleDoneLabel":"toggleDoneLabel-16y6c","editBox":"editBox-2Mb0s","text":"text-39h4M","long":"long-dnv71","done":"done-5xpXe","editButton":"editButton-paaFV"};
+
+/***/ }),
+/* 94 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _curry1 = __webpack_require__(24);
+
+
+/**
+ * A function that returns the `!` of its argument. It will return `true` when
+ * passed false-y value, and `false` when passed a truth-y one.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.1.0
+ * @category Logic
+ * @sig * -> Boolean
+ * @param {*} a any value
+ * @return {Boolean} the logical inverse of passed argument.
+ * @see R.complement
+ * @example
+ *
+ *      R.not(true); //=> false
+ *      R.not(false); //=> true
+ *      R.not(0); //=> true
+ *      R.not(1); //=> false
+ */
+module.exports = _curry1(function not(a) {
+  return !a;
+});
+
+
+/***/ }),
+/* 95 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 96 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+/**
+ * (c) 2017 Hajime Yamasaki Vukelic
+ * All rights reserved.
+ */
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+var __spread = (this && this.__spread) || function () {
+    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
+    return ar;
+};
+var _this = this;
+Object.defineProperty(exports, "__esModule", { value: true });
+var pipe = __webpack_require__(47);
+var prop = __webpack_require__(32);
+var html_1 = __webpack_require__(3);
+var route = __webpack_require__(51);
+var navbar = __webpack_require__(98);
+var ROUTE_PREFIX = process.env.ROUTE_PREFIX || "";
+// Utility functions
+var matchRoute = pipe(prop("re"), route.match(ROUTE_PREFIX));
+var getMatchingRoute = function (routes) {
+    if (!routes.length) {
+        // tslint:disable:no-console
+        console.log("No futher routes found");
+        return undefined;
+    }
+    var _a = __read(routes), current = _a[0], remaining = _a.slice(1);
+    var args = matchRoute(current);
+    if (args === false) {
+        return getMatchingRoute(remaining) || {
+            args: [],
+            mod: current.mod,
+        };
+    }
+    return {
+        args: args,
+        mod: current.mod,
+    };
+};
+var init = function (routes, links) {
+    if (!routes.length) {
+        throw Error("No route definitions found");
+    }
+    var _a = getMatchingRoute(routes), mod = _a.mod, args = _a.args;
+    return {
+        actions: mod.actions,
+        links: links,
+        model: mod.init && mod.init.apply(mod, __spread(args)),
+        path: location.pathname,
+        routes: routes,
+        view: mod.view,
+    };
+};
+exports.init = init;
+// Actions
+var Action;
+(function (Action) {
+    Action[Action["ModuleAction"] = 0] = "ModuleAction";
+    Action[Action["SwitchRoute"] = 1] = "SwitchRoute";
+    Action[Action["Navbar"] = 2] = "Navbar";
+})(Action || (Action = {}));
+exports.Action = Action;
+var actions = (_a = {},
+    _a[Action.ModuleAction] = function (patch, moduleActions, moduleAction) {
+        var args = [];
+        for (var _i = 3; _i < arguments.length; _i++) {
+            args[_i - 3] = arguments[_i];
+        }
+        return __awaiter(_this, void 0, void 0, function () {
+            var modulePatcher, action;
+            return __generator(this, function (_a) {
+                if (!moduleActions) {
+                    return [2 /*return*/];
+                }
+                modulePatcher = function (fn) { return patch(function (model) { return (__assign({}, model, { model: fn(model.model) })); }); };
+                action = moduleActions[moduleAction];
+                if (action) {
+                    action.apply(void 0, __spread([modulePatcher], args));
+                }
+                return [2 /*return*/];
+            });
+        });
+    },
+    _a[Action.SwitchRoute] = function (patch) { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            patch(function (model) { return (__assign({}, model, init(model.routes, model.links))); });
+            return [2 /*return*/];
+        });
+    }); },
+    _a[Action.Navbar] = function (_, action, path) { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, navbar.actions[action](_, path)];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); },
+    _a);
+exports.actions = actions;
+var view = function (_a) {
+    var model = _a.model;
+    return (html_1.default("div", { route: [Action.SwitchRoute] },
+        html_1.default(navbar.view, { prefix: [Action.Navbar], links: model.links }),
+        html_1.default(model.view, { model: model.model, prefix: [Action.ModuleAction, model.actions], key: model.path })));
+};
+exports.view = view;
+var _a;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(50)))
+
+/***/ }),
 /* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3177,7 +3179,7 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var css = __webpack_require__(99);
 var html_1 = __webpack_require__(3);
-var route_1 = __webpack_require__(50);
+var route_1 = __webpack_require__(51);
 // Action
 var Action;
 (function (Action) {
@@ -3213,4 +3215,4 @@ module.exports = {"nav":"nav-mLhoT","link":"link-3zPtL"};
 
 /***/ })
 ]);
-//# sourceMappingURL=0-684c4.js.map
+//# sourceMappingURL=0-36425.js.map
