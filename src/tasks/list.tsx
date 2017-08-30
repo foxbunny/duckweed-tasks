@@ -132,7 +132,16 @@ const view = ({model}: Props): JSX.Element => {
   }, {lastValue: 0, offsets: []});
 
   return (
-    <div>
+    <div style={{
+      delayed: {
+        transform: "translateX(0)",
+      },
+      remove: {
+        transform: "translateX(-100vw)",
+      },
+      transform: "translateX(-100vw)",
+      transition: "transform 1s",
+    }}>
       <main class={css.main}>
         <h1 class={css.title}>Task list</h1>
         <p class={css.buttonBar}>
