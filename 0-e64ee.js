@@ -27,7 +27,7 @@ var view = function () {
         duckweed.html("main", { class: elements.main },
             duckweed.html("h1", { class: css.title }, "About this app"),
             duckweed.html("div", { class: css.body },
-                duckweed.html("p", null, "This app is an experiment bringing Elm-inspired architecture to Snabbdom and TypeScript."),
+                duckweed.html("p", null, "This is a demo app for the [Duckweed](https://github.com/foxbunny/duckweed) microframework."),
                 duckweed.html("p", null,
                     "You can see the source code ",
                     duckweed.html("a", { href: "https://github.com/foxbunny/selm" }, "on GitHub"),
@@ -3052,4 +3052,4 @@ module.exports = {"nav":"nav-mLhoT","link":"link-3zPtL"};
 
 /***/ })
 ]);
-//# sourceMappingURL=0-7d987.js.map
+//# sourceMappingURL=0-e64ee.js.map
