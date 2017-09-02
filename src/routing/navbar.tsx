@@ -5,7 +5,9 @@
 
 const css = require<CSSModule>("./navbar.styl");
 
-import html, {PropsBase} from "runtime/html";
+import * as duckweed from "duckweed";
+import {ActionHandler} from "duckweed/runner";
+
 import {go} from "shared/route";
 
 type NavLink = [string, string];
@@ -13,27 +15,28 @@ type NavLink = [string, string];
 // Action
 
 enum Action {
-  Go,
+  Go = "Go",
 }
 
 const actions = {
   [Action.Go]:
-    async (_: any, path: string) => {
+    (_: any, path: string) => {
       go(path);
     },
 };
 
 // View
 
-interface Props extends PropsBase {
+interface Props {
   links: NavLink[];
+  act: ActionHandler;
 }
 
-const view = ({links, prefix = []}: Props) => {
+const view = ({links, act}: Props) => {
   return (
     <nav class={css.nav}>
       {links.map(([path, label]) =>
-        <a class={css.link} on-click={prefix.concat(Action.Go, path)}>{label}</a>,
+        <a class={css.link} on-click={act(Action.Go, path)}>{label}</a>,
       )}
     </nav>
   );

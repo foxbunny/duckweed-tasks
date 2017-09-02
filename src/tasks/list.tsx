@@ -6,6 +6,11 @@
 const elements = require<CSSModule>("shared/elements.styl");
 const css = require<CSSModule>("./list.styl");
 
+import * as duckweed from "duckweed";
+import {ActionHandler, ModelPatcher, PatchFunction} from "duckweed/runner";
+
+import * as aside from "shared/aside";
+
 import * as adjust from "ramda/src/adjust";
 import * as apply from "ramda/src/apply";
 import * as concat from "ramda/src/concat";
@@ -22,8 +27,6 @@ import * as sort from "ramda/src/sort";
 import * as sum from "ramda/src/sum";
 import * as tap from "ramda/src/tap";
 
-import html, {PropsBase} from "runtime/html";
-import {ModelPatcher, PatchFunction} from "runtime/runner";
 import * as fx from "shared/fx";
 
 import * as task from "./task";
@@ -64,9 +67,9 @@ const init = (): Model => {
 // Action
 
 enum Action {
-  Update,
-  Add,
-  ClearDone,
+  Update = "Update",
+  Add = "Add",
+  ClearDone = "ClearDone",
 }
 
 const sortByDate = sort<task.Model>(descend(prop("created")));
@@ -84,7 +87,7 @@ const sortTasks = pipe(splitTasks, apply(concat)) as (tasks: task.Model[]) => ta
 
 const actions = {
   [Action.Update]:
-    async (patch: ModelPatcher<Model>, id: number, taskAction: task.Action, arg?: any) => {
+    (patch: ModelPatcher<Model>, id: number, taskAction: task.Action, arg?: any) => {
       // The scoped patcher will perform a patch on a particular item in the
       // array. This is how we delegate to the task action.
       const taskPatch = (fn: PatchFunction<task.Model>) =>
@@ -101,17 +104,17 @@ const actions = {
 
       // FIXME: Temporary workaround until we figure out why we can't just do
       // await task.actions[taskAction](taskPatch, arg)
-      await (task.actions[taskAction] as any)(taskPatch, arg);
+      (task.actions[taskAction] as any)(taskPatch, arg);
     },
   [Action.Add]:
-    async (patch: ModelPatcher<Model>) => {
+    (patch: ModelPatcher<Model>) => {
       patch(over(
         lensProp("tasks"),
         prepend(task.init({editing: true})),
       ));
     },
   [Action.ClearDone]:
-    async (patch: ModelPatcher<Model>) => {
+    (patch: ModelPatcher<Model>) => {
       patch(pipe(over(
         lensProp("tasks"),
         pipe(
@@ -124,11 +127,12 @@ const actions = {
 
 // View
 
-interface Props extends PropsBase {
+interface Props {
   model: Model;
+  act: ActionHandler;
 }
 
-const view = ({model, prefix = []}: Props): JSX.Element => {
+const view = ({model, act}: Props): JSX.Element => {
   const listHeight = Math.max(46, sum(map(prop("itemHeight"), model.tasks)) + model.tasks.length * 10);
   const {offsets: listItemOffsets} = model.tasks.reduce((offsets, {itemHeight}) => {
     (offsets.offsets as number[]).push(offsets.lastValue);
@@ -141,8 +145,8 @@ const view = ({model, prefix = []}: Props): JSX.Element => {
       <main class={elements.main}>
         <h1 class={css.title}>Task list</h1>
         <p class={css.buttonBar}>
-          <button class={css.actionButton} on-click={prefix.concat(Action.Add)}>+ Add task</button>
-          <button class={css.actionButton} on-click={prefix.concat(Action.ClearDone)}>Clear done</button>
+          <button class={css.actionButton} on-click={act(Action.Add)}>+ Add task</button>
+          <button class={css.actionButton} on-click={act(Action.ClearDone)}>Clear done</button>
         </p>
         <div class={css.tasks} style={{
           delayed: {
@@ -154,7 +158,7 @@ const view = ({model, prefix = []}: Props): JSX.Element => {
           {model.tasks.map((item: task.Model, index) =>
             <task.view
               model={item}
-              prefix={prefix.concat(Action.Update, index)}
+              act={act.as(Action.Update, index)}
               classes={[css.task]}
               styles={{
                 delayed: {
@@ -173,9 +177,7 @@ const view = ({model, prefix = []}: Props): JSX.Element => {
           )}
         </div>
       </main>
-      <aside class={css.aside}>
-        See the source code <a href="https://github.com/foxbunny/selm">on GitHub</a>
-      </aside>
+      <aside.view />
     </div>
   );
 };

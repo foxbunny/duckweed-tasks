@@ -3,18 +3,18 @@
  * All rights reserved.
  */
 
+import * as duckweed from "duckweed";
+import {ActionHandler, ModelPatcher, PatchFunction} from "duckweed/runner";
 import {VNode} from "snabbdom/src/vnode";
 
 import * as pipe from "ramda/src/pipe";
 import * as prop from "ramda/src/prop";
 
-import html from "runtime/html";
-import {ModelPatcher, PatchFunction} from "runtime/runner";
 import * as route from "shared/route";
 
 import * as navbar from "./navbar";
 
-type ViewFunction = (props: {prefix: any[], model: any, key: string}) => VNode;
+type ViewFunction = (props: {act: ActionHandler, model: any, key: string}) => VNode;
 
 interface BasicModule {
   actions?: any;
@@ -85,9 +85,9 @@ const init = (routes: RouteModule[], links: navbar.NavLink[]): Model => {
 // Actions
 
 enum Action {
-  ModuleAction,
-  SwitchRoute,
-  Navbar,
+  SwitchRoute = "SwitchRoute",
+  ModuleAction = "ModuleAction",
+  NavbarAction = "NavbarAction",
 }
 
 const actions = {
@@ -112,7 +112,7 @@ const actions = {
         ...init(model.routes, model.links),
       }));
     },
-  [Action.Navbar]:
+  [Action.NavbarAction]:
     async (_: any, action: any, path: string) => {
       await navbar.actions[action](_, path);
     },
@@ -122,13 +122,14 @@ const actions = {
 
 interface Props {
   model: Model;
+  act: ActionHandler;
 }
 
-const view = ({model}: Props) => {
+const view = ({model, act}: Props) => {
   return (
-    <div route={[Action.SwitchRoute]}>
-      <navbar.view prefix={[Action.Navbar]} links={model.links} />
-      <model.view model={model.model} prefix={[Action.ModuleAction, model.actions]} key={model.path} />
+    <div route={act(Action.SwitchRoute)}>
+      <navbar.view act={act.as(Action.NavbarAction)} links={model.links} />
+      <model.view model={model.model} act={act.as(Action.ModuleAction, model.actions)} key={model.path} />
     </div>
   );
 };
@@ -138,6 +139,5 @@ export {
   init,
   Action,
   actions,
-  Props,
   view,
 };

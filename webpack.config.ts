@@ -90,6 +90,10 @@ export default function(env: Env | void): webpack.Configuration {
             ],
           }),
         },
+        {
+          test: /\.svg$/,
+          use: "url-loader",
+        },
       ],
     },
     output: {

@@ -3,9 +3,9 @@
     /* Basic Options */
     "target": "es5",
     "module": "commonjs",
-    "lib": ["es2015", "es2016", "esnext.asynciterable", "dom"],
+    "lib": ["es2015", "es2016", "dom"],
     "jsx": "react",
-    "jsxFactory": "html",
+    "jsxFactory": "duckweed.html",
 
     // Make iterators compatible
     "downlevelIteration": true,

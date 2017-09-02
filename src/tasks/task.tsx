@@ -5,15 +5,14 @@
 
 const css = require<CSSModule>("./task.styl");
 
-import {VNode} from "snabbdom/src/vnode";
-
+import * as duckweed from "duckweed";
+import * as E from "duckweed/events";
+import {ActionHandler, ModelPatcher} from "duckweed/runner";
 import * as assoc from "ramda/src/assoc";
 import * as lensProp from "ramda/src/lensProp";
 import * as not from "ramda/src/not";
 import * as over from "ramda/src/over";
-
-import html, {PropsBase} from "runtime/html";
-import {ModelPatcher} from "runtime/runner";
+import {VNode} from "snabbdom/src/vnode";
 
 // Model
 
@@ -36,16 +35,16 @@ const init = (options: any): Model => ({
 // Action
 
 enum Action {
-  Toggle,
-  ToggleEditing,
-  Update,
-  Focus,
-  RecalcHeight,
+  Toggle = "Toggle",
+  ToggleEditing = "ToggleEditing",
+  Update = "Update",
+  Focus = "Focus",
+  RecalcHeight = "RecalcHeight",
 }
 
 const actions = {
   [Action.Toggle]:
-    async (patch: ModelPatcher<Model>, checked: boolean) => {
+    (patch: ModelPatcher<Model>, checked: boolean) => {
       patch((model) => ({
         ...model,
         done: checked,
@@ -53,19 +52,19 @@ const actions = {
       }));
     },
   [Action.ToggleEditing]:
-    async (patch: ModelPatcher<Model>) => {
+    (patch: ModelPatcher<Model>) => {
       patch(over(lensProp("editing"), not));
     },
   [Action.Update]:
-    async (patch: ModelPatcher<Model>, text: string) => {
+    (patch: ModelPatcher<Model>, text: string) => {
       patch(assoc("text", text));
     },
   [Action.Focus]:
-    async (patch: ModelPatcher<Model>, vnode: VNode) => {
+    (patch: ModelPatcher<Model>, vnode: VNode) => {
       (vnode.elm as HTMLInputElement).focus();
     },
   [Action.RecalcHeight]:
-    async (patch: ModelPatcher<Model>, vnode: VNode) => {
+    (patch: ModelPatcher<Model>, vnode: VNode) => {
       const h = (vnode.elm as HTMLElement).offsetHeight;
       patch(assoc("itemHeight", h));
     },
@@ -73,26 +72,27 @@ const actions = {
 
 // View
 
-interface Props extends PropsBase {
+interface Props {
   model: Model;
   classes?: any[];
   styles?: any;
+  act: ActionHandler;
 }
 
-const view = ({model, prefix = [], classes = [], styles = {}}: Props) => {
+const view = ({model, act, classes = [], styles = {}}: Props) => {
   return (
     <div
       class={classes.concat([css.task])}
       style={Object.assign({}, style, styles)}
       key={model.created}
-      hook-insert={prefix.concat(Action.RecalcHeight)}
+      hook-insert={act(Action.RecalcHeight)}
     >
-      <label class={css.toggleDone} for={`task-${prefix.join("-")}`}>
+      <label class={css.toggleDone} for={`task-${model.created}`}>
         <input
           class={css.toggleCheckbox}
-          id={`task-${prefix.join("-")}`}
+          id={`task-${model.created}`}
           type="checkbox"
-          on-change={prefix.concat(Action.Toggle)}
+          on-change={E.from(E.checkboxEvent, act(Action.Toggle))}
           checked={model.done}
           />
         <span class={css.toggleDoneLabel}>
@@ -107,22 +107,22 @@ const view = ({model, prefix = [], classes = [], styles = {}}: Props) => {
             class={{[css.editBox]: true, [css.long]: model.text.length > 30}}
             value={model.text}
             placeholder="What would you want to accomplish?"
-            on-input={prefix.concat(Action.Update)}
-            keys-enter={prefix.concat(Action.ToggleEditing)}
-            keys-escape={prefix.concat(Action.ToggleEditing)}
-            hook-insert={prefix.concat(Action.Focus)}
+            on-input={E.from(E.inputEvent, act(Action.Update))}
+            keys-enter={act(Action.ToggleEditing)}
+            keys-escape={act(Action.ToggleEditing)}
+            hook-insert={act(Action.Focus)}
             autofocus={true} />
         : <span
             class={{[css.text]: true, [css.long]: model.text.length > 30, [css.done]: model.done}}
             style={{color: model.done ? "grey" : "black"}}
-            on-click={model.done ? [] : prefix.concat(Action.ToggleEditing)}
+            on-click={model.done ? act(null) : act(Action.ToggleEditing)}
           >
               {model.text}
           </span>
       }
       {model.done || !model.editing
         ? null
-        : <button class={css.editButton} on-click={prefix.concat(Action.ToggleEditing)}>
+        : <button class={css.editButton} on-click={act(Action.ToggleEditing)}>
             Save
           </button>
       }

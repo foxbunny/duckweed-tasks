@@ -6,7 +6,9 @@
 const elements = require<CSSModule>("shared/elements.styl");
 const css = require<CSSModule>("./about.styl");
 
-import html from "runtime/html";
+import * as duckweed from "duckweed";
+
+import * as aside from "shared/aside";
 import * as fx from "shared/fx";
 
 // View
@@ -33,6 +35,7 @@ const view = () => {
           </p>
         </div>
       </main>
+      <aside.view />
     </div>
   );
 };

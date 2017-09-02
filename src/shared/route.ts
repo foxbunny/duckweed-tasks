@@ -8,6 +8,7 @@ import * as curry from "ramda/src/curry";
 import * as qs from "query-string";
 
 const go = (path: string, query: {[param: string]: any} = {}): void => {
+  // tslint:disable:no-console
   const q = qs.stringify(query);
   const next = ROUTE_PREFIX + path + (q ? `?${q}` : "");
   window.history.pushState(undefined, "", next);
