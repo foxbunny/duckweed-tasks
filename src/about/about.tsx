@@ -21,8 +21,8 @@ const view = () => {
 
         <div class={css.body}>
           <p>
-            This is a demo app for the
-            [Duckweed](https://github.com/foxbunny/duckweed) microframework.
+            This is a demo app for
+            the <a href="https://github.com/foxbunny/duckweed">Duckweed</a> microframework.
           </p>
 
           <p>
