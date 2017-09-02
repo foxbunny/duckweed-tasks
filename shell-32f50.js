@@ -86,7 +86,7 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
-/******/ 		script.src = __webpack_require__.p + "" + chunkId + "-" + "a4dd0" + ".js";
+/******/ 		script.src = __webpack_require__.p + "" + chunkId + "-" + "32f50" + ".js";
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {
@@ -142,7 +142,7 @@
 /******/ 	__webpack_require__.oe = function(err) { console.error(err); throw err; };
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -152,8 +152,8 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var vnode_1 = __webpack_require__(1);
-var is = __webpack_require__(2);
+var vnode_1 = __webpack_require__(2);
+var is = __webpack_require__(3);
 function addNS(data, children, sel) {
     data.ns = 'http://www.w3.org/2000/svg';
     if (sel !== 'foreignObject' && children !== undefined) {
@@ -216,36 +216,6 @@ exports.default = h;
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-function vnode(sel, data, children, text, elm) {
-    var key = data === undefined ? undefined : data.key;
-    return { sel: sel, data: data, children: children,
-        text: text, elm: elm, key: key };
-}
-exports.vnode = vnode;
-exports.default = vnode;
-//# sourceMappingURL=vnode.js.map
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.array = Array.isArray;
-function primitive(s) {
-    return typeof s === 'string' || typeof s === 'number';
-}
-exports.primitive = primitive;
-//# sourceMappingURL=is.js.map
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
 /**
  * (c) 2017 Hajime Yamasaki Vukelic
  * All rights reserved.
@@ -266,15 +236,26 @@ var __read = (this && this.__read) || function (o, n) {
     }
     return ar;
 };
-var __spread = (this && this.__spread) || function () {
-    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
-    return ar;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
+var snabbdom = __webpack_require__(11);
 var h_1 = __webpack_require__(0);
-var EVENT_MODULES = ["on", "off", "hook", "keys"];
-// This is a default dummy action handler
-var actionHandler = function () { return function (e) { return undefined; }; };
+var class_1 = __webpack_require__(14);
+var eventlisteners_1 = __webpack_require__(15);
+var props_1 = __webpack_require__(16);
+var style_1 = __webpack_require__(17);
+var documentevents_1 = __webpack_require__(18);
+var keyevents_1 = __webpack_require__(19);
+var routeevents_1 = __webpack_require__(20);
+var patch = snabbdom.init([
+    class_1.default,
+    style_1.default,
+    eventlisteners_1.default,
+    props_1.default,
+    documentevents_1.default,
+    keyevents_1.default,
+    routeevents_1.default,
+]);
+exports.patch = patch;
 var isInlineChild = function (obj) {
     return typeof obj === "object" && obj !== null && typeof obj.vnodes !== "undefined";
 };
@@ -303,15 +284,16 @@ var prepareProps = function (props) {
         var _a = __read(prop.split("-"), 2), mod = _a[0], sub = _a[1];
         if (sub) {
             finalProps[mod] = finalProps[mod] || {};
-            if (EVENT_MODULES.includes(mod)) {
-                finalProps[mod][sub] = actionHandler.apply(void 0, __spread(props[prop]));
-            }
-            else {
-                finalProps[mod][sub] = props[prop];
-            }
+            finalProps[mod][sub] = props[prop];
         }
         else if (prop === "key") {
             finalProps.key = props[prop];
+        }
+        else if (prop === "on") {
+            finalProps.on = props[prop];
+        }
+        else if (prop === "hook") {
+            finalProps.hook = props[prop];
         }
         else if (prop === "class") {
             finalProps.class = prepareClasses(props[prop]);
@@ -320,7 +302,7 @@ var prepareProps = function (props) {
             finalProps.style = props[prop];
         }
         else if (prop === "route") {
-            finalProps.route = actionHandler.apply(void 0, __spread(props[prop]));
+            finalProps.route = props[prop];
         }
         else {
             finalProps.props = finalProps.props || {};
@@ -330,31 +312,36 @@ var prepareProps = function (props) {
     return finalProps;
 };
 var renderIntrinsic = function (elm, props, children) {
-    children = children.reduce(function (arr, c) {
-        if (isInlineChild(c)) {
-            // Case where we have something like `{props.__inner}` somewhere in the
-            // render functions.
-            return arr.concat(c.__vnodes);
-        }
-        if (Array.isArray(c)) {
-            // Case where we have something like `{arr.map(() => ...)}`
-            return arr.concat(c);
-        }
-        return arr.concat([c]);
-    }, []);
+    if (props === void 0) { props = {}; }
+    if (children === void 0) { children = []; }
+    // FIXME: We're messing with any a lot here
+    children = (children.length === 1
+        ? children[0]
+        : children.reduce(function (arr, c) {
+            if (isInlineChild(c)) {
+                // Case where we have something like `{props.__inner}` somewhere in the
+                // render functions.
+                return arr.concat(c.__vnodes);
+            }
+            if (Array.isArray(c)) {
+                // Case where we have something like `{arr.map(() => ...)}`
+                return arr.concat(c);
+            }
+            return arr.concat([c]);
+        }, []));
     return h_1.default(elm, prepareProps(props), children);
 };
 var renderFunction = function (func, props, children) {
-    var key = props.key;
+    if (props === void 0) { props = {}; }
+    if (children === void 0) { children = []; }
+    var key = props && props.key;
     if (key) {
         delete props.key;
     }
-    var vnode = func(props, { __vnodes: children });
+    var vnode = func(props, { __vnodes: children || [] });
     vnode.key = vnode.key || key;
     return vnode;
 };
-var setActionHandler = function (func) { return actionHandler = func; };
-exports.setActionHandler = setActionHandler;
 var html = function (elm, props) {
     var children = [];
     for (var _i = 2; _i < arguments.length; _i++) {
@@ -367,8 +354,39 @@ var html = function (elm, props) {
         return renderFunction(elm, props, children);
     }
 };
+exports.html = html;
 exports.default = html;
+//# sourceMappingURL=html.js.map
 
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+function vnode(sel, data, children, text, elm) {
+    var key = data === undefined ? undefined : data.key;
+    return { sel: sel, data: data, children: children,
+        text: text, elm: elm, key: key };
+}
+exports.vnode = vnode;
+exports.default = vnode;
+//# sourceMappingURL=vnode.js.map
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.array = Array.isArray;
+function primitive(s) {
+    return typeof s === 'string' || typeof s === 'number';
+}
+exports.primitive = primitive;
+//# sourceMappingURL=is.js.map
 
 /***/ }),
 /* 4 */
@@ -376,9 +394,26 @@ exports.default = html;
 
 "use strict";
 
-var strictUriEncode = __webpack_require__(20);
-var objectAssign = __webpack_require__(21);
-var decodeComponent = __webpack_require__(22);
+/**
+ * (c) 2017 Hajime Yamasaki Vukelic
+ * All rights reserved.
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+var html_1 = __webpack_require__(1);
+exports.html = html_1.default;
+var runner_1 = __webpack_require__(24);
+exports.runner = runner_1.default;
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var strictUriEncode = __webpack_require__(21);
+var objectAssign = __webpack_require__(22);
+var decodeComponent = __webpack_require__(23);
 
 function encoderForArrayFormat(opts) {
 	switch (opts.arrayFormat) {
@@ -584,10 +619,7 @@ exports.stringify = function (obj, opts) {
 
 
 /***/ }),
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -597,214 +629,79 @@ exports.stringify = function (obj, opts) {
  * All rights reserved.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-var runner_1 = __webpack_require__(9);
-// Define a symbol to make iterators work
-// See: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-3.html
-Symbol.asyncIterator = Symbol.asyncIterator || Symbol.for("Symbol.asyncIterator");
-__webpack_require__.e/* require.ensure */(0).then((function (require) {
-    var ROUTES = [
-        { re: /\/about$/, mod: __webpack_require__(5) },
-        { re: /^\/$/, mod: __webpack_require__(6) },
-    ];
-    var LINKS = [
-        ["/", "Tasks"],
-        ["/about", "About"],
-    ];
-    var _a = __webpack_require__(7), init = _a.init, actions = _a.actions, view = _a.view;
-    runner_1.default(init(ROUTES, LINKS), actions, view);
-}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/**
- * (c) 2017 Hajime Yamasaki Vukelic
- * All rights reserved.
- */
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
+var str = function (s) {
+    return typeof s === "string";
 };
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [0, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-var __read = (this && this.__read) || function (o, n) {
-    var m = typeof Symbol === "function" && o[Symbol.iterator];
-    if (!m) return o;
-    var i = m.call(o), r, ar = [], e;
-    try {
-        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-    }
-    catch (error) { e = { error: error }; }
-    finally {
-        try {
-            if (r && !r.done && (m = i["return"])) m.call(i);
-        }
-        finally { if (e) throw e.error; }
-    }
-    return ar;
-};
-var __spread = (this && this.__spread) || function () {
-    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
-    return ar;
-};
-var _this = this;
-Object.defineProperty(exports, "__esModule", { value: true });
-var snabbdom = __webpack_require__(10);
-var class_1 = __webpack_require__(13);
-var eventlisteners_1 = __webpack_require__(14);
-var props_1 = __webpack_require__(15);
-var style_1 = __webpack_require__(16);
-var documentevents_1 = __webpack_require__(17);
-var html_1 = __webpack_require__(3);
-var keyevents_1 = __webpack_require__(18);
-var routeevents_1 = __webpack_require__(19);
-var patch = snabbdom.init([
-    class_1.default,
-    style_1.default,
-    eventlisteners_1.default,
-    props_1.default,
-    documentevents_1.default,
-    keyevents_1.default,
-    routeevents_1.default,
-]);
-var isInput = function (target) {
+exports.str = str;
+var input = function (target) {
     return target.tagName === "INPUT";
 };
-var isCheckbox = function (target) {
+exports.input = input;
+var checkbox = function (target) {
     return target.tagName === "INPUT" && target.type === "checkbox";
 };
-var isAnchor = function (target) {
-    return target.tagName === "A";
+exports.checkbox = checkbox;
+var event = function (ev) {
+    return ev instanceof Event;
 };
-var isEvent = function (event) {
-    return event instanceof Event;
+exports.event = event;
+var changeEvent = function (ev) {
+    return event(ev) && ev.type === "change";
 };
-var isVNnode = function (vnode) {
-    return typeof vnode === "object" && "sel" in vnode;
+exports.changeEvent = changeEvent;
+var inputEvent = function (ev) {
+    return event(ev) && ev.type === "input";
 };
-var isPathData = function (data) {
+exports.inputEvent = inputEvent;
+var vnode = function (vn) {
+    return typeof vn === "object" && "sel" in vnode;
+};
+exports.vnode = vnode;
+var pathData = function (data) {
     return typeof data === "object" && typeof data.pathname === "string";
 };
-var runner = function (model, actions, view, root) {
-    if (root === void 0) { root = "#app"; }
-    return __awaiter(_this, void 0, void 0, function () {
-        var _this = this;
-        var currentVNodes, currentModel, renderTimer, render, patchModel, actionHandler;
-        return __generator(this, function (_a) {
-            currentVNodes = document.querySelector(root);
-            currentModel = model;
-            renderTimer = null;
-            render = function () {
-                currentVNodes = patch(currentVNodes, html_1.default(view, { model: currentModel }));
-                renderTimer = null;
-            };
-            patchModel = function (fn) {
-                currentModel = fn(currentModel);
-                // Render on next tick in order to prevent recurisve rendering if hooks
-                // perform a patch
-                if (renderTimer) {
-                    clearTimeout(renderTimer);
-                }
-                renderTimer = setTimeout(render);
-            };
-            actionHandler = function (action) {
-                var args = [];
-                for (var _i = 1; _i < arguments.length; _i++) {
-                    args[_i - 1] = arguments[_i];
-                }
-                return function (e) {
-                    var eventArgs = [];
-                    for (var _i = 1; _i < arguments.length; _i++) {
-                        eventArgs[_i - 1] = arguments[_i];
-                    }
-                    return __awaiter(_this, void 0, void 0, function () {
-                        var actionFn;
-                        return __generator(this, function (_a) {
-                            if (action == null) {
-                                return [2 /*return*/];
-                            }
-                            actionFn = actions[action];
-                            if (isVNnode(e)) {
-                                // This is mostly for hooks. We add the vnode object to args.
-                                args = args.concat(e);
-                                args = args.concat(eventArgs);
-                            }
-                            else if (isEvent(e) && e.type === "change" && isCheckbox(e.target)) {
-                                args = args.concat(e.target.checked);
-                            }
-                            else if (isEvent(e) && e.type === "input" && isInput(e.target)) {
-                                // For convenience, process events and extract implied arguments
-                                e.preventDefault();
-                                args = args.concat(e.target.value);
-                            }
-                            else if (isEvent(e) && isAnchor(e.target)) {
-                                e.preventDefault();
-                                if (e.target.href) {
-                                    args = args.concat(e.target.href.replace(location.origin, ""));
-                                }
-                            }
-                            else if (isPathData(e)) {
-                                args = args.concat(e);
-                            }
-                            actionFn.apply(void 0, __spread([patchModel], args));
-                            return [2 /*return*/];
-                        });
-                    });
-                };
-            };
-            html_1.setActionHandler(actionHandler);
-            // Start
-            render();
-            return [2 /*return*/];
-        });
-    });
-};
-exports.default = runner;
-
+exports.pathData = pathData;
+//# sourceMappingURL=is.js.map
 
 /***/ }),
+/* 7 */,
+/* 8 */,
+/* 9 */,
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
+/**
+ * (c) 2017 Hajime Yamasaki Vukelic
+ * All rights reserved.
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
-var vnode_1 = __webpack_require__(1);
-var is = __webpack_require__(2);
-var htmldomapi_1 = __webpack_require__(11);
+var duckweed = __webpack_require__(4);
+__webpack_require__.e/* require.ensure */(0).then((function (require) {
+    var ROUTES = [
+        { re: /\/about$/, mod: __webpack_require__(7) },
+        { re: /^\/$/, mod: __webpack_require__(8) },
+    ];
+    var LINKS = [
+        ["/", "Tasks"],
+        ["/about", "About"],
+    ];
+    var _a = __webpack_require__(9), init = _a.init, actions = _a.actions, view = _a.view;
+    duckweed.runner(init(ROUTES, LINKS), actions, view);
+}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var vnode_1 = __webpack_require__(2);
+var is = __webpack_require__(3);
+var htmldomapi_1 = __webpack_require__(12);
 function isUndef(s) { return s === undefined; }
 function isDef(s) { return s !== undefined; }
 var emptyNode = vnode_1.default('', {}, [], undefined, undefined);
@@ -829,7 +726,7 @@ function createKeyToOldIdx(children, beginIdx, endIdx) {
 var hooks = ['create', 'update', 'remove', 'destroy', 'pre', 'post'];
 var h_1 = __webpack_require__(0);
 exports.h = h_1.h;
-var thunk_1 = __webpack_require__(12);
+var thunk_1 = __webpack_require__(13);
 exports.thunk = thunk_1.thunk;
 function init(modules, domApi) {
     var i, j, cbs = {};
@@ -1109,7 +1006,7 @@ exports.init = init;
 //# sourceMappingURL=snabbdom.js.map
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1181,7 +1078,7 @@ exports.default = exports.htmlDomApi;
 //# sourceMappingURL=htmldomapi.js.map
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1234,7 +1131,7 @@ exports.default = exports.thunk;
 //# sourceMappingURL=thunk.js.map
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1265,7 +1162,7 @@ exports.default = exports.classModule;
 //# sourceMappingURL=class.js.map
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1366,7 +1263,7 @@ exports.default = exports.eventListenersModule;
 //# sourceMappingURL=eventlisteners.js.map
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1398,7 +1295,7 @@ exports.default = exports.propsModule;
 //# sourceMappingURL=props.js.map
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1490,7 +1387,7 @@ exports.default = exports.styleModule;
 //# sourceMappingURL=style.js.map
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1569,7 +1466,7 @@ var updateListeners = function (oldVNode, vnode) {
     var elm = (vnode && vnode.elm);
     // Add new listeners if necessary
     if (off) {
-        var listener_1 = vnode.listener || oldVNode.listener || createListener(elm);
+        var listener_1 = vnode.offListener || oldVNode.offListener || createListener(elm);
         listener_1.vnode = vnode;
         vnode.offListener = listener_1;
         Object.keys(off)
@@ -1586,10 +1483,10 @@ var module = {
 };
 exports.module = module;
 exports.default = module;
-
+//# sourceMappingURL=documentevents.js.map
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1691,10 +1588,10 @@ var module = {
 };
 exports.module = module;
 exports.default = module;
-
+//# sourceMappingURL=keyevents.js.map
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1704,7 +1601,7 @@ exports.default = module;
  * All rights reserved.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-var qs = __webpack_require__(4);
+var qs = __webpack_require__(5);
 var handleEvent = function (data, vnode) {
     var route = vnode.data.route;
     if (typeof route === "function") {
@@ -1749,10 +1646,10 @@ var module = {
 };
 exports.module = module;
 exports.default = module;
-
+//# sourceMappingURL=routeevents.js.map
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1765,7 +1662,7 @@ module.exports = function (str) {
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1862,7 +1759,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1962,6 +1859,163 @@ module.exports = function (encodedURI) {
 };
 
 
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/**
+ * (c) 2017 Hajime Yamasaki Vukelic
+ * All rights reserved.
+ */
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+var __spread = (this && this.__spread) || function () {
+    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
+    return ar;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var html_1 = __webpack_require__(1);
+var is = __webpack_require__(6);
+/**
+ * Clears the timer if one was set by the patch function.
+ */
+var cancelNextRender = function (state) {
+    if (state.nextRenderId) {
+        clearTimeout(state.nextRenderId);
+        state.nextRenderId = null;
+    }
+};
+/**
+ * Cancel the next-scheduled render, and reschedule another render
+ */
+var setNextRender = function (state, render) {
+    cancelNextRender(state);
+    state.nextRenderId = setTimeout(render);
+};
+/**
+ * Create a renderer function
+ *
+ * The renderer function will keep updating the vnodes stored in the runner
+ * state using a specified view function.
+ */
+var createRenderer = function (state, view) {
+    return function (actionHandler) {
+        state.vnodes = html_1.patch(state.vnodes, view({ model: state.model, act: actionHandler }));
+        state.nextRenderId = null;
+    };
+};
+var actionHandlerFactory = function (patcher, actions, prefix) {
+    if (prefix === void 0) { prefix = []; }
+    var handler = function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        return function () {
+            var eventArgs = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                eventArgs[_i] = arguments[_i];
+            }
+            var _a = __read(prefix.concat(args, eventArgs)), action = _a[0], actionArgs = _a.slice(1);
+            if (action == null) {
+                return;
+            }
+            var actionFn = actions[action];
+            if (!actionFn) {
+                throw Error("No action found for message [" + action + ", " + actionArgs.join(", ") + "]");
+            }
+            actionFn.apply(void 0, __spread([patcher], actionArgs));
+        };
+    };
+    handler.as = function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        return actionHandlerFactory(patcher, actions, prefix.concat(args));
+    };
+    handler.prefix = prefix;
+    return handler;
+};
+/**
+ * Create an action handler
+ *
+ * Action handler is a proxy event/hook handler factory which allows the user to
+ * specify messages which will then be tied to action handlers when the events
+ * trigger.
+ *
+ * A message constists of an action identifier, and zero or more arbitrary
+ * user-specified arguments. The message is specified in the prop, and it is
+ * passsed to the action handler, which returns an event handler that is used by
+ * Snabbdom to handle the events. When an event is triggered, the control is
+ * returned to the action handler which uses the original message to determine
+ * which action handler will be invoked.
+ */
+var createActionHandler = function (state, actions, render, middleware) {
+    var middlewareStack = middleware.reduce(function (m1, m2) {
+        return function (fn) { return m1(m2(fn)); };
+    }, function (fn) { return fn; });
+    var patcher = function (fn) {
+        state.model = middlewareStack(fn)(state.model);
+        setNextRender(state, function () { return render(handler); });
+    };
+    var handler = actionHandlerFactory(patcher, actions);
+    return handler;
+};
+var DEFAULT_OPTIONS = {
+    middleware: [],
+    root: "#app",
+};
+/**
+ * Create and start a new application runtime
+ *
+ * The runner function takes a model, actions mapping, view function, and an
+ * optional root element selector (defaults to "#app"). It then kicks off the
+ * render process, rendering the initial view onto the root element (root
+ * element is replaced in the process).
+ */
+var runner = function (model, actions, view, options) {
+    if (options === void 0) { options = {}; }
+    var opt = __assign({}, DEFAULT_OPTIONS, options);
+    var state = {
+        model: model,
+        nextRenderId: null,
+        vnodes: is.str(opt.root) ? document.querySelector(opt.root) : opt.root,
+    };
+    // Prepare the engine
+    var render = createRenderer(state, view);
+    var actionHandler = createActionHandler(state, actions, render, opt.middleware);
+    // Start rendering
+    render(actionHandler);
+};
+exports.runner = runner;
+exports.default = runner;
+//# sourceMappingURL=runner.js.map
+
 /***/ })
 /******/ ]);
-//# sourceMappingURL=shell-a4dd0.js.map
+//# sourceMappingURL=shell-32f50.js.map

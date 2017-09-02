@@ -31,6 +31,15 @@
  * (c) 2017 Hajime Yamasaki Vukelic
  * All rights reserved.
  */
+.aside-3sF2l {
+  font-size: 80%;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+/**
+ * (c) 2017 Hajime Yamasaki Vukelic
+ * All rights reserved.
+ */
 .title-2Vzar {
   font-size: 120%;
   color: #555;
@@ -59,11 +68,6 @@
   padding: 0.3rem 1rem;
   border-radius: 2px;
   margin-left: 0.5rem;
-}
-.aside-1Xbnx {
-  font-size: 80%;
-  text-align: center;
-  margin-bottom: 3rem;
 }
 /**
  * (c) 2017 Hajime Yamasaki Vukelic
@@ -175,4 +179,4 @@ body {
   color: #579;
 }
 
-/*# sourceMappingURL=shell-abaf5c0c4002e1b76097b10b64957c28.css.map*/
+/*# sourceMappingURL=shell-1d8610110899885a2a63dd49b91eef36.css.map*/

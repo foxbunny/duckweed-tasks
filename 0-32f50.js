@@ -4,7 +4,9 @@ webpackJsonp([0],[
 /* 2 */,
 /* 3 */,
 /* 4 */,
-/* 5 */
+/* 5 */,
+/* 6 */,
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14,28 +16,30 @@ webpackJsonp([0],[
  * All rights reserved.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-var elements = __webpack_require__(33);
-var css = __webpack_require__(51);
-var html_1 = __webpack_require__(3);
-var fx = __webpack_require__(34);
+var elements = __webpack_require__(35);
+var css = __webpack_require__(54);
+var duckweed = __webpack_require__(4);
+var aside = __webpack_require__(36);
+var fx = __webpack_require__(37);
 // View
 var view = function () {
-    return (html_1.default("div", { class: elements.wrapper, style: fx.dropInTwistOut() },
-        html_1.default("main", { class: elements.main },
-            html_1.default("h1", { class: css.title }, "About this app"),
-            html_1.default("div", { class: css.body },
-                html_1.default("p", null, "This app is an experiment bringing Elm-inspired architecture to Snabbdom and TypeScript."),
-                html_1.default("p", null,
+    return (duckweed.html("div", { class: elements.wrapper, style: fx.dropInTwistOut() },
+        duckweed.html("main", { class: elements.main },
+            duckweed.html("h1", { class: css.title }, "About this app"),
+            duckweed.html("div", { class: css.body },
+                duckweed.html("p", null, "This app is an experiment bringing Elm-inspired architecture to Snabbdom and TypeScript."),
+                duckweed.html("p", null,
                     "You can see the source code ",
-                    html_1.default("a", { href: "https://github.com/foxbunny/selm" }, "on GitHub"),
+                    duckweed.html("a", { href: "https://github.com/foxbunny/selm" }, "on GitHub"),
                     ". It is available under the terms of the MIT license."),
-                html_1.default("p", null, "\u00A9 2017 Hajime Yamasaki Vukelic.")))));
+                duckweed.html("p", null, "\u00A9 2017 Hajime Yamasaki Vukelic."))),
+        duckweed.html(aside.view, null)));
 };
 exports.view = view;
 
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44,63 +48,28 @@ exports.view = view;
  * (c) 2017 Hajime Yamasaki Vukelic
  * All rights reserved.
  */
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [0, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var elements = __webpack_require__(33);
-var css = __webpack_require__(52);
-var adjust = __webpack_require__(53);
-var apply = __webpack_require__(54);
-var concat = __webpack_require__(55);
-var descend = __webpack_require__(78);
-var filter = __webpack_require__(39);
-var lensProp = __webpack_require__(42);
-var map = __webpack_require__(44);
-var over = __webpack_require__(46);
-var pipe = __webpack_require__(47);
-var prepend = __webpack_require__(85);
-var prop = __webpack_require__(32);
-var propEq = __webpack_require__(86);
-var sort = __webpack_require__(87);
-var sum = __webpack_require__(88);
-var tap = __webpack_require__(90);
-var html_1 = __webpack_require__(3);
-var fx = __webpack_require__(34);
-var task = __webpack_require__(91);
+var elements = __webpack_require__(35);
+var css = __webpack_require__(57);
+var duckweed = __webpack_require__(4);
+var aside = __webpack_require__(36);
+var adjust = __webpack_require__(58);
+var apply = __webpack_require__(59);
+var concat = __webpack_require__(60);
+var descend = __webpack_require__(83);
+var filter = __webpack_require__(42);
+var lensProp = __webpack_require__(45);
+var map = __webpack_require__(47);
+var over = __webpack_require__(49);
+var pipe = __webpack_require__(50);
+var prepend = __webpack_require__(90);
+var prop = __webpack_require__(34);
+var propEq = __webpack_require__(91);
+var sort = __webpack_require__(92);
+var sum = __webpack_require__(93);
+var tap = __webpack_require__(95);
+var fx = __webpack_require__(37);
+var task = __webpack_require__(96);
 // Storage management
 var STORAGE_KEY = "tasks";
 var retrieve = function () {
@@ -126,9 +95,9 @@ exports.init = init;
 // Action
 var Action;
 (function (Action) {
-    Action[Action["Update"] = 0] = "Update";
-    Action[Action["Add"] = 1] = "Add";
-    Action[Action["ClearDone"] = 2] = "ClearDone";
+    Action["Update"] = "Update";
+    Action["Add"] = "Add";
+    Action["ClearDone"] = "ClearDone";
 })(Action || (Action = {}));
 exports.Action = Action;
 var sortByDate = sort(descend(prop("created")));
@@ -140,42 +109,27 @@ var splitTasks = function (tasks) {
 };
 var sortTasks = pipe(splitTasks, apply(concat));
 var actions = (_a = {},
-    _a[Action.Update] = function (patch, id, taskAction, arg) { return __awaiter(_this, void 0, void 0, function () {
-        var taskPatch;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    taskPatch = function (fn) {
-                        // FIXME: Come up with a nice utility function for creating scoped patchers
-                        return patch(over(lensProp("tasks"), pipe(adjust(fn, id), sortTasks, filter(notEmpty), tap(store))));
-                    };
-                    // FIXME: Temporary workaround until we figure out why we can't just do
-                    // await task.actions[taskAction](taskPatch, arg)
-                    return [4 /*yield*/, task.actions[taskAction](taskPatch, arg)];
-                case 1:
-                    // FIXME: Temporary workaround until we figure out why we can't just do
-                    // await task.actions[taskAction](taskPatch, arg)
-                    _a.sent();
-                    return [2 /*return*/];
-            }
-        });
-    }); },
-    _a[Action.Add] = function (patch) { return __awaiter(_this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            patch(over(lensProp("tasks"), prepend(task.init({ editing: true }))));
-            return [2 /*return*/];
-        });
-    }); },
-    _a[Action.ClearDone] = function (patch) { return __awaiter(_this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            patch(pipe(over(lensProp("tasks"), pipe(filterDone(false), tap(store)))));
-            return [2 /*return*/];
-        });
-    }); },
+    _a[Action.Update] = function (patch, id, taskAction, arg) {
+        // The scoped patcher will perform a patch on a particular item in the
+        // array. This is how we delegate to the task action.
+        var taskPatch = function (fn) {
+            // FIXME: Come up with a nice utility function for creating scoped patchers
+            return patch(over(lensProp("tasks"), pipe(adjust(fn, id), sortTasks, filter(notEmpty), tap(store))));
+        };
+        // FIXME: Temporary workaround until we figure out why we can't just do
+        // await task.actions[taskAction](taskPatch, arg)
+        task.actions[taskAction](taskPatch, arg);
+    },
+    _a[Action.Add] = function (patch) {
+        patch(over(lensProp("tasks"), prepend(task.init({ editing: true }))));
+    },
+    _a[Action.ClearDone] = function (patch) {
+        patch(pipe(over(lensProp("tasks"), pipe(filterDone(false), tap(store)))));
+    },
     _a);
 exports.actions = actions;
 var view = function (_a) {
-    var model = _a.model, _b = _a.prefix, prefix = _b === void 0 ? [] : _b;
+    var model = _a.model, act = _a.act;
     var listHeight = Math.max(46, sum(map(prop("itemHeight"), model.tasks)) + model.tasks.length * 10);
     var listItemOffsets = model.tasks.reduce(function (offsets, _a) {
         var itemHeight = _a.itemHeight;
@@ -183,20 +137,20 @@ var view = function (_a) {
         offsets.lastValue += itemHeight + 10;
         return offsets;
     }, { lastValue: 0, offsets: [] }).offsets;
-    return (html_1.default("div", { class: elements.wrapper, style: fx.dropInTwistOut() },
-        html_1.default("main", { class: elements.main },
-            html_1.default("h1", { class: css.title }, "Task list"),
-            html_1.default("p", { class: css.buttonBar },
-                html_1.default("button", { class: css.actionButton, "on-click": prefix.concat(Action.Add) }, "+ Add task"),
-                html_1.default("button", { class: css.actionButton, "on-click": prefix.concat(Action.ClearDone) }, "Clear done")),
-            html_1.default("div", { class: css.tasks, style: {
+    return (duckweed.html("div", { class: elements.wrapper, style: fx.dropInTwistOut() },
+        duckweed.html("main", { class: elements.main },
+            duckweed.html("h1", { class: css.title }, "Task list"),
+            duckweed.html("p", { class: css.buttonBar },
+                duckweed.html("button", { class: css.actionButton, "on-click": act(Action.Add) }, "+ Add task"),
+                duckweed.html("button", { class: css.actionButton, "on-click": act(Action.ClearDone) }, "Clear done")),
+            duckweed.html("div", { class: css.tasks, style: {
                     delayed: {
                         paddingBottom: listHeight + "px",
                     },
                     paddingBottom: "40px",
                     transition: "padding-bottom 1s",
                 } }, model.tasks.map(function (item, index) {
-                return html_1.default(task.view, { model: item, prefix: prefix.concat(Action.Update, index), classes: [css.task], styles: {
+                return duckweed.html(task.view, { model: item, act: act.as(Action.Update, index), classes: [css.task], styles: {
                         delayed: {
                             opacity: 1,
                             transform: "translateY(" + listItemOffsets[index] + "px)",
@@ -210,16 +164,14 @@ var view = function (_a) {
                         transition: "transform 1s, opacity ease-out 0.5s",
                     } });
             }))),
-        html_1.default("aside", { class: css.aside },
-            "See the source code ",
-            html_1.default("a", { href: "https://github.com/foxbunny/selm" }, "on GitHub"))));
+        duckweed.html(aside.view, null)));
 };
 exports.view = view;
 var _a;
 
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -232,13 +184,11 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__webpack_require__(94);
-__export(__webpack_require__(95));
+__webpack_require__(100);
+__export(__webpack_require__(101));
 
 
 /***/ }),
-/* 8 */,
-/* 9 */,
 /* 10 */,
 /* 11 */,
 /* 12 */,
@@ -252,11 +202,13 @@ __export(__webpack_require__(95));
 /* 20 */,
 /* 21 */,
 /* 22 */,
-/* 23 */
+/* 23 */,
+/* 24 */,
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curry1 = __webpack_require__(24);
-var _isPlaceholder = __webpack_require__(26);
+var _curry1 = __webpack_require__(26);
+var _isPlaceholder = __webpack_require__(28);
 
 
 /**
@@ -286,10 +238,10 @@ module.exports = function _curry2(fn) {
 
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _isPlaceholder = __webpack_require__(26);
+var _isPlaceholder = __webpack_require__(28);
 
 
 /**
@@ -312,12 +264,12 @@ module.exports = function _curry1(fn) {
 
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curry1 = __webpack_require__(24);
-var _curry2 = __webpack_require__(23);
-var _isPlaceholder = __webpack_require__(26);
+var _curry1 = __webpack_require__(26);
+var _curry2 = __webpack_require__(25);
+var _isPlaceholder = __webpack_require__(28);
 
 
 /**
@@ -356,7 +308,7 @@ module.exports = function _curry3(fn) {
 
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = function _isPlaceholder(a) {
@@ -367,7 +319,7 @@ module.exports = function _isPlaceholder(a) {
 
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports) {
 
 /**
@@ -390,12 +342,12 @@ module.exports = Array.isArray || function _isArray(val) {
 
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curry1 = __webpack_require__(24);
-var _has = __webpack_require__(30);
-var _isArguments = __webpack_require__(65);
+var _curry1 = __webpack_require__(26);
+var _has = __webpack_require__(32);
+var _isArguments = __webpack_require__(70);
 
 
 /**
@@ -470,7 +422,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports) {
 
 module.exports = function _arity(n, fn) {
@@ -493,7 +445,7 @@ module.exports = function _arity(n, fn) {
 
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, exports) {
 
 module.exports = function _has(prop, obj) {
@@ -502,12 +454,12 @@ module.exports = function _has(prop, obj) {
 
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _isArrayLike = __webpack_require__(74);
-var _xwrap = __webpack_require__(75);
-var bind = __webpack_require__(76);
+var _isArrayLike = __webpack_require__(79);
+var _xwrap = __webpack_require__(80);
+var bind = __webpack_require__(81);
 
 
 module.exports = (function() {
@@ -569,10 +521,10 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curry2 = __webpack_require__(23);
+var _curry2 = __webpack_require__(25);
 
 
 /**
@@ -597,14 +549,40 @@ module.exports = _curry2(function prop(p, obj) { return obj[p]; });
 
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 module.exports = {"wrapper":"wrapper-1mVco","main":"main-3Cs3s"};
 
 /***/ }),
-/* 34 */
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/**
+ * (c) 2017 Hajime Yamasaki Vukelic
+ * All rights reserved.
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+var css = __webpack_require__(55);
+var badge = __webpack_require__(56);
+var duckweed = __webpack_require__(4);
+var view = function () {
+    return (duckweed.html("aside", { class: css.aside },
+        duckweed.html("p", null,
+            duckweed.html("a", { href: "https://github.com/foxbunny/duckweed" },
+                duckweed.html("img", { src: badge }))),
+        duckweed.html("p", null,
+            "See the source code ",
+            duckweed.html("a", { href: "https://github.com/foxbunny/selm" }, "on GitHub"))));
+};
+exports.view = view;
+
+
+/***/ }),
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -686,7 +664,7 @@ exports.dropInTwistOut = dropInTwistOut;
 
 
 /***/ }),
-/* 35 */
+/* 38 */
 /***/ (function(module, exports) {
 
 /**
@@ -723,7 +701,7 @@ module.exports = function _concat(set1, set2) {
 
 
 /***/ }),
-/* 36 */
+/* 39 */
 /***/ (function(module, exports) {
 
 module.exports = function _isString(x) {
@@ -732,11 +710,11 @@ module.exports = function _isString(x) {
 
 
 /***/ }),
-/* 37 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curry2 = __webpack_require__(23);
-var _equals = __webpack_require__(61);
+var _curry2 = __webpack_require__(25);
+var _equals = __webpack_require__(66);
 
 
 /**
@@ -770,7 +748,7 @@ module.exports = _curry2(function equals(a, b) {
 
 
 /***/ }),
-/* 38 */
+/* 41 */
 /***/ (function(module, exports) {
 
 module.exports = function _map(fn, functor) {
@@ -786,16 +764,16 @@ module.exports = function _map(fn, functor) {
 
 
 /***/ }),
-/* 39 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curry2 = __webpack_require__(23);
-var _dispatchable = __webpack_require__(40);
-var _filter = __webpack_require__(72);
-var _isObject = __webpack_require__(73);
-var _reduce = __webpack_require__(31);
-var _xfilter = __webpack_require__(77);
-var keys = __webpack_require__(28);
+var _curry2 = __webpack_require__(25);
+var _dispatchable = __webpack_require__(43);
+var _filter = __webpack_require__(77);
+var _isObject = __webpack_require__(78);
+var _reduce = __webpack_require__(33);
+var _xfilter = __webpack_require__(82);
+var keys = __webpack_require__(30);
 
 
 /**
@@ -841,11 +819,11 @@ module.exports = _curry2(_dispatchable(['filter'], _xfilter, function(pred, filt
 
 
 /***/ }),
-/* 40 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _isArray = __webpack_require__(27);
-var _isTransformer = __webpack_require__(71);
+var _isArray = __webpack_require__(29);
+var _isTransformer = __webpack_require__(76);
 
 
 /**
@@ -888,7 +866,7 @@ module.exports = function _dispatchable(methodNames, xf, fn) {
 
 
 /***/ }),
-/* 41 */
+/* 44 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -902,13 +880,13 @@ module.exports = {
 
 
 /***/ }),
-/* 42 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curry1 = __webpack_require__(24);
-var assoc = __webpack_require__(43);
-var lens = __webpack_require__(79);
-var prop = __webpack_require__(32);
+var _curry1 = __webpack_require__(26);
+var assoc = __webpack_require__(46);
+var lens = __webpack_require__(84);
+var prop = __webpack_require__(34);
 
 
 /**
@@ -937,10 +915,10 @@ module.exports = _curry1(function lensProp(k) {
 
 
 /***/ }),
-/* 43 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curry3 = __webpack_require__(25);
+var _curry3 = __webpack_require__(27);
 
 
 /**
@@ -974,16 +952,16 @@ module.exports = _curry3(function assoc(prop, val, obj) {
 
 
 /***/ }),
-/* 44 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curry2 = __webpack_require__(23);
-var _dispatchable = __webpack_require__(40);
-var _map = __webpack_require__(38);
-var _reduce = __webpack_require__(31);
-var _xmap = __webpack_require__(80);
-var curryN = __webpack_require__(45);
-var keys = __webpack_require__(28);
+var _curry2 = __webpack_require__(25);
+var _dispatchable = __webpack_require__(43);
+var _map = __webpack_require__(41);
+var _reduce = __webpack_require__(33);
+var _xmap = __webpack_require__(85);
+var curryN = __webpack_require__(48);
+var keys = __webpack_require__(30);
 
 
 /**
@@ -1039,13 +1017,13 @@ module.exports = _curry2(_dispatchable(['fantasy-land/map', 'map'], _xmap, funct
 
 
 /***/ }),
-/* 45 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _arity = __webpack_require__(29);
-var _curry1 = __webpack_require__(24);
-var _curry2 = __webpack_require__(23);
-var _curryN = __webpack_require__(81);
+var _arity = __webpack_require__(31);
+var _curry1 = __webpack_require__(26);
+var _curry2 = __webpack_require__(25);
+var _curryN = __webpack_require__(86);
 
 
 /**
@@ -1099,10 +1077,10 @@ module.exports = _curry2(function curryN(length, fn) {
 
 
 /***/ }),
-/* 46 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curry3 = __webpack_require__(25);
+var _curry3 = __webpack_require__(27);
 
 
 /**
@@ -1144,13 +1122,13 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 47 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _arity = __webpack_require__(29);
-var _pipe = __webpack_require__(82);
-var reduce = __webpack_require__(48);
-var tail = __webpack_require__(83);
+var _arity = __webpack_require__(31);
+var _pipe = __webpack_require__(87);
+var reduce = __webpack_require__(51);
+var tail = __webpack_require__(88);
 
 
 /**
@@ -1186,11 +1164,11 @@ module.exports = function pipe() {
 
 
 /***/ }),
-/* 48 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curry3 = __webpack_require__(25);
-var _reduce = __webpack_require__(31);
+var _curry3 = __webpack_require__(27);
+var _reduce = __webpack_require__(33);
 
 
 /**
@@ -1243,10 +1221,10 @@ module.exports = _curry3(_reduce);
 
 
 /***/ }),
-/* 49 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _isArray = __webpack_require__(27);
+var _isArray = __webpack_require__(29);
 
 
 /**
@@ -1274,7 +1252,7 @@ module.exports = function _checkForMethod(methodname, fn) {
 
 
 /***/ }),
-/* 50 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1284,12 +1262,13 @@ module.exports = function _checkForMethod(methodname, fn) {
  * All rights reserved.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-var curry = __webpack_require__(96);
-var qs = __webpack_require__(4);
+var curry = __webpack_require__(102);
+var qs = __webpack_require__(5);
 var go = function (path, query) {
     if (query === void 0) { query = {}; }
+    // tslint:disable:no-console
     var q = qs.stringify(query);
-    var next = "/selm" + path + (q ? "?" + q : "");
+    var next = "" + path + (q ? "?" + q : "");
     window.history.pushState(undefined, "", next);
     window.dispatchEvent(new Event("popstate"));
 };
@@ -1304,25 +1283,38 @@ exports.match = match;
 
 
 /***/ }),
-/* 51 */
+/* 54 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 module.exports = {"title":"title-3wfn8","body":"body-29zdx"};
 
 /***/ }),
-/* 52 */
+/* 55 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"title":"title-2Vzar","buttonBar":"buttonBar-3RWL3","tasks":"tasks-mY1lL","task":"task-18Jn4","actionButton":"actionButton-3rOZ_","aside":"aside-1Xbnx"};
+module.exports = {"aside":"aside-3sF2l"};
 
 /***/ }),
-/* 53 */
+/* 56 */
+/***/ (function(module, exports) {
+
+module.exports = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIgogICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIgogICB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiCiAgIGlkPSJzdmc4IgogICB2ZXJzaW9uPSIxLjEiCiAgIHZpZXdCb3g9IjAgMCA4NC41MDgyOTIgMTAuNDQ0MTYiCiAgIGhlaWdodD0iMTAuNDQ0MTZtbSIKICAgd2lkdGg9Ijg0LjUwODI5M21tIj4KICA8ZGVmcwogICAgIGlkPSJkZWZzMiI+CiAgICA8bGluZWFyR3JhZGllbnQKICAgICAgIGlkPSJsaW5lYXJHcmFkaWVudDQ1MjIiPgogICAgICA8c3RvcAogICAgICAgICBzdHlsZT0ic3RvcC1jb2xvcjojOGNjMzNhO3N0b3Atb3BhY2l0eToxIgogICAgICAgICBvZmZzZXQ9IjAiCiAgICAgICAgIGlkPSJzdG9wNDUxOCIgLz4KICAgICAgPHN0b3AKICAgICAgICAgc3R5bGU9InN0b3AtY29sb3I6IzNmN2MwNDtzdG9wLW9wYWNpdHk6MSIKICAgICAgICAgb2Zmc2V0PSIxIgogICAgICAgICBpZD0ic3RvcDQ1MjAiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPHJhZGlhbEdyYWRpZW50CiAgICAgICBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIKICAgICAgIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMC4yMzUyMjAwNSwwLjMyMTI5NTg4LC0wLjQzNDczNDQ2LDAuMzE4MjY3NDIsMTE4LjY4MTA5LDcwLjgzNzc4NykiCiAgICAgICByPSI1MS4xNjc5MTIiCiAgICAgICBmeT0iODQuODQwNDg1IgogICAgICAgZng9Ii0xNTguMzU2OTIiCiAgICAgICBjeT0iODQuODQwNDg1IgogICAgICAgY3g9Ii0xNTguMzU2OTIiCiAgICAgICBpZD0icmFkaWFsR3JhZGllbnQ0NDkzIgogICAgICAgeGxpbms6aHJlZj0iI2xpbmVhckdyYWRpZW50NDUyMiIgLz4KICAgIDxyYWRpYWxHcmFkaWVudAogICAgICAgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiCiAgICAgICBncmFkaWVudFRyYW5zZm9ybT0ibWF0cml4KDAuMjIyNjY2NzIsMC41Mzc4MDM1MSwtMC40MzY1MzYwMywwLjE4MDczODk1LDk3LjUzOTIzMiwxMTUuNjQ1OSkiCiAgICAgICByPSIzMC41NDYwMzQiCiAgICAgICBmeT0iMTguOTg1OTUyIgogICAgICAgZng9Ii0xNTYuMjA3MjEiCiAgICAgICBjeT0iMTguOTg1OTUyIgogICAgICAgY3g9Ii0xNTYuMjA3MjEiCiAgICAgICBpZD0icmFkaWFsR3JhZGllbnQ0NTAzIgogICAgICAgeGxpbms6aHJlZj0iI2xpbmVhckdyYWRpZW50NDUyMiIgLz4KICAgIDxyYWRpYWxHcmFkaWVudAogICAgICAgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiCiAgICAgICBncmFkaWVudFRyYW5zZm9ybT0ibWF0cml4KDAuNTQ2NjkwNDQsMCwwLDAuNDUwNDU2NzcsMTAxLjU3NDg3LDExLjg3NTE1KSIKICAgICAgIHI9IjMzLjcxMDI0NyIKICAgICAgIGZ5PSI3Mi43ODI1OTMiCiAgICAgICBmeD0iLTc4LjM3ODUzMiIKICAgICAgIGN5PSI3Mi43ODI1OTMiCiAgICAgICBjeD0iLTc4LjM3ODUzMiIKICAgICAgIGlkPSJyYWRpYWxHcmFkaWVudDQ1MTUiCiAgICAgICB4bGluazpocmVmPSIjbGluZWFyR3JhZGllbnQ0NTIyIiAvPgogIDwvZGVmcz4KICA8bWV0YWRhdGEKICAgICBpZD0ibWV0YWRhdGE1Ij4KICAgIDxyZGY6UkRGPgogICAgICA8Y2M6V29yawogICAgICAgICByZGY6YWJvdXQ9IiI+CiAgICAgICAgPGRjOmZvcm1hdD5pbWFnZS9zdmcreG1sPC9kYzpmb3JtYXQ+CiAgICAgICAgPGRjOnR5cGUKICAgICAgICAgICByZGY6cmVzb3VyY2U9Imh0dHA6Ly9wdXJsLm9yZy9kYy9kY21pdHlwZS9TdGlsbEltYWdlIiAvPgogICAgICAgIDxkYzp0aXRsZT48L2RjOnRpdGxlPgogICAgICA8L2NjOldvcms+CiAgICA8L3JkZjpSREY+CiAgPC9tZXRhZGF0YT4KICA8ZwogICAgIHN0eWxlPSJzdHJva2Utd2lkdGg6My4zMTUxMTI1OSIKICAgICBpZD0ibGF5ZXIxIgogICAgIHRyYW5zZm9ybT0ibWF0cml4KDAuMzAxNjQ4ODgsMCwwLDAuMzAxNjQ4ODgsLTExLjMxODk1MSwtNy40OTY1NzU2KSI+CiAgICA8cmVjdAogICAgICAgcnk9IjQuMjQxODMzMiIKICAgICAgIHJ4PSI0LjI0MTgzMzIiCiAgICAgICB5PSIyOS42NjEzOTIiCiAgICAgICB4PSI0OS43NTExOTgiCiAgICAgICBoZWlnaHQ9IjI0LjIzOTA0OCIKICAgICAgIHdpZHRoPSIyNjcuOTI2OTEiCiAgICAgICBpZD0icmVjdDQ1MDMiCiAgICAgICBzdHlsZT0ib3BhY2l0eToxO2ZpbGw6IzMzMzMzMztmaWxsLW9wYWNpdHk6MTtzdHJva2U6bm9uZTtzdHJva2Utd2lkdGg6MC44NzcxMjM1MztzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdHJva2UtZGFzaG9mZnNldDowO3N0cm9rZS1vcGFjaXR5OjEiIC8+CiAgICA8ZwogICAgICAgc3R5bGU9InN0cm9rZS13aWR0aDo0LjE1NDE5ODE3IgogICAgICAgdHJhbnNmb3JtPSJtYXRyaXgoMC43OTgwMTUwMiwwLDAsMC43OTgwMTUwMiwyMC4yMjA4MDIsNi43MTY2NTY4KSIKICAgICAgIGlkPSJnNDUwNiI+CiAgICAgIDxwYXRoCiAgICAgICAgIHN0eWxlPSJvcGFjaXR5OjE7ZmlsbDp1cmwoI3JhZGlhbEdyYWRpZW50NDQ5Myk7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjEuMDk5MTMxNTg7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3Ryb2tlLWRhc2hvZmZzZXQ6MDtzdHJva2Utb3BhY2l0eToxIgogICAgICAgICBkPSJNIDI0Ljg2MTU3OCw1OS42NzY0MzYgQyAzMS44MjQxOTgsNzAuNDgwNSA0OS4xODkyMTksNjYuOTI4NTkzIDUyLjQ3MTk2OCw1NC42MzQ1MzcgNTYuNDE2NzU3LDM5Ljg2MTEwOCA0OS41MzUzNjYsMzcuMjg2NTY0IDM5LjAyNjkxMSwzOC41NDg0ODQgMzAuNzk5NDI4LDM5LjUzNjQ5MSAxNC44OTc4Myw0NC43OTA4MzMgMjQuODYxNTc4LDU5LjY3NjQzNiBaIgogICAgICAgICBpZD0icGF0aDQ0ODUiIC8+CiAgICAgIDxwYXRoCiAgICAgICAgIHN0eWxlPSJvcGFjaXR5OjE7ZmlsbDp1cmwoI3JhZGlhbEdyYWRpZW50NDUwMyk7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjEuMDk5MTMxNTg7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3Ryb2tlLWRhc2hvZmZzZXQ6MDtzdHJva2Utb3BhY2l0eToxIgogICAgICAgICBkPSJtIDQ1LjY0NzM3NSwyNS40OTE3MzggYyAtNC4zNjEzNjIsNy40NTc3NjYgMC4wNDg1NiwxMS42ODI0NDkgMy45MjQ4MjYsMTMuNjc3NTk1IDQuMzIyNjQ4LDIuMjI0OTA0IDcuMTczOTIyLDQuOTQ4NjM1IDEwLjAwNzY3MSwtMS43ODc2OTUgMS4wOTI3MjQsLTIuMDQ2NTA3IDQuMzc3NjgxLC0xMS40MTkyODMgLTMuMTk2NTYxLC0xMy42NjgwNiAtNy41NzQyNDcsLTIuMjQ4NzggLTkuMjM1MTQzLC0wLjIyNzQ3NiAtMTAuNzM1OTM2LDEuNzc4MTYgeiIKICAgICAgICAgaWQ9InBhdGg0NDk1IiAvPgogICAgICA8cGF0aAogICAgICAgICBzdHlsZT0ib3BhY2l0eToxO2ZpbGw6dXJsKCNyYWRpYWxHcmFkaWVudDQ1MTUpO2ZpbGwtb3BhY2l0eToxO3N0cm9rZTpub25lO3N0cm9rZS13aWR0aDoxLjA5OTEzMTU4O3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1kYXNob2Zmc2V0OjA7c3Ryb2tlLW9wYWNpdHk6MSIKICAgICAgICAgZD0ibSA1NC4zODI1MjMsNDMuMjMyMDc5IGMgNC4wMDQxMzEsLTIuOTcwMDExIDYuMDIzNjkyLC00LjMyOTA1NCAxMS4wMjAyMjIsLTMuNDgyNDI5IDQuOTk2NTI5LDAuODQ2NjI1IDEyLjQ4NTg3Niw4LjE3NzQ1NCA2LjE2OTY5NywxMy43MjgzNTEgLTYuMzE2MTc5LDUuNTUwODk0IC0xMi4xMDQ1MzksMS40NzE2NDMgLTE0LjE5NDIzNSwtMS43MjgzOTUgLTEuODU1NDEyLC0yLjg0MTI2NyAtNS4wOTA4MDUsLTYuMjIzNTYgLTIuOTk1Njg0LC04LjUxNzUyNyB6IgogICAgICAgICBpZD0icGF0aDQ1MDUiIC8+CiAgICA8L2c+CiAgICA8ZwogICAgICAgaWQ9InRleHQ0NTAxIgogICAgICAgc3R5bGU9ImZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtdmFyaWFudDpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZvbnQtc3RyZXRjaDpub3JtYWw7Zm9udC1zaXplOjE3LjczMTgzMDZweDtsaW5lLWhlaWdodDoxLjI1O2ZvbnQtZmFtaWx5OkFyaWFsOy1pbmtzY2FwZS1mb250LXNwZWNpZmljYXRpb246QXJpYWw7Zm9udC12YXJpYW50LWxpZ2F0dXJlczpub3JtYWw7Zm9udC12YXJpYW50LWNhcHM6bm9ybWFsO2ZvbnQtdmFyaWFudC1udW1lcmljOm5vcm1hbDtmb250LWZlYXR1cmUtc2V0dGluZ3M6bm9ybWFsO3RleHQtYWxpZ246ZW5kO3dyaXRpbmctbW9kZTpsci10Yjt0ZXh0LWFuY2hvcjplbmQ7b3BhY2l0eToxO2ZpbGw6I2U2ZTZlNjtmaWxsLW9wYWNpdHk6MTtzdHJva2U6bm9uZTtzdHJva2Utd2lkdGg6MC44NzcxMjM0ODtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdHJva2UtZGFzaG9mZnNldDowO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICBhcmlhLWxhYmVsPSJEVUNLV0VFRCBGUkFNRVdPUksiPgogICAgICA8cGF0aAogICAgICAgICBpZD0icGF0aDQ1MDkiCiAgICAgICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXZhcmlhbnQ6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmb250LXN0cmV0Y2g6bm9ybWFsO2ZvbnQtZmFtaWx5OidBY2hlcnVzIEdyb3Rlc3F1ZSc7LWlua3NjYXBlLWZvbnQtc3BlY2lmaWNhdGlvbjonQWNoZXJ1cyBHcm90ZXNxdWUnO3RleHQtYWxpZ246c3RhcnQ7dGV4dC1hbmNob3I6c3RhcnQ7ZmlsbDojZTZlNmU2O3N0cm9rZS13aWR0aDowLjg3NzEyMzQ4IgogICAgICAgICBkPSJtIDg0Ljc2NDAxNCwzNS43MzkwNjcgYyAtMC4yMTI3ODIsMCAtMC4yODM3MDksMC4wNzA5MyAtMC4yODM3MDksMC4yODM3MDkgdiAxMS44NDQ4NjMgYyAwLDAuMjEyNzgyIDAuMDg4NjYsMC4yODM3MDkgMC4yODM3MDksMC4yODM3MDkgaCA0LjM0NDI5OSBjIDMuNDkzMTcsMCA2LjE3MDY3NywtMi42Nzc1MDYgNi4xNzA2NzcsLTYuMjA2MTQxIDAsLTMuNTI4NjM0IC0yLjY3NzUwNywtNi4yMDYxNCAtNi4xNzA2NzcsLTYuMjA2MTQgeiBtIDQuMzI2NTY3LDEuMjA1NzY0IGMgMi44OTAyODgsMCA0Ljc2OTg2MiwyLjMyMjg3IDQuNzY5ODYyLDUuMDAwMzc2IDAsMi42NTk3NzUgLTEuODc5NTc0LDUuMDAwMzc3IC00Ljc2OTg2Miw1LjAwMDM3NyBIIDg1Ljg4MTExOSBWIDM2Ljk0NDgzMSBaIiAvPgogICAgICA8cGF0aAogICAgICAgICBpZD0icGF0aDQ1MTEiCiAgICAgICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXZhcmlhbnQ6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmb250LXN0cmV0Y2g6bm9ybWFsO2ZvbnQtZmFtaWx5OidBY2hlcnVzIEdyb3Rlc3F1ZSc7LWlua3NjYXBlLWZvbnQtc3BlY2lmaWNhdGlvbjonQWNoZXJ1cyBHcm90ZXNxdWUnO3RleHQtYWxpZ246c3RhcnQ7dGV4dC1hbmNob3I6c3RhcnQ7ZmlsbDojZTZlNmU2O3N0cm9rZS13aWR0aDowLjg3NzEyMzQ4IgogICAgICAgICBkPSJtIDEwMi41MTAyNSw0OC4zODE4NjIgYyAyLjg5MDI5LDAgNS4wMTgxMSwtMS44MDg2NDcgNS4wMTgxMSwtNS4zMzcyODEgdiAtNy4wMjE4MDUgYyAwLC0wLjIxMjc4MiAtMC4wNTMyLC0wLjI4MzcwOSAtMC4yNjU5OCwtMC4yODM3MDkgaCAtMC44NTExMyBjIC0wLjIxMjc4LDAgLTAuMjgzNywwLjA3MDkzIC0wLjI4MzcsMC4yODM3MDkgdiA2LjkzMzE0NiBjIDAsMi45NDM0ODQgLTEuNDg5NDgsNC4xODQ3MTIgLTMuNjE3Myw0LjE4NDcxMiAtMi4xMjc4MiwwIC0zLjYxNzI5MiwtMS4yNDEyMjggLTMuNjE3MjkyLC00LjE4NDcxMiB2IC02LjkzMzE0NiBjIDAsLTAuMjEyNzgyIC0wLjA3MDkzLC0wLjI4MzcwOSAtMC4yODM3MDksLTAuMjgzNzA5IGggLTAuODMzMzk2IGMgLTAuMjEyNzgyLDAgLTAuMjgzNzA5LDAuMDUzMiAtMC4yODM3MDksMC4yODM3MDkgdiA3LjAyMTgwNSBjIDAsMy41Mjg2MzQgMi4xMjc4MTksNS4zMzcyODEgNS4wMTgxMDYsNS4zMzcyODEgeiIgLz4KICAgICAgPHBhdGgKICAgICAgICAgaWQ9InBhdGg0NTEzIgogICAgICAgICBzdHlsZT0iZm9udC1zdHlsZTpub3JtYWw7Zm9udC12YXJpYW50Om5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7Zm9udC1zdHJldGNoOm5vcm1hbDtmb250LWZhbWlseTonQWNoZXJ1cyBHcm90ZXNxdWUnOy1pbmtzY2FwZS1mb250LXNwZWNpZmljYXRpb246J0FjaGVydXMgR3JvdGVzcXVlJzt0ZXh0LWFsaWduOnN0YXJ0O3RleHQtYW5jaG9yOnN0YXJ0O2ZpbGw6I2U2ZTZlNjtzdHJva2Utd2lkdGg6MC44NzcxMjM0OCIKICAgICAgICAgZD0ibSAxMTYuMTA2OTYsNDcuMTQwNjM0IGMgLTIuNzY2MTYsMCAtNC45Mjk0NCwtMi41MTc5MiAtNC45Mjk0NCwtNS4xOTU0MjcgMCwtMi42Nzc1MDYgMi4xNjMyOCwtNS4xOTU0MjYgNC45Mjk0NCwtNS4xOTU0MjYgMS42NDkwNiwwIDIuOTI1NzYsMC43MjcwMDUgMy43MDU5NiwxLjU2MDQwMSAwLjE0MTg1LDAuMTQxODU1IDAuMjY1OTcsMC4xNDE4NTUgMC40MDc4MywtMC4wMTc3MyBsIDAuNTE0MjIsLTAuNTY3NDE4IGMgMC4xNDE4NiwtMC4xNTk1ODcgMC4xNTk1OSwtMC4yNDgyNDYgMC4wMTc3LC0wLjM5MDEwMSAtMS4xMzQ4MywtMS4xMzQ4MzcgLTIuOTI1NzUsLTEuODI2Mzc4IC00LjY0NTc0LC0xLjgyNjM3OCAtMy40OTMxNywwIC02LjM0Nzk5LDIuOTA4MDIgLTYuMzQ3OTksNi40MzY2NTQgMCwzLjUyODYzNSAyLjg1NDgyLDYuNDM2NjU1IDYuMzQ3OTksNi40MzY2NTUgMS43MTk5OSwwIDMuNTEwOTEsLTAuNjkxNTQxIDQuNjQ1NzQsLTEuODI2Mzc5IDAuMTU5NTksLTAuMTU5NTg2IDAuMTU5NTksLTAuMjQ4MjQ1IDAuMDE3NywtMC40MjU1NjQgbCAtMC41MzE5NiwtMC41Njc0MTggYyAtMC4xMjQxMiwtMC4xMjQxMjMgLTAuMjMwNTEsLTAuMTU5NTg3IC0wLjM5MDEsLTAuMDE3NzMgLTAuODMzNCwwLjg2ODg2IC0yLjA5MjM2LDEuNTk1ODY1IC0zLjc0MTQyLDEuNTk1ODY1IHoiIC8+CiAgICAgIDxwYXRoCiAgICAgICAgIGlkPSJwYXRoNDUxNSIKICAgICAgICAgc3R5bGU9ImZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtdmFyaWFudDpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZvbnQtc3RyZXRjaDpub3JtYWw7Zm9udC1mYW1pbHk6J0FjaGVydXMgR3JvdGVzcXVlJzstaW5rc2NhcGUtZm9udC1zcGVjaWZpY2F0aW9uOidBY2hlcnVzIEdyb3Rlc3F1ZSc7dGV4dC1hbGlnbjpzdGFydDt0ZXh0LWFuY2hvcjpzdGFydDtmaWxsOiNlNmU2ZTY7c3Ryb2tlLXdpZHRoOjAuODc3MTIzNDgiCiAgICAgICAgIGQ9Im0gMTI2LjA1MDA5LDQxLjY2MTQ5OCA2LjI0MTYsLTUuNjM4NzIyIGMgMC4xNTk1OSwtMC4xOTUwNSAwLjA3MDksLTAuMjgzNzA5IC0wLjEwNjM5LC0wLjI4MzcwOSBoIC0xLjEzNDg0IGMgLTAuMjEyNzgsMCAtMC4yODM3MSwwLjA3MDkzIC0wLjQ5NjQ5LDAuMjgzNzA5IGwgLTUuNjkxOTEsNS4xNTk5NjMgdiAtNS4xNTk5NjMgYyAwLC0wLjIzMDUxNCAtMC4wNzA5LC0wLjI4MzcwOSAtMC4yODM3MSwtMC4yODM3MDkgaCAtMC44NTExMyBjIC0wLjIxMjc4LDAgLTAuMjgzNzEsMC4wNzA5MyAtMC4yODM3MSwwLjI4MzcwOSB2IDExLjg0NDg2MyBjIDAsMC4yMTI3ODIgMC4wNzA5LDAuMjgzNzA5IDAuMjgzNzEsMC4yODM3MDkgaCAwLjg1MTEzIGMgMC4yMTI3OCwwIDAuMjgzNzEsLTAuMDUzMTkgMC4yODM3MSwtMC4yODM3MDkgdiAtNS42NzQxODYgbCA2LjAxMTA5LDUuNjc0MTg2IGMgMC4xOTUwNSwwLjIxMjc4MiAwLjI4MzcxLDAuMjgzNzA5IDAuNDYxMDIsMC4yODM3MDkgaCAxLjIwNTc3IGMgMC4xNTk1OCwwIDAuMjgzNzEsLTAuMDcwOTMgMC4wODg3LC0wLjI4MzcwOSB6IiAvPgogICAgICA8cGF0aAogICAgICAgICBpZD0icGF0aDQ1MTciCiAgICAgICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXZhcmlhbnQ6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmb250LXN0cmV0Y2g6bm9ybWFsO2ZvbnQtZmFtaWx5OidBY2hlcnVzIEdyb3Rlc3F1ZSc7LWlua3NjYXBlLWZvbnQtc3BlY2lmaWNhdGlvbjonQWNoZXJ1cyBHcm90ZXNxdWUnO3RleHQtYWxpZ246c3RhcnQ7dGV4dC1hbmNob3I6c3RhcnQ7ZmlsbDojZTZlNmU2O3N0cm9rZS13aWR0aDowLjg3NzEyMzQ4IgogICAgICAgICBkPSJtIDEzNS4wNjM5NSwzNi4wMjI3NzYgYyAtMC4wNzA5LC0wLjIxMjc4MiAtMC4xNTk1OCwtMC4yODM3MDkgLTAuMzU0NjMsLTAuMjgzNzA5IGggLTEuMDgxNjQgYyAtMC4xNzczMiwwIC0wLjIxMjc5LDAuMDcwOTMgLTAuMTI0MTMsMC4yODM3MDkgbCA0LjU5MjU1LDEyLjE4MTc2OCBjIDAuMDcwOSwwLjE3NzMxOCAwLjEyNDEyLDAuMjQ4MjQ1IDAuMTk1MDUsMC4yNDgyNDUgaCAwLjEyNDEyIGMgMC4wNzA5LDAgMC4xMjQxMiwtMC4wODg2NiAwLjE5NTA1LC0wLjI0ODI0NSBsIDMuMTIwOCwtMTAuMDUzOTQ4IDMuMTIwOCwxMC4wNTM5NDggYyAwLjA3MDksMC4xNTk1ODYgMC4xMjQxMywwLjI0ODI0NSAwLjE5NTA1LDAuMjQ4MjQ1IGggMC4xMjQxMyBjIDAuMDg4NywwIDAuMTI0MTIsLTAuMDg4NjYgMC4xOTUwNSwtMC4yNDgyNDUgbCA0LjU5MjU0LC0xMi4xODE3NjggYyAwLjA4ODcsLTAuMjEyNzgyIDAuMDUzMiwtMC4yODM3MDkgLTAuMTI0MTIsLTAuMjgzNzA5IGggLTEuMDgxNjQgYyAtMC4xOTUwNSwwIC0wLjI4MzcxLDAuMDcwOTMgLTAuMzU0NjQsMC4yODM3MDkgbCAtMy4zNTEzMiw5LjQ1MTA2NiAtMi45Nzg5NCwtOS42ODE1OCBjIC0wLjA3MDksLTAuMTk1MDUgLTAuMTI0MTMsLTAuMjgzNzA5IC0wLjI0ODI1LC0wLjI4MzcwOSBoIC0wLjE3NzMyIGMgLTAuMTI0MTIsMCAtMC4xNzczMiwwLjA4ODY2IC0wLjI0ODI0LDAuMjgzNzA5IGwgLTIuOTc4OTUsOS42ODE1OCB6IiAvPgogICAgICA8cGF0aAogICAgICAgICBpZD0icGF0aDQ1MTkiCiAgICAgICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXZhcmlhbnQ6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmb250LXN0cmV0Y2g6bm9ybWFsO2ZvbnQtZmFtaWx5OidBY2hlcnVzIEdyb3Rlc3F1ZSc7LWlua3NjYXBlLWZvbnQtc3BlY2lmaWNhdGlvbjonQWNoZXJ1cyBHcm90ZXNxdWUnO3RleHQtYWxpZ246c3RhcnQ7dGV4dC1hbmNob3I6c3RhcnQ7ZmlsbDojZTZlNmU2O3N0cm9rZS13aWR0aDowLjg3NzEyMzQ4IgogICAgICAgICBkPSJtIDE2MC4xMDAxOSw0OC4xNTEzNDggYyAwLjIxMjc4LDAgMC4yNjU5NywtMC4wNzA5MyAwLjI2NTk3LC0wLjI4MzcwOSB2IC0wLjY1NjA3OCBjIDAsLTAuMjEyNzgyIC0wLjA1MzIsLTAuMjgzNzA5IC0wLjI2NTk3LC0wLjI4MzcwOSBoIC02Ljc3MzU2IHYgLTQuNDMyOTU4IGggNi40NTQzOCBjIDAuMjEyNzksMCAwLjI4MzcxLC0wLjA3MDkzIDAuMjgzNzEsLTAuMjgzNzA5IHYgLTAuNjU2MDc4IGMgMCwtMC4yMTI3ODIgLTAuMDcwOSwtMC4yODM3MDkgLTAuMjgzNzEsLTAuMjgzNzA5IGggLTYuNDU0MzggdiAtNC4zMDg4MzUgaCA2Ljc3MzU2IGMgMC4xOTUwNSwwIDAuMjY1OTcsLTAuMDcwOTMgMC4yNjU5NywtMC4yODM3MDkgdiAtMC42NTYwNzggYyAwLC0wLjIxMjc4MiAtMC4wNzA5LC0wLjI4MzcwOSAtMC4yNjU5NywtMC4yODM3MDkgaCAtNy44OTA2NyBjIC0wLjIxMjc4LDAgLTAuMjgzNzEsMC4wNzA5MyAtMC4yODM3MSwwLjI4MzcwOSB2IDExLjg0NDg2MyBjIDAsMC4yMTI3ODIgMC4wNzA5LDAuMjgzNzA5IDAuMjgzNzEsMC4yODM3MDkgeiIgLz4KICAgICAgPHBhdGgKICAgICAgICAgaWQ9InBhdGg0NTIxIgogICAgICAgICBzdHlsZT0iZm9udC1zdHlsZTpub3JtYWw7Zm9udC12YXJpYW50Om5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7Zm9udC1zdHJldGNoOm5vcm1hbDtmb250LWZhbWlseTonQWNoZXJ1cyBHcm90ZXNxdWUnOy1pbmtzY2FwZS1mb250LXNwZWNpZmljYXRpb246J0FjaGVydXMgR3JvdGVzcXVlJzt0ZXh0LWFsaWduOnN0YXJ0O3RleHQtYW5jaG9yOnN0YXJ0O2ZpbGw6I2U2ZTZlNjtzdHJva2Utd2lkdGg6MC44NzcxMjM0OCIKICAgICAgICAgZD0ibSAxNzEuMzU1NzUsNDguMTUxMzQ4IGMgMC4yMTI3OCwwIDAuMjY1OTgsLTAuMDcwOTMgMC4yNjU5OCwtMC4yODM3MDkgdiAtMC42NTYwNzggYyAwLC0wLjIxMjc4MiAtMC4wNTMyLC0wLjI4MzcwOSAtMC4yNjU5OCwtMC4yODM3MDkgaCAtNi43NzM1NiB2IC00LjQzMjk1OCBoIDYuNDU0MzkgYyAwLjIxMjc4LDAgMC4yODM3LC0wLjA3MDkzIDAuMjgzNywtMC4yODM3MDkgdiAtMC42NTYwNzggYyAwLC0wLjIxMjc4MiAtMC4wNzA5LC0wLjI4MzcwOSAtMC4yODM3LC0wLjI4MzcwOSBoIC02LjQ1NDM5IHYgLTQuMzA4ODM1IGggNi43NzM1NiBjIDAuMTk1MDUsMCAwLjI2NTk4LC0wLjA3MDkzIDAuMjY1OTgsLTAuMjgzNzA5IHYgLTAuNjU2MDc4IGMgMCwtMC4yMTI3ODIgLTAuMDcwOSwtMC4yODM3MDkgLTAuMjY1OTgsLTAuMjgzNzA5IGggLTcuODkwNjcgYyAtMC4yMTI3OCwwIC0wLjI4MzcxLDAuMDcwOTMgLTAuMjgzNzEsMC4yODM3MDkgdiAxMS44NDQ4NjMgYyAwLDAuMjEyNzgyIDAuMDcwOSwwLjI4MzcwOSAwLjI4MzcxLDAuMjgzNzA5IHoiIC8+CiAgICAgIDxwYXRoCiAgICAgICAgIGlkPSJwYXRoNDUyMyIKICAgICAgICAgc3R5bGU9ImZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtdmFyaWFudDpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZvbnQtc3RyZXRjaDpub3JtYWw7Zm9udC1mYW1pbHk6J0FjaGVydXMgR3JvdGVzcXVlJzstaW5rc2NhcGUtZm9udC1zcGVjaWZpY2F0aW9uOidBY2hlcnVzIEdyb3Rlc3F1ZSc7dGV4dC1hbGlnbjpzdGFydDt0ZXh0LWFuY2hvcjpzdGFydDtmaWxsOiNlNmU2ZTY7c3Ryb2tlLXdpZHRoOjAuODc3MTIzNDgiCiAgICAgICAgIGQ9Im0gMTc0Ljc3MzgzLDM1LjczOTA2NyBjIC0wLjIxMjc4LDAgLTAuMjgzNzEsMC4wNzA5MyAtMC4yODM3MSwwLjI4MzcwOSB2IDExLjg0NDg2MyBjIDAsMC4yMTI3ODIgMC4wODg3LDAuMjgzNzA5IDAuMjgzNzEsMC4yODM3MDkgaCA0LjM0NDMgYyAzLjQ5MzE3LDAgNi4xNzA2OCwtMi42Nzc1MDYgNi4xNzA2OCwtNi4yMDYxNDEgMCwtMy41Mjg2MzQgLTIuNjc3NTEsLTYuMjA2MTQgLTYuMTcwNjgsLTYuMjA2MTQgeiBtIDQuMzI2NTcsMS4yMDU3NjQgYyAyLjg5MDI5LDAgNC43Njk4NiwyLjMyMjg3IDQuNzY5ODYsNS4wMDAzNzYgMCwyLjY1OTc3NSAtMS44Nzk1Nyw1LjAwMDM3NyAtNC43Njk4Niw1LjAwMDM3NyBoIC0zLjIwOTQ2IFYgMzYuOTQ0ODMxIFoiIC8+CiAgICAgIDxwYXRoCiAgICAgICAgIGlkPSJwYXRoNDUyNSIKICAgICAgICAgc3R5bGU9ImZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtdmFyaWFudDpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZvbnQtc3RyZXRjaDpub3JtYWw7Zm9udC1mYW1pbHk6J0FjaGVydXMgR3JvdGVzcXVlJzstaW5rc2NhcGUtZm9udC1zcGVjaWZpY2F0aW9uOidBY2hlcnVzIEdyb3Rlc3F1ZSc7dGV4dC1hbGlnbjpzdGFydDt0ZXh0LWFuY2hvcjpzdGFydDtmaWxsOiNlNmU2ZTY7c3Ryb2tlLXdpZHRoOjAuODc3MTIzNDgiCiAgICAgICAgIGQ9Im0gMTkzLjgzMDU3LDQyLjQ5NDg5NCBoIDYuNTk2MjQgYyAwLjIxMjc4LDAgMC4yODM3MSwtMC4wNzA5MyAwLjI4MzcxLC0wLjI4MzcwOSB2IC0wLjY1NjA3OCBjIDAsLTAuMjEyNzgyIC0wLjA3MDksLTAuMjgzNzA5IC0wLjI4MzcxLC0wLjI4MzcwOSBoIC02LjU5NjI0IHYgLTQuMzA4ODM1IGggNi43NTU4MiBjIDAuMTk1MDUsMCAwLjI4MzcxLC0wLjA3MDkzIDAuMjgzNzEsLTAuMjgzNzA5IHYgLTAuNjU2MDc4IGMgMCwtMC4yMTI3ODIgLTAuMDcwOSwtMC4yODM3MDkgLTAuMjgzNzEsLTAuMjgzNzA5IGggLTcuODcyOTMgYyAtMC4yMTI3OCwwIC0wLjI4MzcxLDAuMDcwOTMgLTAuMjgzNzEsMC4yODM3MDkgdiAxMS44NDQ4NjMgYyAwLDAuMjEyNzgyIDAuMDcwOSwwLjI4MzcwOSAwLjI4MzcxLDAuMjgzNzA5IGggMC44NTExMyBjIDAuMTk1MDUsMCAwLjI2NTk4LC0wLjA3MDkzIDAuMjY1OTgsLTAuMjgzNzA5IHoiIC8+CiAgICAgIDxwYXRoCiAgICAgICAgIGlkPSJwYXRoNDUyNyIKICAgICAgICAgc3R5bGU9ImZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtdmFyaWFudDpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZvbnQtc3RyZXRjaDpub3JtYWw7Zm9udC1mYW1pbHk6J0FjaGVydXMgR3JvdGVzcXVlJzstaW5rc2NhcGUtZm9udC1zcGVjaWZpY2F0aW9uOidBY2hlcnVzIEdyb3Rlc3F1ZSc7dGV4dC1hbGlnbjpzdGFydDt0ZXh0LWFuY2hvcjpzdGFydDtmaWxsOiNlNmU2ZTY7c3Ryb2tlLXdpZHRoOjAuODc3MTIzNDgiCiAgICAgICAgIGQ9Im0gMjEyLjI5MDIzLDM5LjQ2Mjc1MSBjIDAsLTIuODcyNTU2IC0yLjI4NzQsLTMuNzIzNjg0IC00LjMwODgzLC0zLjcyMzY4NCBoIC00LjIyMDE4IGMgLTAuMjEyNzgsMCAtMC4yODM3MSwwLjA3MDkzIC0wLjI4MzcxLDAuMjgzNzA5IHYgMTEuODQ0ODYzIGMgMCwwLjI0ODI0NSAwLjA3MDksMC4yODM3MDkgMC4yODM3MSwwLjI4MzcwOSBoIDAuODMzNCBjIDAuMjEyNzgsMCAwLjI4MzcxLC0wLjA1MzE5IDAuMjgzNzEsLTAuMjgzNzA5IHYgLTQuNTc0ODEyIGggMy4xNzM5OSBsIDMuMjYyNjYsNC41NzQ4MTIgYyAwLjEyNDEyLDAuMTc3MzE4IDAuMjY1OTgsMC4yODM3MDkgMC40Nzg3NiwwLjI4MzcwOSBoIDAuODMzNCBjIDAuMjEyNzgsMCAwLjM1NDYzLC0wLjEwNjM5MSAwLjIxMjc4LC0wLjMzNjkwNSBsIC0zLjMzMzU5LC00LjY4MTIwMyBjIDEuNjQ5MDcsLTAuNDQzMjk2IDIuNzgzOSwtMS41NjA0MDEgMi43ODM5LC0zLjY3MDQ4OSB6IG0gLTcuNDExOSwyLjYyNDMxMSB2IC01LjE0MjIzMSBoIDMuMDE0NDEgYyAxLjgyNjM4LDAgMy4wMzIxNCwwLjc0NDczNyAzLjAzMjE0LDIuNTE3OTIgMCwxLjYxMzU5NyAtMC45MjIwNSwyLjYyNDMxMSAtMy4wMzIxNCwyLjYyNDMxMSB6IiAvPgogICAgICA8cGF0aAogICAgICAgICBpZD0icGF0aDQ1MjkiCiAgICAgICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXZhcmlhbnQ6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmb250LXN0cmV0Y2g6bm9ybWFsO2ZvbnQtZmFtaWx5OidBY2hlcnVzIEdyb3Rlc3F1ZSc7LWlua3NjYXBlLWZvbnQtc3BlY2lmaWNhdGlvbjonQWNoZXJ1cyBHcm90ZXNxdWUnO3RleHQtYWxpZ246c3RhcnQ7dGV4dC1hbmNob3I6c3RhcnQ7ZmlsbDojZTZlNmU2O3N0cm9rZS13aWR0aDowLjg3NzEyMzQ4IgogICAgICAgICBkPSJtIDIxOS45MTQzNywzNy44NjY4ODYgMi42MDY1OCw1Ljc4MDU3NyBoIC01LjIzMDg5IGwgMi42MDY1OCwtNS43ODA1NzcgeiBtIDAuMjMwNTEsLTIuMTgxMDE1IGMgLTAuMDcwOSwtMC4xNDE4NTQgLTAuMTI0MTIsLTAuMjQ4MjQ1IC0wLjIxMjc4LC0wLjI0ODI0NSBoIC0wLjA1MzIgYyAtMC4xMDYzOSwwIC0wLjE0MTg2LDAuMTA2MzkxIC0wLjIzMDUyLDAuMjQ4MjQ1IGwgLTUuNzgwNTcsMTIuMTgxNzY4IGMgLTAuMDcwOSwwLjE1OTU4NiAwLDAuMjgzNzA5IDAuMTU5NTgsMC4yODM3MDkgaCAxLjAyODQ1IGMgMC4xOTUwNSwwIDAuMjY1OTgsLTAuMDcwOTMgMC4zNzIzNywtMC4yODM3MDkgbCAxLjM4MzA4LC0zLjAxNDQxMSBoIDYuMTg4NDEgbCAxLjM4MzA4LDMuMDE0NDExIGMgMC4xMDYzOSwwLjIxMjc4MiAwLjE3NzMyLDAuMjgzNzA5IDAuMzU0NjQsMC4yODM3MDkgaCAxLjAyODQ1IGMgMC4xNzczMSwwIDAuMjQ4MjQsLTAuMTI0MTIzIDAuMTc3MzEsLTAuMjgzNzA5IHoiIC8+CiAgICAgIDxwYXRoCiAgICAgICAgIGlkPSJwYXRoNDUzMSIKICAgICAgICAgc3R5bGU9ImZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtdmFyaWFudDpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZvbnQtc3RyZXRjaDpub3JtYWw7Zm9udC1mYW1pbHk6J0FjaGVydXMgR3JvdGVzcXVlJzstaW5rc2NhcGUtZm9udC1zcGVjaWZpY2F0aW9uOidBY2hlcnVzIEdyb3Rlc3F1ZSc7dGV4dC1hbGlnbjpzdGFydDt0ZXh0LWFuY2hvcjpzdGFydDtmaWxsOiNlNmU2ZTY7c3Ryb2tlLXdpZHRoOjAuODc3MTIzNDgiCiAgICAgICAgIGQ9Im0gMjQwLjI1MDg0LDM4LjYyOTM1NSAxLjAyODQ1LDkuMjM4Mjg0IGMgMC4wMTc3LDAuMjEyNzgyIDAuMDcwOSwwLjI4MzcwOSAwLjI2NTk3LDAuMjgzNzA5IGggMC44Njg4NiBjIDAuMjEyNzgsMCAwLjI4MzcxLC0wLjA4ODY2IDAuMjY1OTgsLTAuMjgzNzA5IGwgLTEuNDg5NDcsLTEyLjE5OTUgYyAtMC4wMTc3LC0wLjEyNDEyMiAtMC4wMzU1LC0wLjE1OTU4NiAtMC4xNTk1OSwtMC4xNTk1ODYgaCAtMC4xMDYzOSBjIC0wLjA3MDksMCAtMC4xMjQxMiwwLjAxNzczIC0wLjIxMjc4LDAuMTU5NTg2IGwgLTUuNjc0MTksMTAuNzI3NzU4IC01LjY3NDE4LC0xMC43Mjc3NTggYyAtMC4wODg3LC0wLjE0MTg1NCAtMC4xNDE4NiwtMC4xNTk1ODYgLTAuMjEyNzksLTAuMTU5NTg2IGggLTAuMTA2MzkgYyAtMC4xMjQxMiwwIC0wLjE0MTg1LDAuMDM1NDYgLTAuMTU5NTgsMC4xNTk1ODYgbCAtMS40ODk0OCwxMi4xOTk1IGMgLTAuMDM1NSwwLjE5NTA1IDAuMDUzMiwwLjI4MzcwOSAwLjI0ODI1LDAuMjgzNzA5IGggMC44Njg4NiBjIDAuMjEyNzgsMCAwLjI0ODI0LC0wLjA3MDkzIDAuMjgzNzEsLTAuMjgzNzA5IGwgMS4wNDYxNywtOS4yMjA1NTIgNC43ODc2LDkuNDUxMDY2IGMgMC4xMjQxMiwwLjE3NzMxOCAwLjE5NTA1LDAuMjgzNzA5IDAuMzM2OSwwLjI4MzcwOSBoIDAuMTQxODYgYyAwLjE0MTg1LDAgMC4yMzA1MSwtMC4xMDYzOTEgMC4zMTkxNywtMC4yODM3MDkgeiIgLz4KICAgICAgPHBhdGgKICAgICAgICAgaWQ9InBhdGg0NTMzIgogICAgICAgICBzdHlsZT0iZm9udC1zdHlsZTpub3JtYWw7Zm9udC12YXJpYW50Om5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7Zm9udC1zdHJldGNoOm5vcm1hbDtmb250LWZhbWlseTonQWNoZXJ1cyBHcm90ZXNxdWUnOy1pbmtzY2FwZS1mb250LXNwZWNpZmljYXRpb246J0FjaGVydXMgR3JvdGVzcXVlJzt0ZXh0LWFsaWduOnN0YXJ0O3RleHQtYW5jaG9yOnN0YXJ0O2ZpbGw6I2U2ZTZlNjtzdHJva2Utd2lkdGg6MC44NzcxMjM0OCIKICAgICAgICAgZD0ibSAyNTMuNzQ2NDMsNDguMTUxMzQ4IGMgMC4yMTI3OCwwIDAuMjY1OTcsLTAuMDcwOTMgMC4yNjU5NywtMC4yODM3MDkgdiAtMC42NTYwNzggYyAwLC0wLjIxMjc4MiAtMC4wNTMyLC0wLjI4MzcwOSAtMC4yNjU5NywtMC4yODM3MDkgaCAtNi43NzM1NiB2IC00LjQzMjk1OCBoIDYuNDU0MzggYyAwLjIxMjc5LDAgMC4yODM3MSwtMC4wNzA5MyAwLjI4MzcxLC0wLjI4MzcwOSB2IC0wLjY1NjA3OCBjIDAsLTAuMjEyNzgyIC0wLjA3MDksLTAuMjgzNzA5IC0wLjI4MzcxLC0wLjI4MzcwOSBoIC02LjQ1NDM4IHYgLTQuMzA4ODM1IGggNi43NzM1NiBjIDAuMTk1MDUsMCAwLjI2NTk3LC0wLjA3MDkzIDAuMjY1OTcsLTAuMjgzNzA5IHYgLTAuNjU2MDc4IGMgMCwtMC4yMTI3ODIgLTAuMDcwOSwtMC4yODM3MDkgLTAuMjY1OTcsLTAuMjgzNzA5IGggLTcuODkwNjcgYyAtMC4yMTI3OCwwIC0wLjI4MzcxLDAuMDcwOTMgLTAuMjgzNzEsMC4yODM3MDkgdiAxMS44NDQ4NjMgYyAwLDAuMjEyNzgyIDAuMDcwOSwwLjI4MzcwOSAwLjI4MzcxLDAuMjgzNzA5IHoiIC8+CiAgICAgIDxwYXRoCiAgICAgICAgIGlkPSJwYXRoNDUzNSIKICAgICAgICAgc3R5bGU9ImZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtdmFyaWFudDpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZvbnQtc3RyZXRjaDpub3JtYWw7Zm9udC1mYW1pbHk6J0FjaGVydXMgR3JvdGVzcXVlJzstaW5rc2NhcGUtZm9udC1zcGVjaWZpY2F0aW9uOidBY2hlcnVzIEdyb3Rlc3F1ZSc7dGV4dC1hbGlnbjpzdGFydDt0ZXh0LWFuY2hvcjpzdGFydDtmaWxsOiNlNmU2ZTY7c3Ryb2tlLXdpZHRoOjAuODc3MTIzNDgiCiAgICAgICAgIGQ9Im0gMjU3LjAwNDkyLDM2LjAyMjc3NiBjIC0wLjA3MDksLTAuMjEyNzgyIC0wLjE1OTU4LC0wLjI4MzcwOSAtMC4zNTQ2MywtMC4yODM3MDkgaCAtMS4wODE2NCBjIC0wLjE3NzMyLDAgLTAuMjEyNzksMC4wNzA5MyAtMC4xMjQxMywwLjI4MzcwOSBsIDQuNTkyNTUsMTIuMTgxNzY4IGMgMC4wNzA5LDAuMTc3MzE4IDAuMTI0MTIsMC4yNDgyNDUgMC4xOTUwNSwwLjI0ODI0NSBoIDAuMTI0MTIgYyAwLjA3MDksMCAwLjEyNDEyLC0wLjA4ODY2IDAuMTk1MDUsLTAuMjQ4MjQ1IGwgMy4xMjA4LC0xMC4wNTM5NDggMy4xMjA4MSwxMC4wNTM5NDggYyAwLjA3MDksMC4xNTk1ODYgMC4xMjQxMiwwLjI0ODI0NSAwLjE5NTA1LDAuMjQ4MjQ1IGggMC4xMjQxMiBjIDAuMDg4NywwIDAuMTI0MTIsLTAuMDg4NjYgMC4xOTUwNSwtMC4yNDgyNDUgbCA0LjU5MjU0LC0xMi4xODE3NjggYyAwLjA4ODcsLTAuMjEyNzgyIDAuMDUzMiwtMC4yODM3MDkgLTAuMTI0MTIsLTAuMjgzNzA5IGggLTEuMDgxNjQgYyAtMC4xOTUwNSwwIC0wLjI4MzcxLDAuMDcwOTMgLTAuMzU0NjQsMC4yODM3MDkgbCAtMy4zNTEzMSw5LjQ1MTA2NiAtMi45Nzg5NSwtOS42ODE1OCBjIC0wLjA3MDksLTAuMTk1MDUgLTAuMTI0MTIsLTAuMjgzNzA5IC0wLjI0ODI1LC0wLjI4MzcwOSBoIC0wLjE3NzMyIGMgLTAuMTI0MTIsMCAtMC4xNzczMSwwLjA4ODY2IC0wLjI0ODI0LDAuMjgzNzA5IGwgLTIuOTc4OTUsOS42ODE1OCB6IiAvPgogICAgICA8cGF0aAogICAgICAgICBpZD0icGF0aDQ1MzciCiAgICAgICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXZhcmlhbnQ6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmb250LXN0cmV0Y2g6bm9ybWFsO2ZvbnQtZmFtaWx5OidBY2hlcnVzIEdyb3Rlc3F1ZSc7LWlua3NjYXBlLWZvbnQtc3BlY2lmaWNhdGlvbjonQWNoZXJ1cyBHcm90ZXNxdWUnO3RleHQtYWxpZ246c3RhcnQ7dGV4dC1hbmNob3I6c3RhcnQ7ZmlsbDojZTZlNmU2O3N0cm9rZS13aWR0aDowLjg3NzEyMzQ4IgogICAgICAgICBkPSJtIDI3Mi44Nzc5Niw0MS45NDUyMDcgYyAwLDMuNTI4NjM1IDIuODU0ODIsNi40MzY2NTUgNi4zNDc5OSw2LjQzNjY1NSAzLjQ5MzE3LDAgNi4zNDgsLTIuOTA4MDIgNi4zNDgsLTYuNDM2NjU1IDAsLTMuNTI4NjM0IC0yLjg1NDgzLC02LjQzNjY1NCAtNi4zNDgsLTYuNDM2NjU0IC0zLjQ5MzE3LDAgLTYuMzQ3OTksMi45MDgwMiAtNi4zNDc5OSw2LjQzNjY1NCB6IG0gMS40MTg1NCwwIGMgMCwtMi42Nzc1MDYgMi4xNjMyOCwtNS4xOTU0MjYgNC45Mjk0NSwtNS4xOTU0MjYgMi44MDE2MywwIDQuOTI5NDUsMi41MTc5MiA0LjkyOTQ1LDUuMTk1NDI2IDAsMi42NTk3NzUgLTIuMTI3ODIsNS4xOTU0MjcgLTQuOTI5NDUsNS4xOTU0MjcgLTIuNzY2MTcsMCAtNC45Mjk0NSwtMi41MzU2NTIgLTQuOTI5NDUsLTUuMTk1NDI3IHoiIC8+CiAgICAgIDxwYXRoCiAgICAgICAgIGlkPSJwYXRoNDUzOSIKICAgICAgICAgc3R5bGU9ImZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtdmFyaWFudDpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZvbnQtc3RyZXRjaDpub3JtYWw7Zm9udC1mYW1pbHk6J0FjaGVydXMgR3JvdGVzcXVlJzstaW5rc2NhcGUtZm9udC1zcGVjaWZpY2F0aW9uOidBY2hlcnVzIEdyb3Rlc3F1ZSc7dGV4dC1hbGlnbjpzdGFydDt0ZXh0LWFuY2hvcjpzdGFydDtmaWxsOiNlNmU2ZTY7c3Ryb2tlLXdpZHRoOjAuODc3MTIzNDgiCiAgICAgICAgIGQ9Im0gMjk2LjkzMjAyLDM5LjQ2Mjc1MSBjIDAsLTIuODcyNTU2IC0yLjI4NzQxLC0zLjcyMzY4NCAtNC4zMDg4NCwtMy43MjM2ODQgaCAtNC4yMjAxNyBjIC0wLjIxMjc5LDAgLTAuMjgzNzEsMC4wNzA5MyAtMC4yODM3MSwwLjI4MzcwOSB2IDExLjg0NDg2MyBjIDAsMC4yNDgyNDUgMC4wNzA5LDAuMjgzNzA5IDAuMjgzNzEsMC4yODM3MDkgaCAwLjgzMzM5IGMgMC4yMTI3OCwwIDAuMjgzNzEsLTAuMDUzMTkgMC4yODM3MSwtMC4yODM3MDkgdiAtNC41NzQ4MTIgaCAzLjE3NCBsIDMuMjYyNjYsNC41NzQ4MTIgYyAwLjEyNDEyLDAuMTc3MzE4IDAuMjY1OTcsMC4yODM3MDkgMC40Nzg3NiwwLjI4MzcwOSBoIDAuODMzMzkgYyAwLjIxMjc4LDAgMC4zNTQ2NCwtMC4xMDYzOTEgMC4yMTI3OCwtMC4zMzY5MDUgbCAtMy4zMzM1OCwtNC42ODEyMDMgYyAxLjY0OTA2LC0wLjQ0MzI5NiAyLjc4MzksLTEuNTYwNDAxIDIuNzgzOSwtMy42NzA0ODkgeiBtIC03LjQxMTkxLDIuNjI0MzExIHYgLTUuMTQyMjMxIGggMy4wMTQ0MSBjIDEuODI2MzgsMCAzLjAzMjE1LDAuNzQ0NzM3IDMuMDMyMTUsMi41MTc5MiAwLDEuNjEzNTk3IC0wLjkyMjA2LDIuNjI0MzExIC0zLjAzMjE1LDIuNjI0MzExIHoiIC8+CiAgICAgIDxwYXRoCiAgICAgICAgIGlkPSJwYXRoNDU0MSIKICAgICAgICAgc3R5bGU9ImZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtdmFyaWFudDpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZvbnQtc3RyZXRjaDpub3JtYWw7Zm9udC1mYW1pbHk6J0FjaGVydXMgR3JvdGVzcXVlJzstaW5rc2NhcGUtZm9udC1zcGVjaWZpY2F0aW9uOidBY2hlcnVzIEdyb3Rlc3F1ZSc7dGV4dC1hbGlnbjpzdGFydDt0ZXh0LWFuY2hvcjpzdGFydDtmaWxsOiNlNmU2ZTY7c3Ryb2tlLXdpZHRoOjAuODc3MTIzNDgiCiAgICAgICAgIGQ9Im0gMzAyLjY0MTEsNDEuNjYxNDk4IDYuMjQxNjEsLTUuNjM4NzIyIGMgMC4xNTk1OCwtMC4xOTUwNSAwLjA3MDksLTAuMjgzNzA5IC0wLjEwNjM5LC0wLjI4MzcwOSBoIC0xLjEzNDg0IGMgLTAuMjEyNzgsMCAtMC4yODM3MSwwLjA3MDkzIC0wLjQ5NjQ5LDAuMjgzNzA5IGwgLTUuNjkxOTIsNS4xNTk5NjMgdiAtNS4xNTk5NjMgYyAwLC0wLjIzMDUxNCAtMC4wNzA5LC0wLjI4MzcwOSAtMC4yODM3MSwtMC4yODM3MDkgaCAtMC44NTExMyBjIC0wLjIxMjc4LDAgLTAuMjgzNzEsMC4wNzA5MyAtMC4yODM3MSwwLjI4MzcwOSB2IDExLjg0NDg2MyBjIDAsMC4yMTI3ODIgMC4wNzA5LDAuMjgzNzA5IDAuMjgzNzEsMC4yODM3MDkgaCAwLjg1MTEzIGMgMC4yMTI3OCwwIDAuMjgzNzEsLTAuMDUzMTkgMC4yODM3MSwtMC4yODM3MDkgdiAtNS42NzQxODYgbCA2LjAxMTA5LDUuNjc0MTg2IGMgMC4xOTUwNSwwLjIxMjc4MiAwLjI4MzcxLDAuMjgzNzA5IDAuNDYxMDMsMC4yODM3MDkgaCAxLjIwNTc2IGMgMC4xNTk1OSwwIDAuMjgzNzEsLTAuMDcwOTMgMC4wODg3LC0wLjI4MzcwOSB6IiAvPgogICAgPC9nPgogIDwvZz4KPC9zdmc+Cg=="
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+module.exports = {"title":"title-2Vzar","buttonBar":"buttonBar-3RWL3","tasks":"tasks-mY1lL","task":"task-18Jn4","actionButton":"actionButton-3rOZ_"};
+
+/***/ }),
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _concat = __webpack_require__(35);
-var _curry3 = __webpack_require__(25);
+var _concat = __webpack_require__(38);
+var _curry3 = __webpack_require__(27);
 
 
 /**
@@ -1363,10 +1355,10 @@ module.exports = _curry3(function adjust(fn, idx, list) {
 
 
 /***/ }),
-/* 54 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curry2 = __webpack_require__(23);
+var _curry2 = __webpack_require__(25);
 
 
 /**
@@ -1395,14 +1387,14 @@ module.exports = _curry2(function apply(fn, args) {
 
 
 /***/ }),
-/* 55 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curry2 = __webpack_require__(23);
-var _isArray = __webpack_require__(27);
-var _isFunction = __webpack_require__(56);
-var _isString = __webpack_require__(36);
-var toString = __webpack_require__(57);
+var _curry2 = __webpack_require__(25);
+var _isArray = __webpack_require__(29);
+var _isFunction = __webpack_require__(61);
+var _isString = __webpack_require__(39);
+var toString = __webpack_require__(62);
 
 
 /**
@@ -1455,7 +1447,7 @@ module.exports = _curry2(function concat(a, b) {
 
 
 /***/ }),
-/* 56 */
+/* 61 */
 /***/ (function(module, exports) {
 
 module.exports = function _isFunction(x) {
@@ -1464,11 +1456,11 @@ module.exports = function _isFunction(x) {
 
 
 /***/ }),
-/* 57 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curry1 = __webpack_require__(24);
-var _toString = __webpack_require__(58);
+var _curry1 = __webpack_require__(26);
+var _toString = __webpack_require__(63);
 
 
 /**
@@ -1511,15 +1503,15 @@ module.exports = _curry1(function toString(val) { return _toString(val, []); });
 
 
 /***/ }),
-/* 58 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _contains = __webpack_require__(59);
-var _map = __webpack_require__(38);
-var _quote = __webpack_require__(67);
-var _toISOString = __webpack_require__(68);
-var keys = __webpack_require__(28);
-var reject = __webpack_require__(69);
+var _contains = __webpack_require__(64);
+var _map = __webpack_require__(41);
+var _quote = __webpack_require__(72);
+var _toISOString = __webpack_require__(73);
+var keys = __webpack_require__(30);
+var reject = __webpack_require__(74);
 
 
 module.exports = function _toString(x, seen) {
@@ -1563,10 +1555,10 @@ module.exports = function _toString(x, seen) {
 
 
 /***/ }),
-/* 59 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _indexOf = __webpack_require__(60);
+var _indexOf = __webpack_require__(65);
 
 
 module.exports = function _contains(a, list) {
@@ -1575,10 +1567,10 @@ module.exports = function _contains(a, list) {
 
 
 /***/ }),
-/* 60 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var equals = __webpack_require__(37);
+var equals = __webpack_require__(40);
 
 
 module.exports = function _indexOf(list, a, idx) {
@@ -1638,15 +1630,15 @@ module.exports = function _indexOf(list, a, idx) {
 
 
 /***/ }),
-/* 61 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _arrayFromIterator = __webpack_require__(62);
-var _functionName = __webpack_require__(63);
-var _has = __webpack_require__(30);
-var identical = __webpack_require__(64);
-var keys = __webpack_require__(28);
-var type = __webpack_require__(66);
+var _arrayFromIterator = __webpack_require__(67);
+var _functionName = __webpack_require__(68);
+var _has = __webpack_require__(32);
+var identical = __webpack_require__(69);
+var keys = __webpack_require__(30);
+var type = __webpack_require__(71);
 
 
 module.exports = function _equals(a, b, stackA, stackB) {
@@ -1758,7 +1750,7 @@ module.exports = function _equals(a, b, stackA, stackB) {
 
 
 /***/ }),
-/* 62 */
+/* 67 */
 /***/ (function(module, exports) {
 
 module.exports = function _arrayFromIterator(iter) {
@@ -1772,7 +1764,7 @@ module.exports = function _arrayFromIterator(iter) {
 
 
 /***/ }),
-/* 63 */
+/* 68 */
 /***/ (function(module, exports) {
 
 module.exports = function _functionName(f) {
@@ -1783,10 +1775,10 @@ module.exports = function _functionName(f) {
 
 
 /***/ }),
-/* 64 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curry2 = __webpack_require__(23);
+var _curry2 = __webpack_require__(25);
 
 
 /**
@@ -1825,10 +1817,10 @@ module.exports = _curry2(function identical(a, b) {
 
 
 /***/ }),
-/* 65 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _has = __webpack_require__(30);
+var _has = __webpack_require__(32);
 
 
 module.exports = (function() {
@@ -1840,10 +1832,10 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 66 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curry1 = __webpack_require__(24);
+var _curry1 = __webpack_require__(26);
 
 
 /**
@@ -1878,7 +1870,7 @@ module.exports = _curry1(function type(val) {
 
 
 /***/ }),
-/* 67 */
+/* 72 */
 /***/ (function(module, exports) {
 
 module.exports = function _quote(s) {
@@ -1897,7 +1889,7 @@ module.exports = function _quote(s) {
 
 
 /***/ }),
-/* 68 */
+/* 73 */
 /***/ (function(module, exports) {
 
 /**
@@ -1925,12 +1917,12 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 69 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _complement = __webpack_require__(70);
-var _curry2 = __webpack_require__(23);
-var filter = __webpack_require__(39);
+var _complement = __webpack_require__(75);
+var _curry2 = __webpack_require__(25);
+var filter = __webpack_require__(42);
 
 
 /**
@@ -1963,7 +1955,7 @@ module.exports = _curry2(function reject(pred, filterable) {
 
 
 /***/ }),
-/* 70 */
+/* 75 */
 /***/ (function(module, exports) {
 
 module.exports = function _complement(f) {
@@ -1974,7 +1966,7 @@ module.exports = function _complement(f) {
 
 
 /***/ }),
-/* 71 */
+/* 76 */
 /***/ (function(module, exports) {
 
 module.exports = function _isTransformer(obj) {
@@ -1983,7 +1975,7 @@ module.exports = function _isTransformer(obj) {
 
 
 /***/ }),
-/* 72 */
+/* 77 */
 /***/ (function(module, exports) {
 
 module.exports = function _filter(fn, list) {
@@ -2002,7 +1994,7 @@ module.exports = function _filter(fn, list) {
 
 
 /***/ }),
-/* 73 */
+/* 78 */
 /***/ (function(module, exports) {
 
 module.exports = function _isObject(x) {
@@ -2011,12 +2003,12 @@ module.exports = function _isObject(x) {
 
 
 /***/ }),
-/* 74 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curry1 = __webpack_require__(24);
-var _isArray = __webpack_require__(27);
-var _isString = __webpack_require__(36);
+var _curry1 = __webpack_require__(26);
+var _isArray = __webpack_require__(29);
+var _isString = __webpack_require__(39);
 
 
 /**
@@ -2051,7 +2043,7 @@ module.exports = _curry1(function isArrayLike(x) {
 
 
 /***/ }),
-/* 75 */
+/* 80 */
 /***/ (function(module, exports) {
 
 module.exports = (function() {
@@ -2071,11 +2063,11 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 76 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _arity = __webpack_require__(29);
-var _curry2 = __webpack_require__(23);
+var _arity = __webpack_require__(31);
+var _curry2 = __webpack_require__(25);
 
 
 /**
@@ -2108,11 +2100,11 @@ module.exports = _curry2(function bind(fn, thisObj) {
 
 
 /***/ }),
-/* 77 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curry2 = __webpack_require__(23);
-var _xfBase = __webpack_require__(41);
+var _curry2 = __webpack_require__(25);
+var _xfBase = __webpack_require__(44);
 
 
 module.exports = (function() {
@@ -2131,10 +2123,10 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 78 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curry3 = __webpack_require__(25);
+var _curry3 = __webpack_require__(27);
 
 
 /**
@@ -2167,11 +2159,11 @@ module.exports = _curry3(function descend(fn, a, b) {
 
 
 /***/ }),
-/* 79 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curry2 = __webpack_require__(23);
-var map = __webpack_require__(44);
+var _curry2 = __webpack_require__(25);
+var map = __webpack_require__(47);
 
 
 /**
@@ -2212,11 +2204,11 @@ module.exports = _curry2(function lens(getter, setter) {
 
 
 /***/ }),
-/* 80 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curry2 = __webpack_require__(23);
-var _xfBase = __webpack_require__(41);
+var _curry2 = __webpack_require__(25);
+var _xfBase = __webpack_require__(44);
 
 
 module.exports = (function() {
@@ -2235,11 +2227,11 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 81 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _arity = __webpack_require__(29);
-var _isPlaceholder = __webpack_require__(26);
+var _arity = __webpack_require__(31);
+var _isPlaceholder = __webpack_require__(28);
 
 
 /**
@@ -2281,7 +2273,7 @@ module.exports = function _curryN(length, received, fn) {
 
 
 /***/ }),
-/* 82 */
+/* 87 */
 /***/ (function(module, exports) {
 
 module.exports = function _pipe(f, g) {
@@ -2292,12 +2284,12 @@ module.exports = function _pipe(f, g) {
 
 
 /***/ }),
-/* 83 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _checkForMethod = __webpack_require__(49);
-var _curry1 = __webpack_require__(24);
-var slice = __webpack_require__(84);
+var _checkForMethod = __webpack_require__(52);
+var _curry1 = __webpack_require__(26);
+var slice = __webpack_require__(89);
 
 
 /**
@@ -2331,11 +2323,11 @@ module.exports = _curry1(_checkForMethod('tail', slice(1, Infinity)));
 
 
 /***/ }),
-/* 84 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _checkForMethod = __webpack_require__(49);
-var _curry3 = __webpack_require__(25);
+var _checkForMethod = __webpack_require__(52);
+var _curry3 = __webpack_require__(27);
 
 
 /**
@@ -2368,11 +2360,11 @@ module.exports = _curry3(_checkForMethod('slice', function slice(fromIndex, toIn
 
 
 /***/ }),
-/* 85 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _concat = __webpack_require__(35);
-var _curry2 = __webpack_require__(23);
+var _concat = __webpack_require__(38);
+var _curry2 = __webpack_require__(25);
 
 
 /**
@@ -2398,11 +2390,11 @@ module.exports = _curry2(function prepend(el, list) {
 
 
 /***/ }),
-/* 86 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curry3 = __webpack_require__(25);
-var equals = __webpack_require__(37);
+var _curry3 = __webpack_require__(27);
+var equals = __webpack_require__(40);
 
 
 /**
@@ -2435,10 +2427,10 @@ module.exports = _curry3(function propEq(name, val, obj) {
 
 
 /***/ }),
-/* 87 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curry2 = __webpack_require__(23);
+var _curry2 = __webpack_require__(25);
 
 
 /**
@@ -2467,11 +2459,11 @@ module.exports = _curry2(function sort(comparator, list) {
 
 
 /***/ }),
-/* 88 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var add = __webpack_require__(89);
-var reduce = __webpack_require__(48);
+var add = __webpack_require__(94);
+var reduce = __webpack_require__(51);
 
 
 /**
@@ -2493,10 +2485,10 @@ module.exports = reduce(add, 0);
 
 
 /***/ }),
-/* 89 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curry2 = __webpack_require__(23);
+var _curry2 = __webpack_require__(25);
 
 
 /**
@@ -2522,10 +2514,10 @@ module.exports = _curry2(function add(a, b) {
 
 
 /***/ }),
-/* 90 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curry2 = __webpack_require__(23);
+var _curry2 = __webpack_require__(25);
 
 
 /**
@@ -2553,7 +2545,7 @@ module.exports = _curry2(function tap(fn, x) {
 
 
 /***/ }),
-/* 91 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2570,49 +2562,14 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [0, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var css = __webpack_require__(92);
-var assoc = __webpack_require__(43);
-var lensProp = __webpack_require__(42);
-var not = __webpack_require__(93);
-var over = __webpack_require__(46);
-var html_1 = __webpack_require__(3);
+var css = __webpack_require__(97);
+var duckweed = __webpack_require__(4);
+var E = __webpack_require__(98);
+var assoc = __webpack_require__(46);
+var lensProp = __webpack_require__(45);
+var not = __webpack_require__(99);
+var over = __webpack_require__(49);
 var init = function (options) { return ({
     created: new Date().getTime(),
     done: options.done || false,
@@ -2624,63 +2581,47 @@ exports.init = init;
 // Action
 var Action;
 (function (Action) {
-    Action[Action["Toggle"] = 0] = "Toggle";
-    Action[Action["ToggleEditing"] = 1] = "ToggleEditing";
-    Action[Action["Update"] = 2] = "Update";
-    Action[Action["Focus"] = 3] = "Focus";
-    Action[Action["RecalcHeight"] = 4] = "RecalcHeight";
+    Action["Toggle"] = "Toggle";
+    Action["ToggleEditing"] = "ToggleEditing";
+    Action["Update"] = "Update";
+    Action["Focus"] = "Focus";
+    Action["RecalcHeight"] = "RecalcHeight";
 })(Action || (Action = {}));
 exports.Action = Action;
 var actions = (_a = {},
-    _a[Action.Toggle] = function (patch, checked) { return __awaiter(_this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            patch(function (model) { return (__assign({}, model, { done: checked, editing: checked ? false : model.editing })); });
-            return [2 /*return*/];
-        });
-    }); },
-    _a[Action.ToggleEditing] = function (patch) { return __awaiter(_this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            patch(over(lensProp("editing"), not));
-            return [2 /*return*/];
-        });
-    }); },
-    _a[Action.Update] = function (patch, text) { return __awaiter(_this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            patch(assoc("text", text));
-            return [2 /*return*/];
-        });
-    }); },
-    _a[Action.Focus] = function (patch, vnode) { return __awaiter(_this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            vnode.elm.focus();
-            return [2 /*return*/];
-        });
-    }); },
-    _a[Action.RecalcHeight] = function (patch, vnode) { return __awaiter(_this, void 0, void 0, function () {
-        var h;
-        return __generator(this, function (_a) {
-            h = vnode.elm.offsetHeight;
-            patch(assoc("itemHeight", h));
-            return [2 /*return*/];
-        });
-    }); },
+    _a[Action.Toggle] = function (patch, checked) {
+        patch(function (model) { return (__assign({}, model, { done: checked, editing: checked ? false : model.editing })); });
+    },
+    _a[Action.ToggleEditing] = function (patch) {
+        patch(over(lensProp("editing"), not));
+    },
+    _a[Action.Update] = function (patch, text) {
+        patch(assoc("text", text));
+    },
+    _a[Action.Focus] = function (patch, vnode) {
+        vnode.elm.focus();
+    },
+    _a[Action.RecalcHeight] = function (patch, vnode) {
+        var h = vnode.elm.offsetHeight;
+        patch(assoc("itemHeight", h));
+    },
     _a);
 exports.actions = actions;
 var view = function (_a) {
-    var model = _a.model, _b = _a.prefix, prefix = _b === void 0 ? [] : _b, _c = _a.classes, classes = _c === void 0 ? [] : _c, _d = _a.styles, styles = _d === void 0 ? {} : _d;
-    return (html_1.default("div", { class: classes.concat([css.task]), style: Object.assign({}, style, styles), key: model.created, "hook-insert": prefix.concat(Action.RecalcHeight) },
-        html_1.default("label", { class: css.toggleDone, for: "task-" + prefix.join("-") },
-            html_1.default("input", { class: css.toggleCheckbox, id: "task-" + prefix.join("-"), type: "checkbox", "on-change": prefix.concat(Action.Toggle), checked: model.done }),
-            html_1.default("span", { class: css.toggleDoneLabel }, model.done
-                ? html_1.default("span", null, "+")
-                : html_1.default("span", null, "\u2014"))),
+    var model = _a.model, act = _a.act, _b = _a.classes, classes = _b === void 0 ? [] : _b, _c = _a.styles, styles = _c === void 0 ? {} : _c;
+    return (duckweed.html("div", { class: classes.concat([css.task]), style: Object.assign({}, style, styles), key: model.created, "hook-insert": act(Action.RecalcHeight) },
+        duckweed.html("label", { class: css.toggleDone, for: "task-" + model.created },
+            duckweed.html("input", { class: css.toggleCheckbox, id: "task-" + model.created, type: "checkbox", "on-change": E.from(E.checkboxEvent, act(Action.Toggle)), checked: model.done }),
+            duckweed.html("span", { class: css.toggleDoneLabel }, model.done
+                ? duckweed.html("span", null, "+")
+                : duckweed.html("span", null, "\u2014"))),
         model.editing
-            ? html_1.default("input", { class: (_e = {}, _e[css.editBox] = true, _e[css.long] = model.text.length > 30, _e), value: model.text, placeholder: "What would you want to accomplish?", "on-input": prefix.concat(Action.Update), "keys-enter": prefix.concat(Action.ToggleEditing), "keys-escape": prefix.concat(Action.ToggleEditing), "hook-insert": prefix.concat(Action.Focus), autofocus: true })
-            : html_1.default("span", { class: (_f = {}, _f[css.text] = true, _f[css.long] = model.text.length > 30, _f[css.done] = model.done, _f), style: { color: model.done ? "grey" : "black" }, "on-click": model.done ? [] : prefix.concat(Action.ToggleEditing) }, model.text),
+            ? duckweed.html("input", { class: (_d = {}, _d[css.editBox] = true, _d[css.long] = model.text.length > 30, _d), value: model.text, placeholder: "What would you want to accomplish?", "on-input": E.from(E.inputEvent, act(Action.Update)), "keys-enter": act(Action.ToggleEditing), "keys-escape": act(Action.ToggleEditing), "hook-insert": act(Action.Focus), autofocus: true })
+            : duckweed.html("span", { class: (_e = {}, _e[css.text] = true, _e[css.long] = model.text.length > 30, _e[css.done] = model.done, _e), style: { color: model.done ? "grey" : "black" }, "on-click": model.done ? act(null) : act(Action.ToggleEditing) }, model.text),
         model.done || !model.editing
             ? null
-            : html_1.default("button", { class: css.editButton, "on-click": prefix.concat(Action.ToggleEditing) }, "Save")));
-    var _e, _f;
+            : duckweed.html("button", { class: css.editButton, "on-click": act(Action.ToggleEditing) }, "Save")));
+    var _d, _e;
 };
 exports.view = view;
 // Styles
@@ -2694,17 +2635,102 @@ var _a;
 
 
 /***/ }),
-/* 92 */
+/* 97 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 module.exports = {"task":"task-y7fco","toggleDone":"toggleDone-hF3mY","toggleCheckbox":"toggleCheckbox-1F668","toggleDoneLabel":"toggleDoneLabel-16y6c","editBox":"editBox-2Mb0s","text":"text-39h4M","long":"long-dnv71","done":"done-5xpXe","editButton":"editButton-paaFV"};
 
 /***/ }),
-/* 93 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curry1 = __webpack_require__(24);
+"use strict";
+
+/**
+ * (c) 2017 Hajime Yamasaki Vukelic
+ * All rights reserved.
+ */
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+var __spread = (this && this.__spread) || function () {
+    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
+    return ar;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var is = __webpack_require__(6);
+/**
+ * Decorates an event handler with a processor
+ */
+var from = function (processor, handler) { return function () {
+    var eventArgs = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        eventArgs[_i] = arguments[_i];
+    }
+    return handler.apply(void 0, __spread(processor.apply(void 0, __spread(eventArgs))));
+}; };
+exports.from = from;
+/**
+ * Processor that handles input DOM events
+ */
+var inputEvent = function (event) {
+    return [event.target.value];
+};
+exports.inputEvent = inputEvent;
+/**
+ * Processor that handles change DOM events on checkboxes
+ */
+var checkboxEvent = function (event) {
+    return [event.target.checked, event.target.value];
+};
+exports.checkboxEvent = checkboxEvent;
+/**
+ * Automatic processor that handles various events and hooks
+ */
+var auto = function () {
+    var eventCallbackArgs = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        eventCallbackArgs[_i] = arguments[_i];
+    }
+    var first = eventCallbackArgs[0];
+    if (is.vnode(first)) {
+        // This is mostly for hooks. We add the vnode objects to args.
+        return eventCallbackArgs;
+    }
+    else if (is.changeEvent(first) && is.checkbox(first.target)) {
+        return checkboxEvent(first);
+    }
+    else if (is.inputEvent(first) && is.input(first.target)) {
+        first.preventDefault();
+        return inputEvent(first);
+    }
+    else if (is.pathData(first)) {
+        return [first];
+    }
+    return [];
+};
+exports.auto = auto;
+//# sourceMappingURL=events.js.map
+
+/***/ }),
+/* 99 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _curry1 = __webpack_require__(26);
 
 
 /**
@@ -2732,13 +2758,13 @@ module.exports = _curry1(function not(a) {
 
 
 /***/ }),
-/* 94 */
+/* 100 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 95 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2812,13 +2838,13 @@ var __spread = (this && this.__spread) || function () {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var pipe = __webpack_require__(47);
-var prop = __webpack_require__(32);
-var html_1 = __webpack_require__(3);
-var route = __webpack_require__(50);
-var navbar = __webpack_require__(97);
+var duckweed = __webpack_require__(4);
+var pipe = __webpack_require__(50);
+var prop = __webpack_require__(34);
+var route = __webpack_require__(53);
+var navbar = __webpack_require__(103);
 // Utility functions
-var matchRoute = pipe(prop("re"), route.match("/selm"));
+var matchRoute = pipe(prop("re"), route.match(""));
 var getMatchingRoute = function (routes) {
     if (!routes.length) {
         // tslint:disable:no-console
@@ -2856,9 +2882,9 @@ exports.init = init;
 // Actions
 var Action;
 (function (Action) {
-    Action[Action["ModuleAction"] = 0] = "ModuleAction";
-    Action[Action["SwitchRoute"] = 1] = "SwitchRoute";
-    Action[Action["Navbar"] = 2] = "Navbar";
+    Action["SwitchRoute"] = "SwitchRoute";
+    Action["ModuleAction"] = "ModuleAction";
+    Action["NavbarAction"] = "NavbarAction";
 })(Action || (Action = {}));
 exports.Action = Action;
 var actions = (_a = {},
@@ -2888,7 +2914,7 @@ var actions = (_a = {},
             return [2 /*return*/];
         });
     }); },
-    _a[Action.Navbar] = function (_, action, path) { return __awaiter(_this, void 0, void 0, function () {
+    _a[Action.NavbarAction] = function (_, action, path) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, navbar.actions[action](_, path)];
@@ -2901,21 +2927,21 @@ var actions = (_a = {},
     _a);
 exports.actions = actions;
 var view = function (_a) {
-    var model = _a.model;
-    return (html_1.default("div", { route: [Action.SwitchRoute] },
-        html_1.default(navbar.view, { prefix: [Action.Navbar], links: model.links }),
-        html_1.default(model.view, { model: model.model, prefix: [Action.ModuleAction, model.actions], key: model.path })));
+    var model = _a.model, act = _a.act;
+    return (duckweed.html("div", { route: act(Action.SwitchRoute) },
+        duckweed.html(navbar.view, { act: act.as(Action.NavbarAction), links: model.links }),
+        duckweed.html(model.view, { model: model.model, act: act.as(Action.ModuleAction, model.actions), key: model.path })));
 };
 exports.view = view;
 var _a;
 
 
 /***/ }),
-/* 96 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curry1 = __webpack_require__(24);
-var curryN = __webpack_require__(45);
+var _curry1 = __webpack_require__(26);
+var curryN = __webpack_require__(48);
 
 
 /**
@@ -2965,7 +2991,7 @@ module.exports = _curry1(function curry(fn) {
 
 
 /***/ }),
-/* 97 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2974,41 +3000,6 @@ module.exports = _curry1(function curry(fn) {
  * (c) 2017 Hajime Yamasaki Vukelic
  * All rights reserved.
  */
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [0, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
 var __read = (this && this.__read) || function (o, n) {
     var m = typeof Symbol === "function" && o[Symbol.iterator];
     if (!m) return o;
@@ -3025,31 +3016,27 @@ var __read = (this && this.__read) || function (o, n) {
     }
     return ar;
 };
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var css = __webpack_require__(98);
-var html_1 = __webpack_require__(3);
-var route_1 = __webpack_require__(50);
+var css = __webpack_require__(104);
+var duckweed = __webpack_require__(4);
+var route_1 = __webpack_require__(53);
 // Action
 var Action;
 (function (Action) {
-    Action[Action["Go"] = 0] = "Go";
+    Action["Go"] = "Go";
 })(Action || (Action = {}));
 exports.Action = Action;
 var actions = (_a = {},
-    _a[Action.Go] = function (_, path) { return __awaiter(_this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            route_1.go(path);
-            return [2 /*return*/];
-        });
-    }); },
+    _a[Action.Go] = function (_, path) {
+        route_1.go(path);
+    },
     _a);
 exports.actions = actions;
 var view = function (_a) {
-    var links = _a.links, _b = _a.prefix, prefix = _b === void 0 ? [] : _b;
-    return (html_1.default("nav", { class: css.nav }, links.map(function (_a) {
+    var links = _a.links, act = _a.act;
+    return (duckweed.html("nav", { class: css.nav }, links.map(function (_a) {
         var _b = __read(_a, 2), path = _b[0], label = _b[1];
-        return html_1.default("a", { class: css.link, "on-click": prefix.concat(Action.Go, path) }, label);
+        return duckweed.html("a", { class: css.link, "on-click": act(Action.Go, path) }, label);
     })));
 };
 exports.view = view;
@@ -3057,7 +3044,7 @@ var _a;
 
 
 /***/ }),
-/* 98 */
+/* 104 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
@@ -3065,4 +3052,4 @@ module.exports = {"nav":"nav-mLhoT","link":"link-3zPtL"};
 
 /***/ })
 ]);
-//# sourceMappingURL=0-a4dd0.js.map
+//# sourceMappingURL=0-32f50.js.map
