@@ -4,7 +4,7 @@
  */
 
 import * as duckweed from "duckweed";
-import {ActionHandler, ModelPatcher, PatchFunction} from "duckweed/runner";
+import {ActionHandler, ModelPatcher} from "duckweed/runner";
 import {VNode} from "snabbdom/src/vnode";
 
 import * as pipe from "ramda/src/pipe";
@@ -92,29 +92,26 @@ enum Action {
 
 const actions = {
   [Action.ModuleAction]:
-    async (patch: ModelPatcher<Model>, moduleActions: any | void, moduleAction: any, ...args: any[]) => {
+    (patch: ModelPatcher<Model>, moduleActions: any | void, moduleAction: any, ...args: any[]) => {
       if (!moduleActions) {
         return;
       }
-      const modulePatcher = (fn: PatchFunction) => patch((model) => ({
-        ...model,
-        model: fn(model.model),
-      }));
+      const scoped = patch.as(["model"]);
       const action = moduleActions[moduleAction];
       if (action) {
-        action(modulePatcher, ...args);
+        action(scoped, ...args);
       }
     },
   [Action.SwitchRoute]:
-    async (patch: ModelPatcher<Model>) => {
+    (patch: ModelPatcher<Model>) => {
       patch((model) => ({
         ...model,
         ...init(model.routes, model.links),
       }));
     },
   [Action.NavbarAction]:
-    async (_: any, action: any, path: string) => {
-      await navbar.actions[action](_, path);
+    (_: any, action: any, path: string) => {
+      navbar.actions[action](_, path);
     },
 };
 

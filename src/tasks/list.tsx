@@ -7,11 +7,10 @@ const elements = require<CSSModule>("shared/elements.styl");
 const css = require<CSSModule>("./list.styl");
 
 import * as duckweed from "duckweed";
-import {ActionHandler, ModelPatcher, PatchFunction} from "duckweed/runner";
+import {ActionHandler, ModelPatcher} from "duckweed/runner";
 
 import * as aside from "shared/aside";
 
-import * as adjust from "ramda/src/adjust";
 import * as apply from "ramda/src/apply";
 import * as concat from "ramda/src/concat";
 import * as descend from "ramda/src/descend";
@@ -88,23 +87,17 @@ const sortTasks = pipe(splitTasks, apply(concat)) as (tasks: task.Model[]) => ta
 const actions = {
   [Action.Update]:
     (patch: ModelPatcher<Model>, id: number, taskAction: task.Action, arg?: any) => {
-      // The scoped patcher will perform a patch on a particular item in the
-      // array. This is how we delegate to the task action.
-      const taskPatch = (fn: PatchFunction<task.Model>) =>
-        // FIXME: Come up with a nice utility function for creating scoped patchers
-        patch(over(
-          lensProp("tasks"),
-          pipe(
-            adjust(fn, id),
-            sortTasks,
-            filter(notEmpty),
-            tap(store),
-          ),
-        ));
-
+      const scoped = patch.as<task.Model>(["tasks", id], over(
+        lensProp("tasks"),
+        pipe(
+          sortTasks,
+          filter(notEmpty),
+          tap(store),
+        ),
+      ));
       // FIXME: Temporary workaround until we figure out why we can't just do
       // await task.actions[taskAction](taskPatch, arg)
-      (task.actions[taskAction] as any)(taskPatch, arg);
+      (task.actions[taskAction] as any)(scoped, arg);
     },
   [Action.Add]:
     (patch: ModelPatcher<Model>) => {
