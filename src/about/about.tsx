@@ -21,8 +21,8 @@ const view = () => {
 
         <div class={css.body}>
           <p>
-            This app is an experiment bringing Elm-inspired architecture to Snabbdom
-            and TypeScript.
+            This is a demo app for the
+            [Duckweed](https://github.com/foxbunny/duckweed) microframework.
           </p>
 
           <p>
