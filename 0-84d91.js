@@ -1268,7 +1268,7 @@ var go = function (path, query) {
     if (query === void 0) { query = {}; }
     // tslint:disable:no-console
     var q = qs.stringify(query);
-    var next = "" + path + (q ? "?" + q : "");
+    var next = "/duckweed-tasks" + path + (q ? "?" + q : "");
     window.history.pushState(undefined, "", next);
     window.dispatchEvent(new Event("popstate"));
 };
@@ -2844,7 +2844,7 @@ var prop = __webpack_require__(34);
 var route = __webpack_require__(53);
 var navbar = __webpack_require__(103);
 // Utility functions
-var matchRoute = pipe(prop("re"), route.match(""));
+var matchRoute = pipe(prop("re"), route.match("/duckweed-tasks"));
 var getMatchingRoute = function (routes) {
     if (!routes.length) {
         // tslint:disable:no-console
@@ -3052,4 +3052,4 @@ module.exports = {"nav":"nav-mLhoT","link":"link-3zPtL"};
 
 /***/ })
 ]);
-//# sourceMappingURL=0-e64ee.js.map
+//# sourceMappingURL=0-84d91.js.map
