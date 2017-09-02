@@ -1,9 +1,8 @@
 # Snabbdom-Elm (selm)
 
-This is an experiment replicating the [Elm
-architecture](https://guide.elm-lang.org/architecture/) (kind of) using
-[Snabbdom](https://github.com/snabbdom/snabbdom) and
-[TypeScript](http://www.typescriptlang.org/).
+Demo app for the [Duckweed](https://github.com/foxbunny/duckweed) microframework.
+
+[![Duckweed badge](src/shared/duckweed-badge.svg)](https://github.com/foxbunny/duckweed)
 
 ## Getting started
 
@@ -18,19 +17,6 @@ Init the project:
 ```shell
 yarn
 ```
-
-## TODO
-
-- [ ] Implement routing by letting components 'bind' to routing events
-- [ ] Write tests for everything in the `src/runtime`
-- [ ] Write a more fully-featured app
-
-## Not strictly functional
-
-This experiement is not intended to adhere to functional programming paradigm.
-(After all, there's Elm for that.) Instead, it is solely concerned with bringing
-the gist of the Elm architecture to TypeScript. You will see things that are an
-anti-pattern in functional programming, such as try-catch and generators.
 
 ## Special mentions
 
@@ -64,8 +50,6 @@ stylesheets (and an intention to switch to them).
 - `yarn run test:watch` - run tests in watch mode
 
 ## License
-
-This template is licensed under MIT.
 
 Copyright (c) 2017 Hajime Yamasaki Vukelic
 
