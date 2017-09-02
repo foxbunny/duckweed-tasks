@@ -1,4 +1,4 @@
-# Snabbdom-Elm (selm)
+# Duckweed Tasks - demo app
 
 Demo app for the [Duckweed](https://github.com/foxbunny/duckweed) microframework.
 
