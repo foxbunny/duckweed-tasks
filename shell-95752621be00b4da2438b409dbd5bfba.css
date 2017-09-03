@@ -10,10 +10,12 @@
 }
 .main-3Cs3s {
   max-width: 600px;
+  width: 100%;
   margin: 2rem auto;
   padding: 2rem;
   background: #fff;
   border-radius: 4px;
+  display: block;
 }
 /**
  * (c) 2017 Hajime Yamasaki Vukelic
@@ -75,19 +77,30 @@
  */
 .task-y7fco {
   margin: 1rem 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 100%;
-  justify-content: space-between;
-  align-content: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
 }
 .toggleDone-hF3mY {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
   display: inline-flex;
   border-radius: 20px;
   background: #808080;
   width: 32px;
   height: 32px;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: background 0.3s;
   transition: background 0.3s;
   margin-right: 1rem;
 }
@@ -138,7 +151,8 @@
  * All rights reserved.
  */
 * {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   font-size: 100%;
   font-weight: normal;
   font-style: normal;
@@ -165,7 +179,8 @@ body {
   right: 0;
   z-index: 1;
   background: #fff;
-  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.3);
+          box-shadow: 0 0 5px rgba(0,0,0,0.3);
   text-align: right;
   padding: 0.2rem 1rem;
 }
@@ -173,10 +188,11 @@ body {
   text-transform: uppercase;
   margin-left: 1rem;
   cursor: pointer;
+  -webkit-transition: color 0.3s;
   transition: color 0.3s;
 }
 .link-3zPtL:hover {
   color: #579;
 }
 
-/*# sourceMappingURL=shell-1d8610110899885a2a63dd49b91eef36.css.map*/
+/*# sourceMappingURL=shell-95752621be00b4da2438b409dbd5bfba.css.map*/
