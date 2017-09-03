@@ -5,6 +5,7 @@
 
 import path = require("path");
 
+import autoprefixer = require("autoprefixer");
 import ExtractTextPlugin = require("extract-text-webpack-plugin");
 import HTMLWebpackPlugin = require("html-webpack-plugin");
 import webpack = require("webpack");
@@ -54,7 +55,12 @@ export default function(env: Env | void): webpack.Configuration {
     },
     devtool: "source-map",
     entry: {
-      shell: "./src",
+      shell: [
+        "es6-promise/auto",
+        "es6-object-assign/auto",
+        "whatwg-fetch",
+        "./src",
+      ],
     },
     module: {
       rules: [
@@ -81,6 +87,13 @@ export default function(env: Env | void): webpack.Configuration {
                   importLoaders: 1,
                   localIdentName: "[local]-[hash:base64:5]",
                   modules: true,
+                  sourceMap: true,
+                },
+              },
+              {
+                loader: "postcss-loader",
+                options: {
+                  plugins: [autoprefixer()],
                   sourceMap: true,
                 },
               },

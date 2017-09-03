@@ -12,7 +12,14 @@ const go = (path: string, query: {[param: string]: any} = {}): void => {
   const q = qs.stringify(query);
   const next = ROUTE_PREFIX + path + (q ? `?${q}` : "");
   window.history.pushState(undefined, "", next);
-  window.dispatchEvent(new Event("popstate"));
+  try {
+    window.dispatchEvent(new Event("popstate"));
+  } catch (e) {
+    // This is probably IE, where event constructor cannot be used
+    const ev = document.createEvent("PopStateEvent");
+    ev.initPopStateEvent("popstate", true, true, {});
+    window.dispatchEvent(ev);
+  }
 };
 
 const match = curry((prefix: string, re: RegExp): string[] | false => {
