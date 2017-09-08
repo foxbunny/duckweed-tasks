@@ -4,11 +4,8 @@
  */
 
 import * as duckweed from "duckweed";
-import {ActionHandler, ModelPatcher} from "duckweed/runner";
+import {ActionHandler, Actions} from "duckweed/runner";
 import {VNode} from "snabbdom/src/vnode";
-
-import * as pipe from "ramda/src/pipe";
-import * as prop from "ramda/src/prop";
 
 import * as route from "shared/route";
 
@@ -34,7 +31,7 @@ interface RouteMatch {
 
 // Utility functions
 
-const matchRoute = pipe(prop("re"), route.match(ROUTE_PREFIX));
+const matchRoute = (rm: RouteModule) => route.match(ROUTE_PREFIX, rm.re);
 
 const getMatchingRoute = (routes: RouteModule[]): RouteMatch | void => {
   if (!routes.length) {
@@ -59,26 +56,23 @@ const getMatchingRoute = (routes: RouteModule[]): RouteMatch | void => {
 // Model
 
 interface Model {
-  model: any | void;
-  actions: any | void;
-  routes: RouteModule[];
   links: navbar.NavLink[];
+  model: any;
   path: string;
-  view: ViewFunction;
 }
 
-const init = (routes: RouteModule[], links: navbar.NavLink[]): Model => {
-  if (!routes.length) {
+let routeTable: RouteModule[] = [];
+
+const init = (links: navbar.NavLink[], routes?: RouteModule[]): Model => {
+  routeTable = routes ? routes : routeTable;
+  const {mod} = getMatchingRoute(routeTable) as RouteMatch;
+  if (!routeTable.length) {
     throw Error("No route definitions found");
   }
-  const {mod, args} = getMatchingRoute(routes) as RouteMatch;
   return {
-    actions: mod.actions,
     links,
-    model: mod.init && mod.init(...args),
+    model: mod.init ? mod.init() : undefined,
     path: location.pathname,
-    routes,
-    view: mod.view,
   };
 };
 
@@ -90,10 +84,11 @@ enum Action {
   NavbarAction = "NavbarAction",
 }
 
-const actions = {
+const actions: Actions = {
   [Action.ModuleAction]:
-    (patch: ModelPatcher<Model>, moduleActions: any | void, moduleAction: any, ...args: any[]) => {
+    (patch, moduleActions: Actions | void, moduleAction: string, ...args: any[]) => {
       if (!moduleActions) {
+        // The module does not define any actions, no point in doing anything
         return;
       }
       const scoped = patch.as(["model"]);
@@ -103,15 +98,18 @@ const actions = {
       }
     },
   [Action.SwitchRoute]:
-    (patch: ModelPatcher<Model>) => {
+    (patch) => {
+      const {mod} = getMatchingRoute(routeTable) as RouteMatch;
       patch((model) => ({
         ...model,
-        ...init(model.routes, model.links),
+        model: mod.init ? mod.init() : undefined,
+        path: location.pathname,
       }));
     },
   [Action.NavbarAction]:
-    (_: any, action: any, path: string) => {
-      navbar.actions[action](_, path);
+    (_, action: string, path: string) => {
+      // Navbar does not need the patcher, so not passing it
+      navbar.actions[action](undefined, path);
     },
 };
 
@@ -123,10 +121,11 @@ interface Props {
 }
 
 const view = ({model, act}: Props) => {
+  const {mod} = getMatchingRoute(routeTable) as RouteMatch;
   return (
     <div route={act(Action.SwitchRoute)}>
       <navbar.view act={act.as(Action.NavbarAction)} links={model.links} />
-      <model.view model={model.model} act={act.as(Action.ModuleAction, model.actions)} key={model.path} />
+      <mod.view model={model.model} act={act.as(Action.ModuleAction, mod.actions)} key={model.path} />
     </div>
   );
 };
