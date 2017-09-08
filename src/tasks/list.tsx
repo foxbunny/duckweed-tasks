@@ -7,7 +7,7 @@ const elements = require<CSSModule>("shared/elements.styl");
 const css = require<CSSModule>("./list.styl");
 
 import * as duckweed from "duckweed";
-import {ActionHandler, ModelPatcher} from "duckweed/runner";
+import {ActionHandler, Actions} from "duckweed/runner";
 
 import * as aside from "shared/aside";
 
@@ -16,14 +16,12 @@ import * as concat from "ramda/src/concat";
 import * as descend from "ramda/src/descend";
 import * as filter from "ramda/src/filter";
 import * as lensProp from "ramda/src/lensProp";
-import * as map from "ramda/src/map";
 import * as over from "ramda/src/over";
 import * as pipe from "ramda/src/pipe";
 import * as prepend from "ramda/src/prepend";
 import * as prop from "ramda/src/prop";
 import * as propEq from "ramda/src/propEq";
 import * as sort from "ramda/src/sort";
-import * as sum from "ramda/src/sum";
 import * as tap from "ramda/src/tap";
 
 import * as fx from "shared/fx";
@@ -69,6 +67,7 @@ enum Action {
   Update = "Update",
   Add = "Add",
   ClearDone = "ClearDone",
+  SetHeight = "SetHeight",
 }
 
 const sortByDate = sort<task.Model>(descend(prop("created")));
@@ -84,9 +83,11 @@ const splitTasks = (tasks: task.Model[]): [task.Model[], task.Model[]] =>
 
 const sortTasks = pipe(splitTasks, apply(concat)) as (tasks: task.Model[]) => task.Model[];
 
-const actions = {
+const raf = (fn: any) => requestAnimationFrame(() => requestAnimationFrame(fn));
+
+const actions: Actions<Model> = {
   [Action.Update]:
-    (patch: ModelPatcher<Model>, id: number, taskAction: task.Action, arg?: any) => {
+    (patch, id: number, taskAction: task.Action, arg?: any) => {
       const scoped = patch.as<task.Model>(["tasks", id], over(
         lensProp("tasks"),
         pipe(
@@ -100,14 +101,14 @@ const actions = {
       (task.actions[taskAction] as any)(scoped, arg);
     },
   [Action.Add]:
-    (patch: ModelPatcher<Model>) => {
+    (patch) => {
       patch(over(
         lensProp("tasks"),
         prepend(task.init({editing: true})),
       ));
     },
   [Action.ClearDone]:
-    (patch: ModelPatcher<Model>) => {
+    (patch) => {
       patch(pipe(over(
         lensProp("tasks"),
         pipe(
@@ -115,6 +116,19 @@ const actions = {
           tap(store),
         ),
       )));
+    },
+  [Action.SetHeight]:
+    (patch, vnode, newVnode?) => {
+      if (newVnode) {
+        vnode = newVnode;
+      }
+      const h = vnode.children
+        .map((c: any) => c.elm)
+        .reduce((n: number, c: HTMLElement) => {
+        raf(() => c.style.transform = `translateY(${n}px)`);
+        return n + c.offsetHeight + 10;
+      }, 0);
+      vnode.elm.style.paddingBottom = `${h}px`;
     },
 };
 
@@ -126,28 +140,22 @@ interface Props {
 }
 
 const view = ({model, act}: Props): JSX.Element => {
-  const listHeight = Math.max(46, sum(map(prop("itemHeight"), model.tasks)) + model.tasks.length * 10);
-  const {offsets: listItemOffsets} = model.tasks.reduce((offsets, {itemHeight}) => {
-    (offsets.offsets as number[]).push(offsets.lastValue);
-    offsets.lastValue += itemHeight + 10;
-    return offsets;
-  }, {lastValue: 0, offsets: []});
-
   return (
-    <div class={elements.wrapper} style={fx.dropInTwistOut()}>
+    <div
+      class={elements.wrapper}
+      style={fx.dropInTwistOut()}
+    >
       <main class={elements.main}>
         <h1 class={css.title}>Task list</h1>
         <p class={css.buttonBar}>
           <button class={css.actionButton} on-click={act(Action.Add)}>+ Add task</button>
           <button class={css.actionButton} on-click={act(Action.ClearDone)}>Clear done</button>
         </p>
-        <div class={css.tasks} style={{
-          delayed: {
-            paddingBottom: `${listHeight}px`,
-          },
-          paddingBottom: "40px",
-          transition: "padding-bottom 1s",
-        }}>
+        <div
+          class={css.tasks}
+          hook-insert={act(Action.SetHeight)}
+          hook-postpatch={act(Action.SetHeight)}
+          >
           {model.tasks.map((item: task.Model, index) =>
             <task.view
               model={item}
@@ -156,7 +164,6 @@ const view = ({model, act}: Props): JSX.Element => {
               styles={{
                 delayed: {
                   opacity: 1,
-                  transform: `translateY(${listItemOffsets[index]}px)`,
                 },
                 opacity: 0,
                 remove: {

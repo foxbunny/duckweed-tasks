@@ -7,7 +7,7 @@ const css = require<CSSModule>("./task.styl");
 
 import * as duckweed from "duckweed";
 import * as E from "duckweed/events";
-import {ActionHandler, ModelPatcher} from "duckweed/runner";
+import {ActionHandler, Actions} from "duckweed/runner";
 import * as assoc from "ramda/src/assoc";
 import * as lensProp from "ramda/src/lensProp";
 import * as not from "ramda/src/not";
@@ -21,14 +21,12 @@ interface Model {
   done: boolean;
   editing: boolean;
   created: number;
-  itemHeight: number;
 }
 
 const init = (options: any): Model => ({
   created: new Date().getTime(),
   done: options.done || false,
   editing: options.editing || false,
-  itemHeight: 0,
   text: options.text || "",
 });
 
@@ -39,12 +37,11 @@ enum Action {
   ToggleEditing = "ToggleEditing",
   Update = "Update",
   Focus = "Focus",
-  RecalcHeight = "RecalcHeight",
 }
 
-const actions = {
+const actions: Actions<Model> = {
   [Action.Toggle]:
-    (patch: ModelPatcher<Model>, checked: boolean) => {
+    (patch, checked: boolean) => {
       patch((model) => ({
         ...model,
         done: checked,
@@ -52,21 +49,16 @@ const actions = {
       }));
     },
   [Action.ToggleEditing]:
-    (patch: ModelPatcher<Model>) => {
+    (patch) => {
       patch(over(lensProp("editing"), not));
     },
   [Action.Update]:
-    (patch: ModelPatcher<Model>, text: string) => {
+    (patch, text: string) => {
       patch(assoc("text", text));
     },
   [Action.Focus]:
-    (patch: ModelPatcher<Model>, vnode: VNode) => {
+    (patch, vnode: VNode) => {
       (vnode.elm as HTMLInputElement).focus();
-    },
-  [Action.RecalcHeight]:
-    (patch: ModelPatcher<Model>, vnode: VNode) => {
-      const h = (vnode.elm as HTMLElement).offsetHeight;
-      patch(assoc("itemHeight", h));
     },
 };
 
@@ -85,7 +77,6 @@ const view = ({model, act, classes = [], styles = {}}: Props) => {
       class={classes.concat([css.task])}
       style={Object.assign({}, style, styles)}
       key={model.created}
-      hook-insert={act(Action.RecalcHeight)}
     >
       <label class={css.toggleDone} for={`task-${model.created}`}>
         <input
