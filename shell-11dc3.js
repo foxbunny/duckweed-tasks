@@ -86,7 +86,7 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
-/******/ 		script.src = __webpack_require__.p + "" + chunkId + "-" + "12353" + ".js";
+/******/ 		script.src = __webpack_require__.p + "" + chunkId + "-" + "11dc3" + ".js";
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {
@@ -142,7 +142,7 @@
 /******/ 	__webpack_require__.oe = function(err) { console.error(err); throw err; };
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -152,8 +152,8 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var vnode_1 = __webpack_require__(2);
-var is = __webpack_require__(3);
+var vnode_1 = __webpack_require__(3);
+var is = __webpack_require__(4);
 function addNS(data, children, sel) {
     data.ns = 'http://www.w3.org/2000/svg';
     if (sel !== 'foreignObject' && children !== undefined) {
@@ -220,6 +220,51 @@ exports.default = h;
  * (c) 2017 Hajime Yamasaki Vukelic
  * All rights reserved.
  */
+Object.defineProperty(exports, "__esModule", { value: true });
+var str = function (s) {
+    return typeof s === "string";
+};
+exports.str = str;
+var input = function (target) {
+    return target.tagName === "INPUT";
+};
+exports.input = input;
+var checkbox = function (target) {
+    return target.tagName === "INPUT" && target.type === "checkbox";
+};
+exports.checkbox = checkbox;
+var event = function (ev) {
+    return ev instanceof Event;
+};
+exports.event = event;
+var changeEvent = function (ev) {
+    return event(ev) && ev.type === "change";
+};
+exports.changeEvent = changeEvent;
+var inputEvent = function (ev) {
+    return event(ev) && ev.type === "input";
+};
+exports.inputEvent = inputEvent;
+var vnode = function (vn) {
+    return typeof vn === "object" && "sel" in vnode;
+};
+exports.vnode = vnode;
+var pathData = function (data) {
+    return typeof data === "object" && typeof data.pathname === "string";
+};
+exports.pathData = pathData;
+//# sourceMappingURL=is.js.map
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/**
+ * (c) 2017 Hajime Yamasaki Vukelic
+ * All rights reserved.
+ */
 var __read = (this && this.__read) || function (o, n) {
     var m = typeof Symbol === "function" && o[Symbol.iterator];
     if (!m) return o;
@@ -237,15 +282,15 @@ var __read = (this && this.__read) || function (o, n) {
     return ar;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var snabbdom = __webpack_require__(20);
+var snabbdom = __webpack_require__(21);
 var h_1 = __webpack_require__(0);
-var class_1 = __webpack_require__(23);
-var eventlisteners_1 = __webpack_require__(24);
-var props_1 = __webpack_require__(25);
-var style_1 = __webpack_require__(26);
-var documentevents_1 = __webpack_require__(27);
-var keyevents_1 = __webpack_require__(28);
-var routeevents_1 = __webpack_require__(29);
+var class_1 = __webpack_require__(24);
+var eventlisteners_1 = __webpack_require__(25);
+var props_1 = __webpack_require__(26);
+var style_1 = __webpack_require__(27);
+var documentevents_1 = __webpack_require__(28);
+var keyevents_1 = __webpack_require__(29);
+var routeevents_1 = __webpack_require__(30);
 var patch = snabbdom.init([
     class_1.default,
     style_1.default,
@@ -359,7 +404,7 @@ exports.default = html;
 //# sourceMappingURL=html.js.map
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -375,7 +420,7 @@ exports.default = vnode;
 //# sourceMappingURL=vnode.js.map
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -389,7 +434,7 @@ exports.primitive = primitive;
 //# sourceMappingURL=is.js.map
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -399,21 +444,108 @@ exports.primitive = primitive;
  * All rights reserved.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-var html_1 = __webpack_require__(1);
+var events = __webpack_require__(6);
+exports.events = events;
+var html_1 = __webpack_require__(2);
 exports.html = html_1.default;
-var runner_1 = __webpack_require__(33);
+var runner_1 = __webpack_require__(34);
 exports.runner = runner_1.default;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var strictUriEncode = __webpack_require__(30);
-var objectAssign = __webpack_require__(31);
-var decodeComponent = __webpack_require__(32);
+/**
+ * (c) 2017 Hajime Yamasaki Vukelic
+ * All rights reserved.
+ */
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+var __spread = (this && this.__spread) || function () {
+    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
+    return ar;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var is = __webpack_require__(1);
+/**
+ * Decorates an event handler with a processor
+ */
+var from = function (processor, handler) { return function () {
+    var eventArgs = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        eventArgs[_i] = arguments[_i];
+    }
+    return handler.apply(void 0, __spread(processor.apply(void 0, __spread(eventArgs))));
+}; };
+exports.from = from;
+/**
+ * Processor that handles input DOM events
+ */
+var inputEvent = function (event) {
+    return [event.target.value];
+};
+exports.inputEvent = inputEvent;
+/**
+ * Processor that handles change DOM events on checkboxes
+ */
+var checkboxEvent = function (event) {
+    return [event.target.checked, event.target.value];
+};
+exports.checkboxEvent = checkboxEvent;
+/**
+ * Automatic processor that handles various events and hooks
+ */
+var auto = function () {
+    var eventCallbackArgs = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        eventCallbackArgs[_i] = arguments[_i];
+    }
+    var first = eventCallbackArgs[0];
+    if (is.vnode(first)) {
+        // This is mostly for hooks. We add the vnode objects to args.
+        return eventCallbackArgs;
+    }
+    else if (is.changeEvent(first) && is.checkbox(first.target)) {
+        return checkboxEvent(first);
+    }
+    else if (is.inputEvent(first) && is.input(first.target)) {
+        first.preventDefault();
+        return inputEvent(first);
+    }
+    else if (is.pathData(first)) {
+        return [first];
+    }
+    return [];
+};
+exports.auto = auto;
+//# sourceMappingURL=events.js.map
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var strictUriEncode = __webpack_require__(31);
+var objectAssign = __webpack_require__(32);
+var decodeComponent = __webpack_require__(33);
 
 function encoderForArrayFormat(opts) {
 	switch (opts.arrayFormat) {
@@ -619,76 +751,31 @@ exports.stringify = function (obj, opts) {
 
 
 /***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/**
- * (c) 2017 Hajime Yamasaki Vukelic
- * All rights reserved.
- */
-Object.defineProperty(exports, "__esModule", { value: true });
-var str = function (s) {
-    return typeof s === "string";
-};
-exports.str = str;
-var input = function (target) {
-    return target.tagName === "INPUT";
-};
-exports.input = input;
-var checkbox = function (target) {
-    return target.tagName === "INPUT" && target.type === "checkbox";
-};
-exports.checkbox = checkbox;
-var event = function (ev) {
-    return ev instanceof Event;
-};
-exports.event = event;
-var changeEvent = function (ev) {
-    return event(ev) && ev.type === "change";
-};
-exports.changeEvent = changeEvent;
-var inputEvent = function (ev) {
-    return event(ev) && ev.type === "input";
-};
-exports.inputEvent = inputEvent;
-var vnode = function (vn) {
-    return typeof vn === "object" && "sel" in vnode;
-};
-exports.vnode = vnode;
-var pathData = function (data) {
-    return typeof data === "object" && typeof data.pathname === "string";
-};
-exports.pathData = pathData;
-//# sourceMappingURL=is.js.map
-
-/***/ }),
-/* 7 */,
 /* 8 */,
 /* 9 */,
-/* 10 */
+/* 10 */,
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(11);
-__webpack_require__(16);
-__webpack_require__(18);
-module.exports = __webpack_require__(19);
+__webpack_require__(12);
+__webpack_require__(17);
+__webpack_require__(19);
+module.exports = __webpack_require__(20);
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 // This file can be required in Browserify and Node.js for automatic polyfill
 // To use it:  require('es6-promise/auto');
 
-module.exports = __webpack_require__(12).polyfill();
+module.exports = __webpack_require__(13).polyfill();
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process, global) {var require;/*!
@@ -828,7 +915,7 @@ function flush() {
 function attemptVertx() {
   try {
     var r = require;
-    var vertx = __webpack_require__(15);
+    var vertx = __webpack_require__(16);
     vertxNext = vertx.runOnLoop || vertx.runOnContext;
     return useVertxTimer();
   } catch (e) {
@@ -1849,10 +1936,10 @@ return Promise$2;
 
 //# sourceMappingURL=es6-promise.map
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13), __webpack_require__(14)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14), __webpack_require__(15)))
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -2042,7 +2129,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 var g;
@@ -2069,23 +2156,23 @@ module.exports = g;
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(17).polyfill();
+__webpack_require__(18).polyfill();
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2138,7 +2225,7 @@ module.exports = {
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports) {
 
 (function(self) {
@@ -2605,7 +2692,7 @@ module.exports = {
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2615,33 +2702,34 @@ module.exports = {
  * All rights reserved.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-var duckweed = __webpack_require__(4);
+var duckweed = __webpack_require__(5);
 __webpack_require__.e/* require.ensure */(0).then((function (require) {
     var ROUTES = [
-        { re: /\/about$/, mod: __webpack_require__(7) },
-        { re: /^\/$/, mod: __webpack_require__(8) },
+        { re: /\/about$/, mod: __webpack_require__(8) },
+        { re: /^\/$/, mod: __webpack_require__(9) },
     ];
     var LINKS = [
         ["/", "Tasks"],
         ["/about", "About"],
     ];
-    var _a = __webpack_require__(9), init = _a.init, actions = _a.actions, view = _a.view;
-    duckweed.runner(init(ROUTES, LINKS), actions, view, {
+    var _a = __webpack_require__(10), init = _a.init, actions = _a.actions, view = _a.view;
+    duckweed.runner(init(LINKS, ROUTES), actions, view, {
         middleware: window.__DUCKWEED_DEVTOOL__ ? [window.__DUCKWEED_DEVTOOL__.middleware] : [],
+        plugins: window.__DUCKWEED_DEVTOOL__ ? [window.__DUCKWEED_DEVTOOL__.plugin] : [],
     });
 }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var vnode_1 = __webpack_require__(2);
-var is = __webpack_require__(3);
-var htmldomapi_1 = __webpack_require__(21);
+var vnode_1 = __webpack_require__(3);
+var is = __webpack_require__(4);
+var htmldomapi_1 = __webpack_require__(22);
 function isUndef(s) { return s === undefined; }
 function isDef(s) { return s !== undefined; }
 var emptyNode = vnode_1.default('', {}, [], undefined, undefined);
@@ -2666,7 +2754,7 @@ function createKeyToOldIdx(children, beginIdx, endIdx) {
 var hooks = ['create', 'update', 'remove', 'destroy', 'pre', 'post'];
 var h_1 = __webpack_require__(0);
 exports.h = h_1.h;
-var thunk_1 = __webpack_require__(22);
+var thunk_1 = __webpack_require__(23);
 exports.thunk = thunk_1.thunk;
 function init(modules, domApi) {
     var i, j, cbs = {};
@@ -2946,7 +3034,7 @@ exports.init = init;
 //# sourceMappingURL=snabbdom.js.map
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3018,7 +3106,7 @@ exports.default = exports.htmlDomApi;
 //# sourceMappingURL=htmldomapi.js.map
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3071,7 +3159,7 @@ exports.default = exports.thunk;
 //# sourceMappingURL=thunk.js.map
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3102,7 +3190,7 @@ exports.default = exports.classModule;
 //# sourceMappingURL=class.js.map
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3203,7 +3291,7 @@ exports.default = exports.eventListenersModule;
 //# sourceMappingURL=eventlisteners.js.map
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3235,7 +3323,7 @@ exports.default = exports.propsModule;
 //# sourceMappingURL=props.js.map
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3327,7 +3415,7 @@ exports.default = exports.styleModule;
 //# sourceMappingURL=style.js.map
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3426,7 +3514,7 @@ exports.default = module;
 //# sourceMappingURL=documentevents.js.map
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3531,7 +3619,7 @@ exports.default = module;
 //# sourceMappingURL=keyevents.js.map
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3541,7 +3629,7 @@ exports.default = module;
  * All rights reserved.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-var qs = __webpack_require__(5);
+var qs = __webpack_require__(7);
 var handleEvent = function (data, vnode) {
     var route = vnode.data.route;
     if (typeof route === "function") {
@@ -3589,7 +3677,7 @@ exports.default = module;
 //# sourceMappingURL=routeevents.js.map
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3602,7 +3690,7 @@ module.exports = function (str) {
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3699,7 +3787,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3800,7 +3888,7 @@ module.exports = function (encodedURI) {
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3838,8 +3926,8 @@ var __spread = (this && this.__spread) || function () {
     return ar;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var html_1 = __webpack_require__(1);
-var is = __webpack_require__(6);
+var html_1 = __webpack_require__(2);
+var is = __webpack_require__(1);
 /**
  * Clears the timer if one was set by the patch function.
  */
@@ -3862,9 +3950,9 @@ var setNextRender = function (state, render) {
  * The renderer function will keep updating the vnodes stored in the runner
  * state using a specified view function.
  */
-var createRenderer = function (state, view) {
+var createRenderer = function (state, patch, view) {
     return function (actionHandler) {
-        state.vnodes = html_1.patch(state.vnodes, view({ model: state.model, act: actionHandler }));
+        state.vnodes = patch(state.vnodes, view({ model: state.model, act: actionHandler }));
         state.nextRenderId = null;
     };
 };
@@ -3900,9 +3988,6 @@ var createPatcher = function (state, middleware, patchCallback, scope, parentSco
     if (scope === void 0) { scope = []; }
     if (parentScope === void 0) { parentScope = []; }
     if (scopeCallback === void 0) { scopeCallback = function (model) { return model; }; }
-    var middlewareStack = middleware.reduce(function (m1, m2) {
-        return function (fn) { return m1(m2(fn)); };
-    }, function (fn) { return fn; });
     var mutate = function (fn) { return function (model) {
         var updated = scope
             ? scopePatch(scope, fn, model)
@@ -3910,7 +3995,7 @@ var createPatcher = function (state, middleware, patchCallback, scope, parentSco
         return scopePatch(parentScope, scopeCallback, updated);
     }; };
     var patcher = function (fn) {
-        state.model = middlewareStack(mutate(fn))(state.model);
+        state.model = middleware(mutate(fn))(state.model);
         patchCallback();
     };
     patcher.as = function (childScope, parentCallback) {
@@ -3973,15 +4058,15 @@ var createActionHandler = function (state, actions, render, middleware) {
 };
 var DEFAULT_OPTIONS = {
     middleware: [],
+    patch: html_1.patch,
+    plugins: [],
     root: "#app",
 };
 /**
  * Create and start a new application runtime
  *
  * The runner function takes a model, actions mapping, view function, and an
- * optional root element selector (defaults to "#app"). It then kicks off the
- * render process, rendering the initial view onto the root element (root
- * element is replaced in the process).
+ * an object containing runner options, and kickstarts the app.
  */
 var runner = function (model, actions, view, options) {
     if (options === void 0) { options = {}; }
@@ -3991,9 +4076,29 @@ var runner = function (model, actions, view, options) {
         nextRenderId: null,
         vnodes: is.str(opt.root) ? document.querySelector(opt.root) : opt.root,
     };
+    // Collect plugin actions
+    opt.plugins.forEach(function (_a) {
+        var pluginActions = _a.actions;
+        actions = __assign({}, pluginActions, actions);
+    });
     // Prepare the engine
-    var render = createRenderer(state, view);
-    var actionHandler = createActionHandler(state, actions, render, opt.middleware);
+    var middlewareStack = opt.middleware.reduce(function (m1, m2) {
+        return function (fn) { return m1(m2(fn)); };
+    }, function (fn) { return fn; });
+    var render = createRenderer(state, opt.patch, view);
+    var actionHandler = createActionHandler(state, actions, render, middlewareStack);
+    var pluginActionHandler = function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        return actionHandler.apply(void 0, __spread(args))();
+    };
+    // Init plugins
+    opt.plugins.forEach(function (_a) {
+        var init = _a.init;
+        init(pluginActionHandler, state);
+    });
     // Start rendering
     render(actionHandler);
 };
@@ -4003,4 +4108,4 @@ exports.default = runner;
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=shell-12353.js.map
+//# sourceMappingURL=shell-11dc3.js.map

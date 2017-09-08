@@ -58,6 +58,9 @@
 }
 .tasks-mY1lL {
   position: relative;
+  padding-bottom: 40px;
+  -webkit-transition: padding-bottom 1s;
+  transition: padding-bottom 1s;
 }
 .task-18Jn4 {
   position: absolute;
@@ -195,4 +198,4 @@ body {
   color: #579;
 }
 
-/*# sourceMappingURL=shell-95752621be00b4da2438b409dbd5bfba.css.map*/
+/*# sourceMappingURL=shell-2bce3aa015e82043329d1ebcfd5a25ee.css.map*/
