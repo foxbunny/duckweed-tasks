@@ -11,19 +11,6 @@ import {ActionHandler, Actions} from "duckweed/runner";
 
 import * as aside from "shared/aside";
 
-import * as apply from "ramda/src/apply";
-import * as concat from "ramda/src/concat";
-import * as descend from "ramda/src/descend";
-import * as filter from "ramda/src/filter";
-import * as lensProp from "ramda/src/lensProp";
-import * as over from "ramda/src/over";
-import * as pipe from "ramda/src/pipe";
-import * as prepend from "ramda/src/prepend";
-import * as prop from "ramda/src/prop";
-import * as propEq from "ramda/src/propEq";
-import * as sort from "ramda/src/sort";
-import * as tap from "ramda/src/tap";
-
 import * as fx from "shared/fx";
 
 import * as task from "./task";
@@ -35,10 +22,10 @@ const STORAGE_KEY = "tasks";
 const retrieve = () =>
   JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
 
-const store = pipe(
-  JSON.stringify,
-  localStorage.setItem.bind(localStorage, STORAGE_KEY),
-);
+const store = (tasks: task.Model[]) => {
+  const data = JSON.stringify(tasks);
+  localStorage.setItem(STORAGE_KEY, data);
+};
 
 // Model
 
@@ -70,52 +57,57 @@ enum Action {
   SetHeight = "SetHeight",
 }
 
-const sortByDate = sort<task.Model>(descend(prop("created")));
+const sortByDate = (tasks: task.Model[]) =>
+  tasks.concat([]).sort((a, b) => b.created - a.created);
 
-const filterDone = (done: boolean) => filter<task.Model>(pipe(propEq("done", done)));
+const filterDone = (done: boolean, tasks: task.Model[]) =>
+  tasks.filter((t) => t.done === done);
 
 const notEmpty = (t: task.Model) => t.text.trim() !== "" || t.editing;
 
-const splitTask = (done: boolean) => pipe(filterDone(done), sortByDate);
+const splitTask = (done: boolean, tasks: task.Model[]) =>
+  sortByDate(filterDone(done, tasks));
 
 const splitTasks = (tasks: task.Model[]): [task.Model[], task.Model[]] =>
-  [splitTask(false)(tasks), splitTask(true)(tasks)];
+  [splitTask(false, tasks), splitTask(true, tasks)];
 
-const sortTasks = pipe(splitTasks, apply(concat)) as (tasks: task.Model[]) => task.Model[];
+const sortTasks = (tasks: task.Model[]) =>
+  ([] as task.Model[]).concat(...splitTasks(tasks));
 
 const raf = (fn: any) => requestAnimationFrame(() => requestAnimationFrame(fn));
 
 const actions: Actions<Model> = {
   [Action.Update]:
     (patch, id: number, taskAction: task.Action, arg?: any) => {
-      const scoped = patch.as<task.Model>(["tasks", id], over(
-        lensProp("tasks"),
-        pipe(
-          sortTasks,
-          filter(notEmpty),
-          tap(store),
-        ),
-      ));
+      const scoped = patch.as(["tasks", id], (model) => {
+        const tasks = sortTasks(model.tasks).filter(notEmpty);
+        store(tasks);
+        return {
+          ...model,
+          tasks,
+        };
+      });
       // FIXME: Temporary workaround until we figure out why we can't just do
       // await task.actions[taskAction](taskPatch, arg)
       (task.actions[taskAction] as any)(scoped, arg);
     },
   [Action.Add]:
     (patch) => {
-      patch(over(
-        lensProp("tasks"),
-        prepend(task.init({editing: true})),
-      ));
+      patch((model) => ({
+        ...model,
+        tasks: [task.init({editing: true})].concat(model.tasks),
+      }));
     },
   [Action.ClearDone]:
     (patch) => {
-      patch(pipe(over(
-        lensProp("tasks"),
-        pipe(
-          filterDone(false),
-          tap(store),
-        ),
-      )));
+      patch((model) => {
+        const tasks = filterDone(false, model.tasks);
+        store(tasks);
+        return {
+          ...model,
+          tasks,
+        };
+      });
     },
   [Action.SetHeight]:
     (patch, vnode, newVnode?) => {
@@ -125,9 +117,9 @@ const actions: Actions<Model> = {
       const h = vnode.children
         .map((c: any) => c.elm)
         .reduce((n: number, c: HTMLElement) => {
-        raf(() => c.style.transform = `translateY(${n}px)`);
-        return n + c.offsetHeight + 10;
-      }, 0);
+          raf(() => c.style.transform = `translateY(${n}px)`);
+          return n + c.offsetHeight + 10;
+        }, 0);
       vnode.elm.style.paddingBottom = `${h}px`;
     },
 };

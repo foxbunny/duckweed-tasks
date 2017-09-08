@@ -55,12 +55,15 @@ export default function(env: Env | void): webpack.Configuration {
     },
     devtool: "source-map",
     entry: {
-      shell: [
+      shell: (env && env.devtool === "yes"
+        ? ["duckweed-devtool"]
+        : []
+      ).concat(
         "es6-promise/auto",
         "es6-object-assign/auto",
         "whatwg-fetch",
         "./src",
-      ],
+      ),
     },
     module: {
       rules: [

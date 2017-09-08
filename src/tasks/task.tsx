@@ -8,10 +8,6 @@ const css = require<CSSModule>("./task.styl");
 import * as duckweed from "duckweed";
 import * as E from "duckweed/events";
 import {ActionHandler, Actions} from "duckweed/runner";
-import * as assoc from "ramda/src/assoc";
-import * as lensProp from "ramda/src/lensProp";
-import * as not from "ramda/src/not";
-import * as over from "ramda/src/over";
 import {VNode} from "snabbdom/src/vnode";
 
 // Model
@@ -50,11 +46,17 @@ const actions: Actions<Model> = {
     },
   [Action.ToggleEditing]:
     (patch) => {
-      patch(over(lensProp("editing"), not));
+      patch((model) => ({
+        ...model,
+        editing: !model.editing,
+      }));
     },
   [Action.Update]:
     (patch, text: string) => {
-      patch(assoc("text", text));
+      patch((model) => ({
+        ...model,
+        text,
+      }));
     },
   [Action.Focus]:
     (patch, vnode: VNode) => {
