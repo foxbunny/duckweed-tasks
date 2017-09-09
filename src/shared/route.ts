@@ -20,8 +20,8 @@ const go = (path: string, query: {[param: string]: any} = {}): void => {
   }
 };
 
-const match = (prefix: string, re: RegExp): string[] | false => {
-  const m = re.exec(location.pathname.slice(prefix.length));
+const match = (prefix: string, re: RegExp, path = location.pathname): string[] | false => {
+  const m = re.exec(path.slice(prefix.length));
   return m
     ? m.slice(1)
     : false;

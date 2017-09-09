@@ -31,18 +31,18 @@ interface RouteMatch {
 
 // Utility functions
 
-const matchRoute = (rm: RouteModule) => route.match(ROUTE_PREFIX, rm.re);
+const matchRoute = (rm: RouteModule, path: string) => route.match(ROUTE_PREFIX, rm.re, path);
 
-const getMatchingRoute = (routes: RouteModule[]): RouteMatch | void => {
+const getMatchingRoute = (routes: RouteModule[], path: string): RouteMatch | void => {
   if (!routes.length) {
     // tslint:disable:no-console
     console.log("No futher routes found");
     return undefined;
   }
   const [current, ...remaining] = routes;
-  const args = matchRoute(current);
+  const args = matchRoute(current, path);
   if (args === false) {
-    return getMatchingRoute(remaining) || {
+    return getMatchingRoute(remaining, path) || {
       args: [],
       mod: current.mod,
     };
@@ -63,9 +63,9 @@ interface Model {
 
 let routeTable: RouteModule[] = [];
 
-const init = (links: navbar.NavLink[], routes?: RouteModule[]): Model => {
+const init = (links: navbar.NavLink[], routes?: RouteModule[], path: string = location.pathname): Model => {
   routeTable = routes ? routes : routeTable;
-  const {mod} = getMatchingRoute(routeTable) as RouteMatch;
+  const {mod} = getMatchingRoute(routeTable, path) as RouteMatch;
   if (!routeTable.length) {
     throw Error("No route definitions found");
   }
@@ -98,8 +98,8 @@ const actions: Actions = {
       }
     },
   [Action.SwitchRoute]:
-    (patch) => {
-      const {mod} = getMatchingRoute(routeTable) as RouteMatch;
+    (patch, {pathname}) => {
+      const {mod} = getMatchingRoute(routeTable, pathname) as RouteMatch;
       patch((model) => ({
         ...model,
         model: mod.init ? mod.init() : undefined,
@@ -121,7 +121,7 @@ interface Props {
 }
 
 const view = ({model, act}: Props) => {
-  const {mod} = getMatchingRoute(routeTable) as RouteMatch;
+  const {mod} = getMatchingRoute(routeTable, model.path) as RouteMatch;
   return (
     <div route={act(Action.SwitchRoute)}>
       <navbar.view act={act.as(Action.NavbarAction)} links={model.links} />
