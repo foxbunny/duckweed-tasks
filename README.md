@@ -23,9 +23,7 @@ yarn
 - `yarn` - install all development dependencies
 - `yarn start` - start the webpack dev server on port 8080
 - `yarn run build` - to perform a production build
-- `yarn run build:profile` - to perform a production build and analyize it
-- `yarn run build -- --env.devtool yes` - build with [Duckweed
-  devtool](https://github.com/foxbunny/duckweed-devtool)
+- `yarn run build:profile` - to perform a production build and analyze it
 - `yarn test` - run tests
 - `yarn run test:watch` - run tests in watch mode
 
