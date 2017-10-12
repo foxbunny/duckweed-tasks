@@ -1309,9 +1309,9 @@ domutils@1.5.1:
     dom-serializer "0"
     domelementtype "1"
 
-duckweed@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/duckweed/-/duckweed-0.6.0.tgz#92bf2b7edd756da29a229b26048a4e0b966f2be7"
+duckweed@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/duckweed/-/duckweed-1.0.0.tgz#471df3d7b83e5d5e2593aea53fb0c0770c559bbe"
   dependencies:
     query-string "^5.0.0"
     snabbdom "^0.7.0"

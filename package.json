@@ -6,7 +6,7 @@
   "author": "Hajime Yamasaki Vukelic",
   "license": "MIT",
   "dependencies": {
-    "duckweed": "^0.7.0",
+    "duckweed": "^1.0.0",
     "es6-object-assign": "^1.1.0",
     "es6-promise": "^4.1.1",
     "query-string": "^5.0.0",
