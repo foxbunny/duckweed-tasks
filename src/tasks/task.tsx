@@ -7,7 +7,7 @@ const css = require<CSSModule>("./task.styl");
 
 import * as duckweed from "duckweed";
 import * as E from "duckweed/events";
-import {ActionHandler, Actions} from "duckweed/runner";
+import {ActionTrigger} from "duckweed/runner";
 import {VNode} from "snabbdom/src/vnode";
 
 // Model
@@ -35,33 +35,31 @@ enum Action {
   Focus = "Focus",
 }
 
-const actions: Actions<Model> = {
-  [Action.Toggle]:
-    (patch, checked: boolean) => {
-      patch((model) => ({
+const update = (model, address, ...args) => {
+  switch (address) {
+    case Action.Toggle:
+      const [checked] = args as [boolean];
+      return {
         ...model,
         done: checked,
         editing: checked ? false : model.editing,
-      }));
-    },
-  [Action.ToggleEditing]:
-    (patch) => {
-      patch((model) => ({
-        ...model,
-        editing: !model.editing,
-      }));
-    },
-  [Action.Update]:
-    (patch, text: string) => {
-      patch((model) => ({
-        ...model,
-        text,
-      }));
-    },
-  [Action.Focus]:
-    (patch, vnode: VNode) => {
+      };
+
+    case Action.ToggleEditing:
+      return {...model, editing: !model.editing};
+
+    case Action.Update:
+      const [text] = args as [string];
+      return {...model, text};
+
+    case Action.Focus:
+      const [vnode] = args as [VNode];
       (vnode.elm as HTMLInputElement).focus();
-    },
+      return model;
+
+    default:
+      return model;
+  }
 };
 
 // View
@@ -70,7 +68,7 @@ interface Props {
   model: Model;
   classes?: any[];
   styles?: any;
-  act: ActionHandler;
+  act: ActionTrigger;
 }
 
 const view = ({model, act, classes = [], styles = {}}: Props) => {
@@ -136,7 +134,7 @@ export {
   Model,
   init,
   Action,
-  actions,
+  update,
   Props,
   view,
 };

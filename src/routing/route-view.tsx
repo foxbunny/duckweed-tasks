@@ -4,17 +4,17 @@
  */
 
 import * as duckweed from "duckweed";
-import {ActionHandler, Actions} from "duckweed/runner";
+import {ActionTrigger, UpdateFunction} from "duckweed/runner";
 import {VNode} from "snabbdom/src/vnode";
 
 import * as route from "shared/route";
 
 import * as navbar from "./navbar";
 
-type ViewFunction = (props: {act: ActionHandler, model: any, key: string}) => VNode;
+type ViewFunction = (props: {act: ActionTrigger, model: any, key: string}) => VNode;
 
 interface BasicModule {
-  actions?: any;
+  update?: UpdateFunction;
   view: ViewFunction;
   init?(...args: any[]): any;
 }
@@ -31,12 +31,11 @@ interface RouteMatch {
 
 // Utility functions
 
-const matchRoute = (rm: RouteModule, path: string) => route.match(ROUTE_PREFIX, rm.re, path);
+const matchRoute = (rm: RouteModule, path: string) =>
+  route.match(ROUTE_PREFIX, rm.re, path);
 
 const getMatchingRoute = (routes: RouteModule[], path: string): RouteMatch | void => {
   if (!routes.length) {
-    // tslint:disable:no-console
-    console.log("No futher routes found");
     return undefined;
   }
   const [current, ...remaining] = routes;
@@ -84,56 +83,59 @@ enum Action {
   NavbarAction = "NavbarAction",
 }
 
-const actions: Actions = {
-  [Action.ModuleAction]:
-    (patch, moduleActions: Actions | void, moduleAction: string, ...args: any[]) => {
-      if (!moduleActions) {
+const update = (model: Model, address: Action, ...args) => {
+  switch (address) {
+    case Action.ModuleAction:
+      const [moduleUpdate, moduleaddress, ...moduleMsg] = args;
+      if (typeof moduleUpdate === "undefined") {
         // The module does not define any actions, no point in doing anything
-        return;
+        return model;
       }
-      const scoped = patch.as(["model"]);
-      const action = moduleActions[moduleAction];
-      if (action) {
-        action(scoped, ...args);
-      }
-    },
-  [Action.SwitchRoute]:
-    (patch, {pathname}) => {
+      return duckweed.scoped.transform(
+        ["model"],
+        (moduleModel) => moduleUpdate(moduleModel, moduleaddress, ...moduleMsg),
+        model,
+      );
+
+    case Action.SwitchRoute:
+      const [{pathname}] = args;
       const {mod} = getMatchingRoute(routeTable, pathname) as RouteMatch;
-      patch((model) => ({
+      return {
         ...model,
         model: mod.init ? mod.init() : undefined,
-        path: location.pathname,
-      }));
-    },
-  [Action.NavbarAction]:
-    (_, action: string, path: string) => {
-      // Navbar does not need the patcher, so not passing it
-      navbar.actions[action](undefined, path);
-    },
+        path: pathname,
+      };
+
+    case Action.NavbarAction:
+      const [path] = args;
+      setTimeout(() => route.go(path));
+      return model;
+
+    default:
+      return model;
+
+  }
 };
 
 // View
 
 interface Props {
   model: Model;
-  act: ActionHandler;
+  act: ActionTrigger;
 }
 
-const view = ({model, act}: Props) => {
-  const {mod} = getMatchingRoute(routeTable, model.path) as RouteMatch;
-  return (
+const view = ({model, act}: Props) =>
+  (({mod}) =>
     <div route={act(Action.SwitchRoute)}>
-      <navbar.view act={act.as(Action.NavbarAction)} links={model.links} />
-      <mod.view model={model.model} act={act.as(Action.ModuleAction, mod.actions)} key={model.path} />
+      <navbar.view act={act.bind(null, Action.NavbarAction)} links={model.links} />
+      <mod.view model={model.model} act={act.bind(null, Action.ModuleAction, mod.update)} key={model.path} />
     </div>
-  );
-};
+  )(getMatchingRoute(routeTable, model.path) as RouteMatch);
 
 export {
   Model,
   init,
   Action,
-  actions,
+  update,
   view,
 };

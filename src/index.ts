@@ -26,9 +26,10 @@ require.ensure([
     ["/about", "About"],
   ];
 
-  const {init, actions, view} = require<typeof mainModule>("./main");
-  duckweed.runner<mainModule.Model>(init(LINKS, ROUTES), actions, view, {
-    middleware: (window as any).__DUCKWEED_DEVTOOL__ ? [(window as any).__DUCKWEED_DEVTOOL__.middleware] : [],
-    plugins: (window as any).__DUCKWEED_DEVTOOL__ ? [(window as any).__DUCKWEED_DEVTOOL__.plugin] : [],
-  });
+  const {init, update, view} = require<typeof mainModule>("./main");
+  duckweed.runner<mainModule.Model>(
+    init(LINKS, ROUTES),
+    update,
+    view,
+  );
 });

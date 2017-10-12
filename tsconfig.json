@@ -2,17 +2,18 @@
   "compilerOptions": {
     /* Basic Options */
     "target": "es5",
+    "sourceMap": true,
     "module": "commonjs",
     "lib": ["es2015", "es2016", "dom"],
     "jsx": "react",
     "jsxFactory": "duckweed.html",
-
-    // Make iterators compatible
-    "downlevelIteration": true,
-
-    /* Strict Type-Checking Options */
-    "strict": true,
     "alwaysStrict": true,
+
+    /* Be a little bit lax about any */
+    "noImplicitAny": false,
+
+    /* Strict type checking */
+    "strict": false,
 
     /* Additional Checks */
     "noUnusedLocals": true,
@@ -21,6 +22,7 @@
     /* Module Resolution Options */
     "baseUrl": "./src",
     "allowSyntheticDefaultImports": true,
+
     "typeRoots": [
       "./typings",
       "node_modules/@types"

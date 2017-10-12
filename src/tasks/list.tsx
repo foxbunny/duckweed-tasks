@@ -7,7 +7,7 @@ const elements = require<CSSModule>("shared/elements.styl");
 const css = require<CSSModule>("./list.styl");
 
 import * as duckweed from "duckweed";
-import {ActionHandler, Actions} from "duckweed/runner";
+import {ActionTrigger} from "duckweed/runner";
 
 import * as aside from "shared/aside";
 
@@ -76,44 +76,49 @@ const sortTasks = (tasks: task.Model[]) =>
 
 const raf = (fn: any) => requestAnimationFrame(() => requestAnimationFrame(fn));
 
-const actions: Actions<Model> = {
-  [Action.Update]:
-    (patch, id: number, taskAction: task.Action, arg?: any) => {
-      const scoped = patch.as(["tasks", id], (model) => {
-        const tasks = sortTasks(model.tasks).filter(notEmpty);
-        store(tasks);
-        return {
-          ...model,
-          tasks,
-        };
-      });
-      // FIXME: Temporary workaround until we figure out why we can't just do
-      // await task.actions[taskAction](taskPatch, arg)
-      (task.actions[taskAction] as any)(scoped, arg);
-    },
-  [Action.Add]:
-    (patch) => {
-      patch((model) => ({
-        ...model,
-        tasks: [task.init({editing: true})].concat(model.tasks),
-      }));
-    },
-  [Action.ClearDone]:
-    (patch) => {
-      patch((model) => {
-        const tasks = filterDone(false, model.tasks);
-        store(tasks);
-        return {
-          ...model,
-          tasks,
-        };
-      });
-    },
-  [Action.SetHeight]:
-    (patch, vnode, newVnode?) => {
-      if (newVnode) {
-        vnode = newVnode;
-      }
+const prepend = (x) => (xs) => [x].concat(xs);
+
+const through = (fn) => (x) => {
+  fn(x);
+  return x;
+};
+
+const wrap = (obj) => ({
+  map: (fn) => wrap(fn(obj)),
+  unwrap: () => obj,
+});
+
+const update = (model, address, ...args) => {
+  switch (address) {
+    case Action.Update:
+      const [id, taskAddress, ...taskArgs] = args;
+      return wrap(model)
+        .map(duckweed.scoped.transform.bind(null,
+          ["tasks", id],
+          (taskModel) => task.update(taskModel, taskAddress, ...taskArgs)))
+        .map(duckweed.scoped.transform.bind(null,
+          ["tasks"],
+          (tasks) => sortTasks(tasks).filter(notEmpty)))
+        .map(through(
+          (m: Model) => store(m.tasks)))
+        .unwrap();
+
+    case Action.Add:
+      return duckweed.scoped.transform(
+        ["tasks"],
+        prepend(task.init({editing: true})),
+        model,
+      );
+
+    case Action.ClearDone:
+      return duckweed.scoped.transform(
+        ["tasks"],
+        filterDone.bind(null, false),
+        model,
+      );
+
+    case Action.SetHeight:
+      const vnode = args[1] ? args[1] : args[0];
       const h = vnode.children
         .map((c: any) => c.elm)
         .reduce((n: number, c: HTMLElement) => {
@@ -121,14 +126,18 @@ const actions: Actions<Model> = {
           return n + c.offsetHeight + 10;
         }, 0);
       vnode.elm.style.paddingBottom = `${h}px`;
-    },
+      return model;
+
+    default:
+      return model;
+  }
 };
 
 // View
 
 interface Props {
   model: Model;
-  act: ActionHandler;
+  act: ActionTrigger;
 }
 
 const view = ({model, act}: Props): JSX.Element => {
@@ -151,7 +160,7 @@ const view = ({model, act}: Props): JSX.Element => {
           {model.tasks.map((item: task.Model, index) =>
             <task.view
               model={item}
-              act={act.as(Action.Update, index)}
+              act={act.bind(null, Action.Update, index)}
               classes={[css.task]}
               styles={{
                 delayed: {
@@ -180,6 +189,6 @@ export {
   Model,
   init,
   Action,
-  actions,
+  update,
   view,
 };
