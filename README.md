@@ -18,28 +18,6 @@ Init the project:
 yarn
 ```
 
-## Special mentions
-
-The following features deserve a special mention.
-
-### off-events
-
-The off-events (e.g., `off-click`, `off-focus`, etc) are event handlers that are
-triggered when the event happens outside an element. These are implemented
-through `src/runtime/documentevents.ts`.
-
-### Actions
-
-Rather than using objects to encapsulate the messages, we use simple [TypeScript
-enums](https://www.typescriptlang.org/docs/handbook/enums.html). Instead of
-using a single update function, we use a mapping from enums to `async`
-functions. See `src/main.tsx` for an example.
-
-### Inline styles
-
-We use inline styles in the example code, but there is full support for Stylus
-stylesheets (and an intention to switch to them).
-
 ## Commands
 
 - `yarn` - install all development dependencies
